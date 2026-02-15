@@ -5,128 +5,83 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.paint.Color?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
+<AnchorPane stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
 
-    <!-- Fond avec dégradé -->
-    <Rectangle width="1100" height="700" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0">
-        <fill>
-            <LinearGradient>
-                <stops>
-                    <Stop color="#0B4F6C" offset="0.0"/>
-                    <Stop color="#146C94" offset="1.0"/>
-                </stops>
-            </LinearGradient>
-        </fill>
-    </Rectangle>
+    <!-- BARRE DE TITRE PERSONNALISÉE - Toujours visible -->
+    <HBox style="-fx-background-color: #16325c; -fx-padding: 8 20; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="40">
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="AFTER Travel - Dashboard" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px; -fx-font-weight: bold;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="5">
+            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
+        </HBox>
+    </HBox>
 
-    <!-- Conteneur principal -->
-    <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-padding: 30 50 30 50;">
+    <!-- Conteneur principal (sans hauteur fixe) -->
+    <VBox alignment="TOP_CENTER" spacing="20" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" style="-fx-background-color: #F5F5DC;">
 
-        <!-- Header avec logo et titre -->
-        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-glass">
-
-            <!-- Logo After Travel -->
-            <HBox spacing="10.0" alignment="CENTER">
-                <Label text="✈️" style="-fx-font-size: 40px;" />
-                <Label text="AFTER" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;" />
-                <Label text="Travel" style="-fx-font-size: 32px; -fx-font-weight: 300; -fx-text-fill: #FFD700;" />
-            </HBox>
-
-            <Region HBox.hgrow="ALWAYS" />
-
-            <!-- Badge date -->
-            <HBox styleClass="date-badge" spacing="8.0" alignment="CENTER">
-                <Label text="📅" style="-fx-font-size: 16px; -fx-text-fill: white;" />
-                <Label fx:id="dateLabel" text="15 Fév 2026" style="-fx-text-fill: white; -fx-font-weight: bold;" />
-            </HBox>
-
+        <!-- Logo AFTER Travel -->
+        <HBox alignment="CENTER" spacing="10">
+            <Label text="✈️" style="-fx-font-size: 40px;" />
+            <Label text="AFTER Travel" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
         </HBox>
 
         <!-- Message de bienvenue -->
-        <HBox alignment="CENTER_LEFT" styleClass="welcome-card">
-            <VBox spacing="5.0">
-                <Label text="Bienvenue sur After Travel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #FFD700;" />
-                <Label text="Votre plateforme de gestion de voyages" style="-fx-font-size: 16px; -fx-text-fill: white;" />
-            </VBox>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label text="🌍" style="-fx-font-size: 60px; -fx-opacity: 0.8;" />
-        </HBox>
-
-        <!-- Statistiques -->
-        <GridPane hgap="30.0" vgap="20.0" alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="50" />
-                <ColumnConstraints percentWidth="50" />
-            </columnConstraints>
-
-            <!-- Carte Services -->
-            <HBox styleClass="stat-card" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                <VBox alignment="CENTER" styleClass="stat-icon">
-                    <Label text="🏨" style="-fx-font-size: 40px; -fx-text-fill: white;" />
-                </VBox>
-                <VBox spacing="5.0">
-                    <Label text="Services" styleClass="stat-label" />
-                    <Label fx:id="totalServices" text="0" styleClass="stat-number" />
-                    <Label text="prestations disponibles" styleClass="stat-desc" />
-                </VBox>
-            </HBox>
-
-            <!-- Carte Offres -->
-            <HBox styleClass="stat-card" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                <VBox alignment="CENTER" styleClass="stat-icon">
-                    <Label text="🏷️" style="-fx-font-size: 40px; -fx-text-fill: white;" />
-                </VBox>
-                <VBox spacing="5.0">
-                    <Label text="Offres" styleClass="stat-label" />
-                    <Label fx:id="totalOffres" text="0" styleClass="stat-number" />
-                    <Label text="promotions actives" styleClass="stat-desc" />
-                </VBox>
-            </HBox>
-
-        </GridPane>
-
-        <!-- Menu principal -->
-        <VBox spacing="20.0" alignment="CENTER" styleClass="menu-container">
-            <Label text="Gestion de contenu" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 0 0 10 0;" />
-
-            <GridPane hgap="30.0" vgap="20.0" alignment="CENTER">
-                <columnConstraints>
-                    <ColumnConstraints percentWidth="50" />
-                    <ColumnConstraints percentWidth="50" />
-                </columnConstraints>
-
-                <!-- Bouton Services -->
-                <VBox styleClass="menu-card" alignment="CENTER" spacing="15.0" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#handleServices">
-                    <Label text="🏨" style="-fx-font-size: 60px;" />
-                    <Label text="Gestion des Services" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0B4F6C;" />
-                    <Label text="Gérer vos prestations de voyage" style="-fx-font-size: 14px; -fx-text-fill: #666; -fx-text-alignment: center;" />
-                    <Button text="Accéder →" styleClass="menu-button" />
-                </VBox>
-
-                <!-- Bouton Offres -->
-                <VBox styleClass="menu-card" alignment="CENTER" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#handleOffres">
-                    <Label text="🏷️" style="-fx-font-size: 60px;" />
-                    <Label text="Gestion des Offres" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0B4F6C;" />
-                    <Label text="Créez des promotions attractives" style="-fx-font-size: 14px; -fx-text-fill: #666; -fx-text-alignment: center;" />
-                    <Button text="Accéder →" styleClass="menu-button" />
-                </VBox>
-
-            </GridPane>
+        <VBox alignment="CENTER" spacing="5" style="-fx-background-color: #16325c; -fx-padding: 15 20; -fx-background-radius: 8;">
+            <Label text="Bienvenue sur After Travel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;" />
+            <Label text="Votre plateforme de gestion de voyages" style="-fx-font-size: 14px; -fx-text-fill: #F5F5DC;" />
         </VBox>
 
-        <!-- Footer avec infos -->
-        <HBox alignment="CENTER" spacing="20.0" styleClass="footer">
-            <Label text="© 2026 After Travel - Plateforme de gestion de voyages" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12px;" />
-            <Label text="•" style="-fx-text-fill: rgba(255,255,255,0.5);" />
-            <Label text="Équipe After" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12px;" />
+        <!-- Statistiques -->
+        <HBox spacing="30" alignment="CENTER">
+            <!-- Services -->
+            <VBox alignment="CENTER" spacing="5" style="-fx-background-color: white; -fx-padding: 15 25; -fx-background-radius: 8; -fx-border-color: #16325c; -fx-border-width: 2;">
+                <Label text="🏨" style="-fx-font-size: 40px;" />
+                <Label text="Services" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                <Label fx:id="totalServices" text="16" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                <Label text="prestations disponibles" style="-fx-font-size: 11px; -fx-text-fill: #666;" />
+            </VBox>
+
+            <!-- Offres -->
+            <VBox alignment="CENTER" spacing="5" style="-fx-background-color: white; -fx-padding: 15 25; -fx-background-radius: 8; -fx-border-color: #16325c; -fx-border-width: 2;">
+                <Label text="🏷️" style="-fx-font-size: 40px;" />
+                <Label text="Offres" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                <Label fx:id="totalOffres" text="3" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                <Label text="promotions actives" style="-fx-font-size: 11px; -fx-text-fill: #666;" />
+            </VBox>
+        </HBox>
+
+        <!-- Section Gestion de contenu -->
+        <VBox spacing="15" alignment="CENTER" style="-fx-background-color: #16325c; -fx-padding: 20; -fx-background-radius: 8;">
+            <Label text="Gestion de contenu" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;" />
+
+            <HBox spacing="30" alignment="CENTER">
+                <!-- Carte Services -->
+                <VBox style="-fx-background-color: #F5F5DC; -fx-padding: 20; -fx-background-radius: 8; -fx-border-color: #16325c; -fx-border-width: 2;" alignment="CENTER" spacing="10" prefWidth="250" onMouseClicked="#handleServices">
+                    <Label text="🏨" style="-fx-font-size: 50px;" />
+                    <Label text="Gestion des Services" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                    <Label text="Gérer vos prestations" style="-fx-font-size: 12px; -fx-text-fill: #666;" wrapText="true"/>
+                    <Button text="Accéder →" style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 8 20; -fx-background-radius: 5; -fx-cursor: hand;" />
+                </VBox>
+
+                <!-- Carte Offres -->
+                <VBox style="-fx-background-color: #F5F5DC; -fx-padding: 20; -fx-background-radius: 8; -fx-border-color: #16325c; -fx-border-width: 2;" alignment="CENTER" spacing="10" prefWidth="250" onMouseClicked="#handleOffres">
+                    <Label text="🏷️" style="-fx-font-size: 50px;" />
+                    <Label text="Gestion des Offres" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                    <Label text="Créez des promotions" style="-fx-font-size: 12px; -fx-text-fill: #666;" wrapText="true"/>
+                    <Button text="Accéder →" style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 8 20; -fx-background-radius: 5; -fx-cursor: hand;" />
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- Footer -->
+        <HBox alignment="CENTER" spacing="20" style="-fx-background-color: #16325c; -fx-padding: 8 15; -fx-background-radius: 5;">
+            <Label text="© 2026 After Travel" style="-fx-text-fill: #F5F5DC; -fx-font-size: 11px;" />
+            <Label text="•" style="-fx-text-fill: #F5F5DC;" />
+            <Label text="Équipe After" style="-fx-text-fill: #F5F5DC; -fx-font-size: 11px;" />
         </HBox>
 
     </VBox>

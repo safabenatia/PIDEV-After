@@ -3,8 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -17,90 +16,97 @@
             fx:controller="controllers.OffreController"
             stylesheets="@style.css">
 
-    <BorderPane prefWidth="1200" prefHeight="700">
+    <!-- BARRE DE TITRE -->
+    <HBox style="-fx-background-color: #16325c; -fx-padding: 8 15; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="40">
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="AFTER Travel - Gestion des Offres" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px; -fx-font-weight: bold;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="5">
+            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
+        </HBox>
+    </HBox>
+
+    <BorderPane prefWidth="1200" prefHeight="700" AnchorPane.topAnchor="40" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
 
         <!-- HEADER -->
         <top>
             <VBox>
-                <!-- Bannière thématique -->
-                <HBox styleClass="theme-banner" alignment="CENTER" spacing="10" prefHeight="40">
-                    <Label text="✈️" style="-fx-font-size: 20px;" />
-                    <Label text="After Travel - Gestion des Offres" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
-                    <Label text="🏷️" style="-fx-font-size: 20px;" />
-                </HBox>
-
                 <!-- Header principal -->
-                <HBox styleClass="main-header" spacing="15" alignment="CENTER_LEFT">
+                <HBox style="-fx-background-color: #16325c; -fx-padding: 16 24; -fx-alignment: CENTER_LEFT;" spacing="15">
                     <Button text="← Retour au Dashboard"
                             onAction="#handleDashboard"
-                            styleClass="btn-secondary"
+                            style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 10 20; -fx-background-radius: 5; -fx-font-weight: bold; -fx-cursor: hand;"
                             prefWidth="200"/>
-                    <Label text="Gestion des Offres" styleClass="page-title"/>
+                    <Label text="Gestion des Offres" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;"/>
                     <Region HBox.hgrow="ALWAYS" />
-                    <Label text="🏷️" style="-fx-font-size: 32px; -fx-text-fill: #0B4F6C;" />
+                    <Label text="🏷️" style="-fx-font-size: 32px;" />
                 </HBox>
             </VBox>
         </top>
 
         <!-- CONTENU PRINCIPAL -->
         <center>
-            <VBox spacing="25" alignment="TOP_CENTER" style="-fx-padding:30;">
+            <HBox spacing="25" alignment="CENTER" style="-fx-padding:30; -fx-background-color: #F5F5DC;">
 
-                <!-- FORMULAIRE -->
-                <VBox spacing="15" styleClass="stats-container" prefWidth="600">
-                    <Label text="Ajouter / Modifier une Offre" styleClass="stats-label"/>
+                <!-- FORMULAIRE à gauche -->
+                <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1;" prefWidth="400" maxHeight="450">
+                    <Label text="Ajouter / Modifier une Offre" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
 
                     <TextField fx:id="TitreOffreField"
                                promptText="Titre de l'offre"
-                               styleClass="text-field"/>
+                               style="-fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #16325c; -fx-border-radius: 5;"/>
 
                     <TextField fx:id="PrixOffreField"
                                promptText="Prix (DT)"
-                               styleClass="text-field"/>
+                               style="-fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #16325c; -fx-border-radius: 5;"/>
 
                     <TextField fx:id="DureeOffreField"
                                promptText="Durée (en jours)"
-                               styleClass="text-field"/>
+                               style="-fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #16325c; -fx-border-radius: 5;"/>
 
                     <ComboBox fx:id="serviceCombo"
                               promptText="Sélectionner un service"
-                              styleClass="combo-box"/>
+                              style="-fx-padding: 10; -fx-background-radius: 5; -fx-border-color: #16325c; -fx-border-radius: 5;"/>
 
-                    <HBox spacing="15" alignment="CENTER">
+                    <HBox spacing="10" alignment="CENTER">
                         <Button text="Ajouter"
                                 onAction="#ajouterOffre"
-                                styleClass="btn-success"/>
+                                style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
+                                prefWidth="90"/>
 
                         <Button text="Modifier"
                                 onAction="#modifierOffre"
-                                styleClass="btn-edit"/>
+                                style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
+                                prefWidth="90"/>
 
                         <Button text="Supprimer"
                                 onAction="#supprimerOffre"
-                                styleClass="btn-delete"/>
+                                style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
+                                prefWidth="90"/>
 
                         <Button text="Annuler"
                                 onAction="#annuler"
-                                styleClass="btn-secondary"/>
+                                style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;"
+                                prefWidth="90"/>
                     </HBox>
                 </VBox>
 
-                <!-- TABLE -->
-                <VBox spacing="10" styleClass="stats-container" prefWidth="1050">
-                    <Label text="Liste des Offres" styleClass="stats-label"/>
+                <!-- LISTE DES OFFRES à droite -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1;" prefWidth="600" maxHeight="550">
+                    <Label text="Liste des Offres" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
 
-                    <TableView fx:id="tableOffres" styleClass="table-view">
-                        <columns>
-                            <TableColumn text="ID" fx:id="colId" prefWidth="60"/>
-                            <TableColumn text="Titre" fx:id="colTitre" prefWidth="250"/>
-                            <TableColumn text="Prix" fx:id="colPrix" prefWidth="100"/>
-                            <TableColumn text="Durée" fx:id="colDuree" prefWidth="100"/>
-                            <TableColumn text="Service" fx:id="colService" prefWidth="250"/>
-                        </columns>
-                    </TableView>
+                    <ScrollPane fx:id="scrollPane" prefHeight="450" fitToWidth="true" style="-fx-background: white; -fx-background-color: white; -fx-border-color: #16325c; -fx-border-radius: 5;">
+                        <VBox fx:id="offresVBox" spacing="15" style="-fx-padding: 10;">
+                            <!-- Les cartes seront ajoutées dynamiquement -->
+                        </VBox>
+                    </ScrollPane>
+
+                    <Label text="Cliquez sur 'Sélectionner' pour modifier une offre"
+                           style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-style: italic;"/>
                 </VBox>
 
-            </VBox>
+            </HBox>
         </center>
 
     </BorderPane>

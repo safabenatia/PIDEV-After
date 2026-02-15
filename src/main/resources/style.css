@@ -1,318 +1,71 @@
-/* ================= GLOBAL ================= */
 .root {
-    -fx-background-color: #f9fafb;
-    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    -fx-background-color: #F5F5DC;
 }
 
-/* ================= HEADER ================= */
-.main-header {
+/* Pour les boutons de la barre de titre */
+.window-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F5F5DC;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(245, 245, 220, 0.2);
+}
+
+.close-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* Styles pour les cartes */
+.stat-card {
     -fx-background-color: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
-    -fx-padding: 16 24;
-}
-
-.page-title {
-    -fx-font-size: 24px;
-    -fx-font-weight: 700;
-    -fx-text-fill: #111827;
-}
-
-/* ================= CARTE / CONTAINER ================= */
-.stats-container {
-    -fx-background-color: white;
-    -fx-background-radius: 12;
-    -fx-border-radius: 12;
-    -fx-border-color: #e5e7eb;
-    -fx-padding: 24;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 3);
+    -fx-background-radius: 10;
+    -fx-border-color: #16325c;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 20;
+    -fx-spacing: 10;
     -fx-alignment: center;
 }
 
-.stats-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #6b7280;
-    -fx-padding: 0 0 8 0;
-}
-
-/* ================= INPUTS ================= */
-.text-field, .combo-box {
-    -fx-background-color: white;
-    -fx-border-color: #d1d5db;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-padding: 10;
-    -fx-pref-width: 300px;
-}
-
-.text-field:focused, .combo-box:focused {
-    -fx-border-color: #3b82f6;
-}
-
-/* ================= BOUTONS ================= */
-.button {
-    -fx-font-size: 14px;
-    -fx-font-weight: 600;
-    -fx-background-radius: 10;
-    -fx-padding: 10 18;
-    -fx-cursor: hand;
-    -fx-min-width: 100px;
-}
-
-.btn-primary {
-    -fx-background-color: #3b82f6;
-    -fx-text-fill: white;
-}
-
-.btn-primary:hover {
-    -fx-background-color: #2563eb;
-}
-
-.btn-secondary {
-    -fx-background-color: #6b7280;
-    -fx-text-fill: white;
-}
-
-.btn-secondary:hover {
-    -fx-background-color: #4b5563;
-}
-
-.btn-edit {
-    -fx-background-color: #3b82f6;
-    -fx-text-fill: white;
-}
-
-.btn-edit:hover {
-    -fx-background-color: #2563eb;
-}
-
-.btn-delete {
-    -fx-background-color: #ef4444;
-    -fx-text-fill: white;
-}
-
-.btn-delete:hover {
-    -fx-background-color: #dc2626;
-}
-
-.btn-success {
-    -fx-background-color: #10b981;
-    -fx-text-fill: white;
-}
-
-.btn-success:hover {
-    -fx-background-color: #059669;
-}
-
-.btn-warning {
-    -fx-background-color: #f59e0b;
-    -fx-text-fill: white;
-}
-
-.btn-warning:hover {
-    -fx-background-color: #d97706;
-}
-
-/* ================= DASHBOARD SPECIFIC STYLES ================= */
-
-/* Header avec effet glassmorphisme */
-.header-glass {
-    -fx-background-color: linear-gradient(to right, #0B4F6C, #146C94);
-    -fx-background-radius: 15px;
-    -fx-padding: 15px 25px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
-}
-
-/* Badge de date */
-.date-badge {
-    -fx-background-color: rgba(255, 215, 0, 0.2);
-    -fx-background-radius: 20px;
-    -fx-padding: 8px 20px;
-    -fx-border-color: rgba(255, 215, 0, 0.3);
-    -fx-border-radius: 20px;
-}
-
-/* Carte de bienvenue */
-.welcome-card {
-    -fx-background-color: linear-gradient(135deg, #0B4F6C 0%, #146C94 100%);
-    -fx-background-radius: 15px;
-    -fx-padding: 20px 25px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
-}
-
-/* Cartes de statistiques */
-.stat-card {
-    -fx-background-color: white;
-    -fx-background-radius: 15px;
-    -fx-padding: 20px;
-    -fx-spacing: 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
-    -fx-min-width: 200px;
-    -fx-cursor: hand;
-}
-
 .stat-card:hover {
-    -fx-effect: dropshadow(gaussian, #FFD700, 20, 0, 0, 0);
+    -fx-effect: dropshadow(gaussian, #16325c, 10, 0, 0, 0);
     -fx-scale-x: 1.02;
     -fx-scale-y: 1.02;
 }
 
-.stat-icon {
-    -fx-background-color: #0B4F6C;
-    -fx-background-radius: 50px;
-    -fx-min-width: 70px;
-    -fx-min-height: 70px;
-    -fx-padding: 10px;
-}
-
-.stat-label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #666;
+/* Styles pour les boutons */
+.button-primary {
+    -fx-background-color: #16325c;
+    -fx-text-fill: #F5F5DC;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
     -fx-font-weight: bold;
 }
 
-.stat-number {
+.button-primary:hover {
+    -fx-background-color: #1e3a6b;
+}
+
+/* Styles pour les textes */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
+}
+
+.subtitle-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
+}
+
+.count-label {
     -fx-font-size: 32px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0B4F6C;
-}
-
-.stat-desc {
-    -fx-font-size: 12px;
-    -fx-text-fill: #999;
-}
-
-/* Conteneur du menu */
-.menu-container {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-    -fx-background-radius: 20px;
-    -fx-padding: 30px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 5);
-}
-
-/* Cartes du menu */
-.menu-card {
-    -fx-background-color: white;
-    -fx-background-radius: 15px;
-    -fx-padding: 30px 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 5);
-    -fx-min-width: 250px;
-    -fx-cursor: hand;
-}
-
-.menu-card:hover {
-    -fx-effect: dropshadow(gaussian, #FFD700, 20, 0, 0, 10);
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-background-color: #fff9e6;
-}
-
-.menu-card-coming {
-    -fx-background-color: rgba(255, 255, 255, 0.5);
-    -fx-background-radius: 15px;
-    -fx-padding: 30px 20px;
-    -fx-min-width: 250px;
-    -fx-opacity: 0.8;
-}
-
-.menu-button {
-    -fx-background-color: #FFD700;
-    -fx-text-fill: #0B4F6C;
-    -fx-font-weight: bold;
-    -fx-background-radius: 25px;
-    -fx-padding: 10px 25px;
-    -fx-font-size: 14px;
-    -fx-cursor: hand;
-}
-
-.menu-button:hover {
-    -fx-background-color: #F0C800;
-}
-
-/* Footer */
-.footer {
-    -fx-background-color: rgba(0, 0, 0, 0.2);
-    -fx-background-radius: 10px;
-    -fx-padding: 10px 20px;
-}
-
-/* ================= DASHBOARD BUTTONS ================= */
-.dashboard-button {
-    -fx-background-color: #3b82f6;
-    -fx-text-fill: white;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-radius: 10px;
-    -fx-padding: 15 30;
-    -fx-min-width: 250px;
-    -fx-min-height: 60px;
-}
-
-.dashboard-button:hover {
-    -fx-background-color: #2563eb;
-}
-
-/* ================= TABLE ================= */
-.table-view {
-    -fx-background-color: white;
-    -fx-border-color: #e5e7eb;
-    -fx-border-radius: 12;
-    -fx-background-radius: 12;
-    -fx-pref-width: 850px;
-    -fx-pref-height: 300px;
-}
-
-.table-view .column-header-background {
-    -fx-background-color: #3b82f6;
-    -fx-background-radius: 12 12 0 0;
-}
-
-.table-view .column-header .label {
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
-
-.table-row-cell:selected {
-    -fx-background-color: #bfdbfe;
-}
-
-.table-row-cell:hover {
-    -fx-background-color: #e5e7eb;
-}
-
-/* ================= FORMS ================= */
-.form-container {
-    -fx-spacing: 15px;
-    -fx-padding: 20px;
-}
-
-.offre-form {
-    -fx-padding: 20px;
-    -fx-spacing: 15px;
-}
-
-.offre-field {
-    -fx-pref-width: 300px;
-    -fx-padding: 8px;
-}
-
-/* ================= ALERT ================= */
-.alert {
-    -fx-background-color: white;
-}
-
-.alert .dialog-pane {
-    -fx-background-color: white;
-}
-
-/* ================= THEME BANNER ================= */
-.theme-banner {
-    -fx-background-color: #FFD700;
-    -fx-padding: 8px 15px;
-    -fx-background-radius: 20px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
-}
-
-.theme-banner .label {
-    -fx-text-fill: #0B4F6C;
-    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
 }
