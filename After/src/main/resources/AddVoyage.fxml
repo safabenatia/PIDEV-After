@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.AddVoyageController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddVoyageController">
 
     <center>
         <VBox alignment="CENTER" spacing="10" style="-fx-background-color:#F5F5DC; -fx-padding:30;">
@@ -14,7 +14,7 @@
             </image>
          </ImageView>
 
-            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Ajouter Voyage" />
+            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Ajouter Voyage" textFill="#16325c" />
 
             <TextField fx:id="titreField" promptText="Titre" />
             <TextField fx:id="descriptionField" promptText="Description" />
@@ -24,8 +24,8 @@
             <TextField fx:id="idDestinationField" promptText="ID Destination" />
 
             <HBox spacing="20">
-                <Button onAction="#addVoyage" text="Ajouter" />
-                <Button onAction="#goBack" text="Annuler" />
+                <Button onAction="#addVoyage" style="-fx-background-color: #16325c;" text="Ajouter" textFill="WHITE" />
+                <Button onAction="#goBack" style="-fx-background-color: #16325c;" text="Annuler" textFill="WHITE" />
             </HBox>
         </VBox>
     </center>

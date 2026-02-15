@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.DeleteVoyageController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DeleteVoyageController">
 
     <center>
         <VBox alignment="CENTER" spacing="15" style="-fx-background-color:#F5F5DC; -fx-padding:50;">
@@ -14,13 +14,13 @@
             </image>
          </ImageView>
 
-            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Supprimer Voyage" />
+            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Supprimer Voyage" textFill="#16325c" />
 
             <TextField fx:id="idField" promptText="ID Voyage à supprimer" />
 
             <HBox spacing="20">
-                <Button onAction="#deleteVoyage" text="Supprimer" />
-                <Button onAction="#goBack" text="Annuler" />
+                <Button onAction="#deleteVoyage" style="-fx-background-color: #16325c;" text="Supprimer" textFill="WHITE" />
+                <Button onAction="#goBack" style="-fx-background-color: #16325c;" text="Annuler" textFill="WHITE" />
             </HBox>
 
         </VBox>

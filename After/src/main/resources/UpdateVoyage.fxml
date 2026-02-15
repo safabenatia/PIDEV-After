@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.UpdateVoyageController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UpdateVoyageController">
 
     <center>
         <VBox alignment="CENTER" spacing="10" style="-fx-padding:40; -fx-background-color:#F5F5DC;">
@@ -14,11 +14,11 @@
             </image>
          </ImageView>
 
-            <Label style="-fx-font-size:18px;" text="Modifier Voyage" />
+            <Label style="-fx-font-size:18px;" text="Modifier Voyage" textFill="#16325c" />
 
             <TextField fx:id="idField" promptText="ID Voyage" />
 
-            <Button onAction="#loadVoyage" text="Charger" />
+            <Button onAction="#loadVoyage" style="-fx-background-color: #16325c;" text="Charger" textFill="WHITE" />
 
             <TextField fx:id="titreField" promptText="Titre" />
             <TextField fx:id="descriptionField" promptText="Description" />
@@ -27,8 +27,8 @@
             <TextField fx:id="statutField" promptText="Statut" />
             <TextField fx:id="idDestinationField" promptText="ID Destination" />
 
-            <Button onAction="#updateVoyage" text="Modifier" />
-            <Button onAction="#goBack" text="Retour" />
+            <Button onAction="#updateVoyage" style="-fx-background-color: #16325c;" text=" Modifier voyage" textFill="WHITE" />
+            <Button onAction="#goBack" style="-fx-background-color: #16325c;" text="Retour" textFill="WHITE" />
 
         </VBox>
     </center>

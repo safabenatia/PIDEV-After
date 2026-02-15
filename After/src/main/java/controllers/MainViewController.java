@@ -3,6 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
@@ -20,6 +21,10 @@ public class MainViewController {
     private StackPane mainContent;
 
     @FXML
+    private HBox crudBox;
+
+
+    @FXML
     private TextField searchField;
 
     private ServiceVoyage serviceVoyage = new ServiceVoyage();
@@ -35,6 +40,23 @@ public class MainViewController {
 
     @FXML
     public void showVoyages() {
+
+        crudBox.getChildren().clear();
+
+        Button addBtn = new Button("Ajouter voyage");
+        Button updateBtn = new Button("Modifier voyage");
+        Button deleteBtn = new Button("Supprimer voyage");
+
+        addBtn.setOnAction(e -> showAddForm());
+        updateBtn.setOnAction(e -> showUpdateForm());
+        deleteBtn.setOnAction(e -> showDeleteForm());
+
+        addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        updateBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        deleteBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+
+        crudBox.getChildren().addAll(addBtn, updateBtn, deleteBtn);
+
         List<voyage> voyages = serviceVoyage.getAll();
 
         TilePane grid = new TilePane();
@@ -49,12 +71,31 @@ public class MainViewController {
         mainContent.getChildren().setAll(grid);
     }
 
+
     // ===============================
     // DISPLAY DESTINATIONS IN GRID
     // ===============================
 
     @FXML
     public void showDestinations() {
+
+        crudBox.getChildren().clear();
+
+        Button addBtn = new Button("Ajouter destination");
+        Button updateBtn = new Button("Modifier destination");
+        Button deleteBtn = new Button("Supprimer destination");
+
+        addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        updateBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        deleteBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+
+        // You will create these controllers later
+        addBtn.setOnAction(e -> loadCenter("/AddDestination.fxml"));
+        updateBtn.setOnAction(e -> loadCenter("/UpdateDestination.fxml"));
+        deleteBtn.setOnAction(e -> loadCenter("/DeleteDestination.fxml"));
+
+        crudBox.getChildren().addAll(addBtn, updateBtn, deleteBtn);
+
         List<destination> destinations = serviceDestination.getAll();
 
         TilePane grid = new TilePane();
@@ -68,6 +109,7 @@ public class MainViewController {
 
         mainContent.getChildren().setAll(grid);
     }
+
 
     // ===============================
     // SEARCH VOYAGE BY TITRE

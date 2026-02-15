@@ -24,6 +24,8 @@ public class AddVoyageController {
     @FXML
     public void addVoyage() {
 
+        if (!validateInputs()) return;
+
         voyage v = new voyage();
 
         v.setTitre(titreField.getText());
@@ -39,6 +41,55 @@ public class AddVoyageController {
         serviceVoyage.add(v);
 
         goBack();
+    }
+
+    private void resetStyle() {
+        titreField.setStyle(null);
+        descriptionField.setStyle(null);
+        prixField.setStyle(null);
+        nbPlacesField.setStyle(null);
+        statutField.setStyle(null);
+        idDestinationField.setStyle(null);
+    }
+
+    private boolean validateInputs() {
+
+        boolean valid = true;
+
+        resetStyle();
+
+        try {
+            Double.parseDouble(prixField.getText());
+        } catch (Exception e) {
+            prixField.setStyle("-fx-border-color:red;");
+            valid = false;
+        }
+
+        try {
+            Integer.parseInt(nbPlacesField.getText());
+        } catch (Exception e) {
+            nbPlacesField.setStyle("-fx-border-color:red;");
+            valid = false;
+        }
+
+        try {
+            Integer.parseInt(idDestinationField.getText());
+        } catch (Exception e) {
+            idDestinationField.setStyle("-fx-border-color:red;");
+            valid = false;
+        }
+
+        if (titreField.getText().isEmpty()) {
+            titreField.setStyle("-fx-border-color:red;");
+            valid = false;
+        }
+
+        if (descriptionField.getText().isEmpty()) {
+            descriptionField.setStyle("-fx-border-color:red;");
+            valid = false;
+        }
+
+        return valid;
     }
 
     @FXML

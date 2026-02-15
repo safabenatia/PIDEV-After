@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UpdateDestinationController">
+
+    <center>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding:40; -fx-background-color:#F5F5DC;">
+
+            <ImageView fitHeight="150.0" fitWidth="200.0" preserveRatio="true">
+                <image>
+                    <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
+                </image>
+            </ImageView>
+
+            <Label style="-fx-font-size:18px;" text="Modifier Destination" textFill="#16325c" />
+
+            <TextField fx:id="idField" promptText="ID Destination" />
+
+            <Button onAction="#loadDestination" style="-fx-background-color:#16325c;" text="Charger" textFill="WHITE" />
+
+            <TextField fx:id="paysField" promptText="Pays" />
+            <TextField fx:id="villeField" promptText="Ville" />
+            <TextField fx:id="continentField" promptText="Continent" />
+
+            <Button onAction="#updateDestination" style="-fx-background-color:#16325c;" text="Modifier Destination" textFill="WHITE" />
+
+            <Button onAction="#goBack" style="-fx-background-color:#16325c;" text="Retour" textFill="WHITE" />
+
+        </VBox>
+    </center>
+
+</BorderPane>

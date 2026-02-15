@@ -4,13 +4,13 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.MainViewController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
 
     <!-- NAVBAR -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color:#16325c; -fx-padding:15;">
 
-            <ImageView fx:id="logoImage" fitHeight="50" fitWidth="50">
+            <ImageView fx:id="logoImage" fitHeight="74.0" fitWidth="91.0">
             <image>
                <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
             </image></ImageView>
@@ -25,15 +25,27 @@
             <Button onAction="#showVoyages" text="Voyages" />
             <Button onAction="#showDestinations" text="Destinations" />
 
-            <Button onAction="#showAddForm" text="Ajouter" />
-            <Button onAction="#showUpdateForm" text="Modifier" />
-            <Button onAction="#showDeleteForm" text="Supprimer" />
+
         </HBox>
     </top>
 
     <!-- CENTER -->
     <center>
-        <StackPane fx:id="mainContent" style="-fx-background-color:#F5F5DC; -fx-padding:20;" />
+        <BorderPane style="-fx-background-color:#F5F5DC;">
+
+            <!-- Dynamic CRUD buttons (Top Right) -->
+            <top>
+                <HBox fx:id="crudBox" alignment="CENTER_RIGHT" spacing="15" style="-fx-padding:15;">
+                </HBox>
+            </top>
+
+            <!-- CONTENT -->
+            <center>
+                <StackPane fx:id="mainContent" style="-fx-padding:20;" />
+            </center>
+
+        </BorderPane>
     </center>
+
 
 </BorderPane>
