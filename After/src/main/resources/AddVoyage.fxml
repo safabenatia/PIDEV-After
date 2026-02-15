@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.AddVoyageController">
+
+    <center>
+        <VBox alignment="CENTER" spacing="10" style="-fx-background-color:#F5F5DC; -fx-padding:30;">
+         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/Blue%20and%20Yellow%20Illustrative%20Travel%20Agency%20Logo%20-%201.png" />
+            </image>
+         </ImageView>
+
+            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Ajouter Voyage" />
+
+            <TextField fx:id="titreField" promptText="Titre" />
+            <TextField fx:id="descriptionField" promptText="Description" />
+            <TextField fx:id="prixField" promptText="Prix" />
+            <TextField fx:id="nbPlacesField" promptText="Nombre Places" />
+            <TextField fx:id="statutField" promptText="Statut" />
+            <TextField fx:id="idDestinationField" promptText="ID Destination" />
+
+            <HBox spacing="20">
+                <Button onAction="#addVoyage" text="Ajouter" />
+                <Button onAction="#goBack" text="Annuler" />
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

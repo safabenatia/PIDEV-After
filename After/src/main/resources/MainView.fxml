@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="controllers.MainViewController">
+
+    <!-- NAVBAR -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color:#16325c; -fx-padding:15;">
+
+            <ImageView fx:id="logoImage" fitHeight="50" fitWidth="50">
+            <image>
+               <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
+            </image></ImageView>
+
+            <Label style="-fx-text-fill:white; -fx-font-size:18px; -fx-font-weight:bold;" text="by novajourney" />
+
+            <Pane HBox.hgrow="ALWAYS" />
+
+            <TextField fx:id="searchField" promptText="Rechercher..." />
+            <Button onAction="#handleSearch" text="Rechercher" />
+
+            <Button onAction="#showVoyages" text="Voyages" />
+            <Button onAction="#showDestinations" text="Destinations" />
+
+            <Button onAction="#showAddForm" text="Ajouter" />
+            <Button onAction="#showUpdateForm" text="Modifier" />
+            <Button onAction="#showDeleteForm" text="Supprimer" />
+        </HBox>
+    </top>
+
+    <!-- CENTER -->
+    <center>
+        <StackPane fx:id="mainContent" style="-fx-background-color:#F5F5DC; -fx-padding:20;" />
+    </center>
+
+</BorderPane>
