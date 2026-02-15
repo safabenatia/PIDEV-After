@@ -59,22 +59,22 @@ public class Main {
         System.out.println("\n========== TEST CRUD OFFRE ==========");
 
         // -------- ADD OFFRE --------
-        Offre o = new Offre();
+        /*Offre o = new Offre();
         o.setTitre("Offre Premium");
         o.setPrix(1500);
         o.setDuree(7);
-        o.setId_service(1); // ⚠ doit correspondre à un service existant
+        o.setServiceId(1); // ⚠ doit correspondre à un service existant
 
         os.add(o);
         System.out.println("Offre ajoutée ✔");
 
         // -------- UPDATE OFFRE --------
         Offre oUpdate = new Offre();
-        oUpdate.setId_offre(1); // ⚠ mettre un ID existant
+        oUpdate.setServiceId(1); // ⚠ mettre un ID existant
         oUpdate.setTitre("Offre VIP");
         oUpdate.setPrix(2000);
         oUpdate.setDuree(10);
-        oUpdate.setId_service(1);
+
 
         os.update(oUpdate);
         System.out.println("Offre modifiée ✔");
@@ -85,7 +85,7 @@ public class Main {
 
         for (Offre offre : offres) {
             System.out.println(
-                    "ID: " + offre.getId_offre() +
+                    "ID: " + offre.getId_service() +
                             " | Titre: " + offre.getTitre() +
                             " | Prix: " + offre.getPrix() +
                             " | Durée: " + offre.getDuree() +
@@ -94,8 +94,8 @@ public class Main {
         }
 
         // -------- DELETE OFFRE --------
-        Offre oDelete = new Offre();
-        oDelete.setId_offre(2); // ID existant
+        /*Offre oDelete = new Offre();
+        oDelete.setServiceId(2); // ID existant
         os.delete(oDelete);
         System.out.println("Offre supprimée ✔");
 
@@ -105,6 +105,6 @@ public class Main {
         ss.delete(sDelete);
         System.out.println("Service supprimé ✔");
 
-        System.out.println("\n========== FIN TEST ==========");
+        System.out.println("\n========== FIN TEST ==========");*/
     }
 }

@@ -48,5 +48,10 @@ public class Service {
     public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
+    @Override
+    public String toString() {
+        return nom_service;
+    }
+
 }
 

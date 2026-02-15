@@ -26,10 +26,10 @@ public class OffreService implements Services<Offre> {
             ps.setString(1, offre.getTitre());
             ps.setDouble(2, offre.getPrix());
             ps.setInt(3, offre.getDuree());
-            ps.setInt(4, offre.getId_service());
+            ps.setInt(4, offre.getServiceId());
 
             ps.executeUpdate();
-            System.out.println("Offre ajoutée avec succès");
+            System.out.println("Offre ajoutée");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -47,6 +47,7 @@ public class OffreService implements Services<Offre> {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
+
                 Offre offre = new Offre(
                         rs.getInt("id_offre"),
                         rs.getString("titre"),
@@ -76,11 +77,11 @@ public class OffreService implements Services<Offre> {
             ps.setString(1, offre.getTitre());
             ps.setDouble(2, offre.getPrix());
             ps.setInt(3, offre.getDuree());
-            ps.setInt(4, offre.getId_service());
+            ps.setInt(4, offre.getServiceId());
             ps.setInt(5, offre.getId_offre());
 
             ps.executeUpdate();
-            System.out.println("Offre modifiée avec succès");
+            System.out.println("Offre modifiée");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -97,7 +98,7 @@ public class OffreService implements Services<Offre> {
             ps.setInt(1, offre.getId_offre());
             ps.executeUpdate();
 
-            System.out.println("Offre supprimée avec succès");
+            System.out.println("Offre supprimée");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

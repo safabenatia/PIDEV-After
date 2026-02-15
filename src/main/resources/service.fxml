@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="controllers.ServiceController"
+            stylesheets="@style.css">
+
+    <BorderPane prefWidth="1000" prefHeight="600">
+
+        <!-- HEADER -->
+        <top>
+            <HBox styleClass="main-header" spacing="10" alignment="CENTER_LEFT">
+                <Label text="Gestion des Services" styleClass="page-title"/>
+            </HBox>
+        </top>
+
+        <!-- CONTENU PRINCIPAL -->
+        <center>
+            <VBox spacing="25" alignment="TOP_CENTER" style="-fx-padding:40;">
+
+                <!-- FORMULAIRE -->
+                <VBox spacing="15" styleClass="stats-container" prefWidth="500">
+
+                    <Label text="Ajouter / Modifier un Service" styleClass="stats-label"/>
+
+                    <TextField fx:id="nomField"
+                               promptText="Nom du service"
+                               styleClass="text-field"/>
+
+                    <TextField fx:id="descriptionField"
+                               promptText="Description"
+                               styleClass="text-field"/>
+
+                    <TextField fx:id="categorieField"
+                               promptText="Catégorie"
+                               styleClass="text-field"/>
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <Button text="Ajouter"
+                                onAction="#ajouterService"
+                                styleClass="btn-secondary"/>
+
+                        <Button text="Modifier"
+                                onAction="#modifierService"
+                                styleClass="btn-edit"/>
+
+                        <Button text="Supprimer"
+                                onAction="#supprimerService"
+                                styleClass="btn-delete"/>
+                    </HBox>
+
+                </VBox>
+
+                <!-- TABLE -->
+                <VBox spacing="10" styleClass="stats-container" prefWidth="800">
+
+                    <Label text="Liste des Services" styleClass="stats-label"/>
+
+                    <TableView fx:id="tableService" prefHeight="300" styleClass="table-view">
+                        <columns>
+                            <!-- fx:id corrigés pour correspondre au contrôleur -->
+                            <TableColumn text="ID" fx:id="colId"/>
+                            <TableColumn text="Nom" fx:id="colNom"/>
+                            <TableColumn text="Description" fx:id="colDesc"/>
+                            <TableColumn text="Catégorie" fx:id="colCat"/>
+                        </columns>
+                    </TableView>
+
+                </VBox>
+
+            </VBox>
+        </center>
+
+    </BorderPane>
+
+</AnchorPane>

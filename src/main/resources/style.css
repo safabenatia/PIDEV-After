@@ -1,0 +1,101 @@
+/* ================= GLOBAL ================= */
+
+.root {
+    -fx-background-color: #f9fafb;
+    -fx-font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.main-header {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
+    -fx-padding: 16 24;
+}
+
+.page-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #111827;
+}
+
+/* ================= CARTE / CONTAINER ================= */
+
+.stats-container {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-border-radius: 12;
+    -fx-border-color: #e5e7eb;
+    -fx-padding: 24;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 3);
+    -fx-alignment: center;
+}
+
+.stats-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6b7280;
+    -fx-padding: 0 0 8 0;
+}
+
+/* ================= INPUTS ================= */
+
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10;
+}
+
+.text-field:focused {
+    -fx-border-color: #3b82f6;
+}
+
+/* ================= BOUTONS ================= */
+
+.button {
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 10;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+
+.btn-secondary {
+    -fx-background-color: #6b7280;
+    -fx-text-fill: white;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: #4b5563;
+}
+
+.btn-edit {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+.btn-edit:hover {
+    -fx-background-color: #2563eb;
+}
+
+.btn-delete {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+}
+
+.btn-delete:hover {
+    -fx-background-color: #dc2626;
+}
+
+/* ================= TABLE ================= */
+
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+
+.table-view .column-header-background {
+    -fx-back
