@@ -1,32 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>  <!-- IMPORT AJOUTÉ -->
 
-<AnchorPane xmlns="http://javafx.com/javafx/20"
-            xmlns:fx="http://javafx.com/fxml"
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.ServiceController"
             stylesheets="@style.css">
 
-    <BorderPane prefWidth="1000" prefHeight="600">
+    <BorderPane prefWidth="1100" prefHeight="650">
 
         <!-- HEADER -->
         <top>
-            <HBox styleClass="main-header" spacing="10" alignment="CENTER_LEFT">
-                <Label text="Gestion des Services" styleClass="page-title"/>
-            </HBox>
+            <VBox>
+                <!-- Bannière thématique -->
+                <HBox styleClass="theme-banner" alignment="CENTER" spacing="10" prefHeight="40">
+                    <Label text="✈️" style="-fx-font-size: 20px;" />
+                    <Label text="After Travel - Gestion des Services" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <Label text="🌍" style="-fx-font-size: 20px;" />
+                </HBox>
+
+                <!-- Header principal -->
+                <HBox styleClass="main-header" spacing="15" alignment="CENTER_LEFT">
+                    <Button text="← Retour au Dashboard"
+                            onAction="#handleDashboard"
+                            styleClass="btn-secondary"
+                            prefWidth="200"/>
+                    <Label text="Gestion des Services" styleClass="page-title"/>
+                    <Region HBox.hgrow="ALWAYS" />  <!-- Region est maintenant reconnu -->
+                    <Label text="🏨" style="-fx-font-size: 32px; -fx-text-fill: #0B4F6C;" />
+                </HBox>
+            </VBox>
         </top>
 
         <!-- CONTENU PRINCIPAL -->
         <center>
-            <VBox spacing="25" alignment="TOP_CENTER" style="-fx-padding:40;">
+            <VBox spacing="25" alignment="TOP_CENTER" style="-fx-padding:30;">
 
                 <!-- FORMULAIRE -->
                 <VBox spacing="15" styleClass="stats-container" prefWidth="500">
-
                     <Label text="Ajouter / Modifier un Service" styleClass="stats-label"/>
 
                     <TextField fx:id="nomField"
@@ -44,7 +64,7 @@
                     <HBox spacing="15" alignment="CENTER">
                         <Button text="Ajouter"
                                 onAction="#ajouterService"
-                                styleClass="btn-secondary"/>
+                                styleClass="btn-success"/>
 
                         <Button text="Modifier"
                                 onAction="#modifierService"
@@ -53,30 +73,29 @@
                         <Button text="Supprimer"
                                 onAction="#supprimerService"
                                 styleClass="btn-delete"/>
-                    </HBox>
 
+                        <Button text="Annuler"
+                                onAction="#annuler"
+                                styleClass="btn-secondary"/>
+                    </HBox>
                 </VBox>
 
                 <!-- TABLE -->
-                <VBox spacing="10" styleClass="stats-container" prefWidth="800">
-
+                <VBox spacing="10" styleClass="stats-container" prefWidth="950">
                     <Label text="Liste des Services" styleClass="stats-label"/>
 
-                    <TableView fx:id="tableService" prefHeight="300" styleClass="table-view">
+                    <TableView fx:id="tableService" styleClass="table-view">
                         <columns>
-                            <!-- fx:id corrigés pour correspondre au contrôleur -->
-                            <TableColumn text="ID" fx:id="colId"/>
-                            <TableColumn text="Nom" fx:id="colNom"/>
-                            <TableColumn text="Description" fx:id="colDesc"/>
-                            <TableColumn text="Catégorie" fx:id="colCat"/>
+                            <TableColumn text="ID" fx:id="colId" prefWidth="80"/>
+                            <TableColumn text="Nom" fx:id="colNom" prefWidth="250"/>
+                            <TableColumn text="Description" fx:id="colDesc" prefWidth="350"/>
+                            <TableColumn text="Catégorie" fx:id="colCat" prefWidth="220"/>
                         </columns>
                     </TableView>
-
                 </VBox>
 
             </VBox>
         </center>
 
     </BorderPane>
-
 </AnchorPane>

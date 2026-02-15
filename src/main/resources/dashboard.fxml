@@ -1,21 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.paint.Color?>
 
-<BorderPane fx:controller="controllers.DashboardController"
-            xmlns:fx="http://javafx.com/fxml">
+<AnchorPane prefHeight="700.0" prefWidth="1100.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
 
-    <left>
-        <VBox spacing="15" style="-fx-background-color:#2c3e50; -fx-padding:20;">
-            <Label text="Dashboard" style="-fx-text-fill:white; -fx-font-size:18;" />
-            <Button text="Gestion Services" onAction="#openService"/>
-            <Button text="Gestion Offres" onAction="#openOffre"/>
+    <!-- Fond avec dégradé -->
+    <Rectangle width="1100" height="700" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0">
+        <fill>
+            <LinearGradient>
+                <stops>
+                    <Stop color="#0B4F6C" offset="0.0"/>
+                    <Stop color="#146C94" offset="1.0"/>
+                </stops>
+            </LinearGradient>
+        </fill>
+    </Rectangle>
+
+    <!-- Conteneur principal -->
+    <VBox alignment="TOP_CENTER" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-padding: 30 50 30 50;">
+
+        <!-- Header avec logo et titre -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header-glass">
+
+            <!-- Logo After Travel -->
+            <HBox spacing="10.0" alignment="CENTER">
+                <Label text="✈️" style="-fx-font-size: 40px;" />
+                <Label text="AFTER" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <Label text="Travel" style="-fx-font-size: 32px; -fx-font-weight: 300; -fx-text-fill: #FFD700;" />
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Badge date -->
+            <HBox styleClass="date-badge" spacing="8.0" alignment="CENTER">
+                <Label text="📅" style="-fx-font-size: 16px; -fx-text-fill: white;" />
+                <Label fx:id="dateLabel" text="15 Fév 2026" style="-fx-text-fill: white; -fx-font-weight: bold;" />
+            </HBox>
+
+        </HBox>
+
+        <!-- Message de bienvenue -->
+        <HBox alignment="CENTER_LEFT" styleClass="welcome-card">
+            <VBox spacing="5.0">
+                <Label text="Bienvenue sur After Travel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #FFD700;" />
+                <Label text="Votre plateforme de gestion de voyages" style="-fx-font-size: 16px; -fx-text-fill: white;" />
+            </VBox>
+            <Region HBox.hgrow="ALWAYS" />
+            <Label text="🌍" style="-fx-font-size: 60px; -fx-opacity: 0.8;" />
+        </HBox>
+
+        <!-- Statistiques -->
+        <GridPane hgap="30.0" vgap="20.0" alignment="CENTER">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="50" />
+                <ColumnConstraints percentWidth="50" />
+            </columnConstraints>
+
+            <!-- Carte Services -->
+            <HBox styleClass="stat-card" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                <VBox alignment="CENTER" styleClass="stat-icon">
+                    <Label text="🏨" style="-fx-font-size: 40px; -fx-text-fill: white;" />
+                </VBox>
+                <VBox spacing="5.0">
+                    <Label text="Services" styleClass="stat-label" />
+                    <Label fx:id="totalServices" text="0" styleClass="stat-number" />
+                    <Label text="prestations disponibles" styleClass="stat-desc" />
+                </VBox>
+            </HBox>
+
+            <!-- Carte Offres -->
+            <HBox styleClass="stat-card" alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <VBox alignment="CENTER" styleClass="stat-icon">
+                    <Label text="🏷️" style="-fx-font-size: 40px; -fx-text-fill: white;" />
+                </VBox>
+                <VBox spacing="5.0">
+                    <Label text="Offres" styleClass="stat-label" />
+                    <Label fx:id="totalOffres" text="0" styleClass="stat-number" />
+                    <Label text="promotions actives" styleClass="stat-desc" />
+                </VBox>
+            </HBox>
+
+        </GridPane>
+
+        <!-- Menu principal -->
+        <VBox spacing="20.0" alignment="CENTER" styleClass="menu-container">
+            <Label text="Gestion de contenu" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white; -fx-padding: 0 0 10 0;" />
+
+            <GridPane hgap="30.0" vgap="20.0" alignment="CENTER">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50" />
+                    <ColumnConstraints percentWidth="50" />
+                </columnConstraints>
+
+                <!-- Bouton Services -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="15.0" GridPane.columnIndex="0" GridPane.rowIndex="0" onMouseClicked="#handleServices">
+                    <Label text="🏨" style="-fx-font-size: 60px;" />
+                    <Label text="Gestion des Services" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0B4F6C;" />
+                    <Label text="Gérer vos prestations de voyage" style="-fx-font-size: 14px; -fx-text-fill: #666; -fx-text-alignment: center;" />
+                    <Button text="Accéder →" styleClass="menu-button" />
+                </VBox>
+
+                <!-- Bouton Offres -->
+                <VBox styleClass="menu-card" alignment="CENTER" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="0" onMouseClicked="#handleOffres">
+                    <Label text="🏷️" style="-fx-font-size: 60px;" />
+                    <Label text="Gestion des Offres" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #0B4F6C;" />
+                    <Label text="Créez des promotions attractives" style="-fx-font-size: 14px; -fx-text-fill: #666; -fx-text-alignment: center;" />
+                    <Button text="Accéder →" styleClass="menu-button" />
+                </VBox>
+
+            </GridPane>
         </VBox>
-    </left>
 
-    <center>
-        <AnchorPane fx:id="contentArea"/>
-    </center>
+        <!-- Footer avec infos -->
+        <HBox alignment="CENTER" spacing="20.0" styleClass="footer">
+            <Label text="© 2026 After Travel - Plateforme de gestion de voyages" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12px;" />
+            <Label text="•" style="-fx-text-fill: rgba(255,255,255,0.5);" />
+            <Label text="Équipe After" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12px;" />
+        </HBox>
 
-</BorderPane>
+    </VBox>
+
+</AnchorPane>
