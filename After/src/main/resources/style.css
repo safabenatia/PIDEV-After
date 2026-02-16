@@ -1,0 +1,69 @@
+/* BACKGROUND */
+.main-bg {
+    -fx-background-color: linear-gradient(to bottom right, #eef2f7, #f8f9fc);
+}
+
+/* HEADER */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #141E30, #243B55);
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.theme-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+/* BUTTON */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #4CAF50, #2ECC71);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20;
+}
+
+/* SEARCH */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 20;
+}
+
+/* STATS */
+.stats-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15;
+}
+
+.stat-card {
+    -fx-background-color: linear-gradient(to right, #4e73df, #224abe);
+    -fx-text-fill: white;
+    -fx-padding: 15 30;
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+}
+
+/* CARDS */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);
+}
+
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 25, 0, 0, 8);
+}
+
+/* DARK MODE */
+.dark-mode {
+    -fx-background-color: #1e1e2f;
+}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="40.0" prefWidth="40.0"
+
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.ActiviteController">
+
+    <children>
+
+        <!-- Background Image -->
+        <ImageView fx:id="backgroundcompteImageView" fitHeight="680" fitWidth="989.0" >
+            <image>
+                <Image url="@./images/j.jpg"/>
+            </image>
+        </ImageView>
+
+        <AnchorPane layoutX="200.0" layoutY="60.0"
+                    prefHeight="500.0" prefWidth="550.0"
+                    style="
+    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-background-radius: 35;
+    -fx-border-radius: 35;
+    -fx-border-color: rgba(255,255,255,0.5);
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 40, 0.6, 0, 15);
+">
+
+
+
+        <children>
+            <Label layoutX="170" layoutY="20"
+                   text="Ajouter Activité"
+                   textFill="#00d4ff">
+                <font>
+                    <Font name="Verdana Bold" size="22"/>
+                </font>
+            </Label>
+                <!-- TITRE -->
+                <Label layoutX="150" layoutY="20"
+
+                       textFill="#00d4ff">
+                    <font>
+                        <Font name="Verdana Bold" size="22"/>
+                    </font>
+                </Label>
+
+                <!-- NOM -->
+                <Label layoutX="40" layoutY="90" text="Nom" textFill="white"/>
+                <TextField fx:id="nomField"
+                           layoutX="150" layoutY="85"
+                           prefWidth="320"
+                           promptText="Nom de l'activité"/>
+
+                <!-- DESCRIPTION -->
+                <Label layoutX="40" layoutY="130" text="Description" textFill="white"/>
+                <TextField fx:id="descriptionField"
+                           layoutX="150" layoutY="125"
+                           prefWidth="320"
+                           promptText="Description"/>
+
+                <!-- CATEGORIE -->
+                <Label layoutX="40" layoutY="170" text="Catégorie" textFill="white"/>
+                <TextField fx:id="categorieField"
+                           layoutX="150" layoutY="165"
+                           prefWidth="320"
+                           promptText="Ex: Aventure, Culture..."/>
+
+                <!-- LIEU -->
+                <Label layoutX="40" layoutY="210" text="Lieu" textFill="white"/>
+                <TextField fx:id="lieuField"
+                           layoutX="150" layoutY="205"
+                           prefWidth="320"
+                           promptText="Destination"/>
+
+                <!-- PRIX -->
+                <Label layoutX="40" layoutY="250" text="Prix" textFill="white"/>
+                <TextField fx:id="prixField"
+                           layoutX="150" layoutY="245"
+                           prefWidth="320"
+                           promptText="Prix en DT"/>
+
+                <!-- BOUTONS -->     <Button layoutX="200" layoutY="330"
+                                        text="Ajouter"
+                                        onAction="#ajouter"
+                                        style="-fx-background-color: #00c853; -fx-text-fill: white;">
+                <graphic>
+                    <ImageView fitWidth="20" fitHeight="20">
+                        <image>
+                            <Image url="@./images/tic.png"/>
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Button layoutX="320" layoutY="330"
+                    text="Annuler"
+                    onAction="#handleCancel"
+                    style="
+                            -fx-background-color: #ff5252;
+                            -fx-text-fill: white;
+                            -fx-background-radius: 20;
+                            -fx-cursor: hand;
+                        "/>
+
+
+
+            </children>
+
+        </AnchorPane>
+
+    </children>
+</AnchorPane>
+
