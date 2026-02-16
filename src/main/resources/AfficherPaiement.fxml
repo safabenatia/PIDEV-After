@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.AfficherPaiementController"
+            fitToWidth="true"
+            style="-fx-background: transparent;">
+
+    <VBox fx:id="mainContainer"
+          spacing="20"
+          alignment="TOP_CENTER"
+          style="-fx-background-image: url('/images/plane.jpg');
+                 -fx-background-size: cover;
+                 -fx-background-position: center center;
+                 -fx-padding: 20;">
+
+        <!-- TITRE -->
+        <Label text="PAIEMENTS"
+               style="-fx-font-size: 36px;
+                      -fx-font-weight: bold;
+                      -fx-text-fill: white;"/>
+
+        <!-- SOUS-TITRE -->
+        <Label text="Liste des paiements"
+               style="-fx-font-size: 24px;
+                      -fx-text-fill: white;"/>
+
+        <!-- Conteneur pour les paiements -->
+        <VBox fx:id="paiementsContainer" spacing="10" alignment="TOP_CENTER"/>
+
+    </VBox>
+</ScrollPane>

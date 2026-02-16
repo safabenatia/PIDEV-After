@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="15" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="GUI.AjouterPaiementController"
+      style="-fx-background-color: linear-gradient(to bottom right, #a0eaff, #fceabb);">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <Label text="✈️ Ajouter / Modifier Paiement ✈️"
+           style="-fx-font-size:20; -fx-font-weight:bold; -fx-text-fill: #2b3a67;"/>
+
+    <VBox spacing="10" maxWidth="300">
+        <TextField fx:id="tfReference" promptText="Référence"/>
+        <TextField fx:id="tfMontant" promptText="Montant"/>
+        <ComboBox fx:id="cbMethode" promptText="Méthode de paiement"/>
+        <TextField fx:id="tfIdReservation" promptText="ID Réservation"/>
+    </VBox>
+
+    <Label fx:id="lblMessage"
+           style="-fx-text-fill: red; -fx-font-weight: bold;"/>
+
+    <HBox spacing="15" alignment="CENTER">
+
+        <Button text="💾 Ajouter / Modifier"
+                onAction="#ajouterPaiement"
+                style="-fx-background-color: #ffcc66; -fx-background-radius: 15;"/>
+
+        <Button text="🗑 Supprimer"
+                onAction="#supprimerPaiement"
+                style="-fx-background-color: #ff6666; -fx-text-fill:white; -fx-background-radius: 15;"/>
+
+        <!-- ✅ Nouveau bouton navigation -->
+        <Button text="📋 Voir les paiements"
+                onAction="#allerVersAffichage"
+                style="-fx-background-color: #66ccff; -fx-background-radius: 15;"/>
+
+        <Button text="❌ Fermer"
+                onAction="#fermerFenetre"
+                style="-fx-background-color: #cccccc; -fx-background-radius: 15;"/>
+
+    </HBox>
+
+</VBox>
