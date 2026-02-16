@@ -3,7 +3,6 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,10 +15,12 @@ import models.Offre;
 import models.Service;
 import services.OffreService;
 import services.ServiceService;
+import api.MeteoAPI;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class OffreController implements Initializable {
@@ -50,22 +51,16 @@ public class OffreController implements Initializable {
 
     private OffreService offreService = new OffreService();
     private ServiceService serviceService = new ServiceService();
+    private MeteoAPI meteoAPI = new MeteoAPI();
     private Offre offreSelectionne = null;
     private Button selectedButton = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Configurer les boutons de fenêtre
         setupWindowButtons();
-
-        // Configuration du ScrollPane
         scrollPane.setFitToWidth(true);
         scrollPane.setStyle("-fx-background: white; -fx-background-color: white; -fx-border-color: #16325c; -fx-border-radius: 8;");
-
-        // Charger les services dans le ComboBox
         chargerServices();
-
-        // Charger les offres
         chargerOffres();
     }
 
@@ -187,7 +182,6 @@ public class OffreController implements Initializable {
                         "-fx-font-weight: bold;"
         );
 
-        // Prix
         Label prixLabel = new Label(String.format("%.2f DT", offre.getPrix()));
         prixLabel.setStyle(
                 "-fx-background-color: #F5F5DC;" +
@@ -210,16 +204,15 @@ public class OffreController implements Initializable {
         // Titre
         Label titleLabel = new Label(offre.getTitre());
         titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;");
+        titleLabel.setWrapText(true);
 
         // Détails
         HBox detailsBox = new HBox();
         detailsBox.setStyle("-fx-spacing: 15; -fx-alignment: CENTER_LEFT;");
 
-        // Durée
         Label dureeLabel = new Label("⏱️ " + offre.getDuree() + " jours");
         dureeLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 14px;");
 
-        // Service
         String serviceName = "Service inconnu";
         try {
             List<Service> services = serviceService.getAll();
@@ -252,6 +245,19 @@ public class OffreController implements Initializable {
         );
         selectBtn.setOnAction(e -> selectOffre(offre, selectBtn));
 
+        Button qrBtn = new Button("📱 QR Code");
+        qrBtn.setStyle(
+                "-fx-background-color: #9c27b0;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 8 15;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-cursor: hand;"
+        );
+        qrBtn.setOnAction(e -> {
+            // À implémenter plus tard
+            showAlert(Alert.AlertType.INFORMATION, "QR Code", "Fonctionnalité à venir");
+        });
+
         Button deleteBtn = new Button("Supprimer");
         deleteBtn.setStyle(
                 "-fx-background-color: #d32f2f;" +
@@ -262,7 +268,7 @@ public class OffreController implements Initializable {
         );
         deleteBtn.setOnAction(e -> supprimerOffre(offre));
 
-        actions.getChildren().addAll(selectBtn, deleteBtn);
+        actions.getChildren().addAll(selectBtn, qrBtn, deleteBtn);
 
         card.getChildren().addAll(header, titleLabel, detailsBox, actions);
         return card;
@@ -294,7 +300,6 @@ public class OffreController implements Initializable {
         PrixOffreField.setText(String.valueOf(offre.getPrix()));
         DureeOffreField.setText(String.valueOf(offre.getDuree()));
 
-        // Sélectionner le service correspondant
         List<Service> services = serviceService.getAll();
         for (Service s : services) {
             if (s.getId_service() == offre.getServiceId()) {
@@ -302,6 +307,57 @@ public class OffreController implements Initializable {
                 break;
             }
         }
+    }
+
+    // NOUVELLE MÉTHODE: Suggérer offre basée sur la météo
+    @FXML
+    private void suggererOffreMeteo() {
+        TextInputDialog dialog = new TextInputDialog("Tunis");
+        dialog.setTitle("Offre Météo");
+        dialog.setHeaderText("Suggestion d'offre basée sur la météo");
+        dialog.setContentText("Entrez le nom de la ville:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(ville -> {
+            String suggestion = meteoAPI.suggererOffre(ville, "");
+            String icone = meteoAPI.getIcone(ville);
+            String desc = meteoAPI.getDescription(ville);
+            double temp = meteoAPI.getTemperature(ville);
+
+            TitreOffreField.setText(suggestion);
+
+            String message = String.format(
+                    "🌍 Ville: %s\n%s %s\n🌡️ Température: %.1f°C\n\n💡 Suggestion générée!",
+                    ville, icone, desc, temp
+            );
+
+            showAlert(Alert.AlertType.INFORMATION, "Météo à " + ville, message);
+        });
+    }
+
+    // NOUVELLE MÉTHODE: Afficher la météo
+    @FXML
+    private void afficherMeteo() {
+        TextInputDialog dialog = new TextInputDialog("Tunis");
+        dialog.setTitle("Météo en direct");
+        dialog.setHeaderText("Consultez la météo pour adapter vos offres");
+        dialog.setContentText("Entrez le nom de la ville:");
+
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(ville -> {
+            String icone = meteoAPI.getIcone(ville);
+            String desc = meteoAPI.getDescription(ville);
+            double temp = meteoAPI.getTemperature(ville);
+            int humidite = meteoAPI.getHumidite(ville);
+            double vent = meteoAPI.getVent(ville);
+
+            String message = String.format(
+                    "📍 %s\n\n%s %s\n🌡️ Température: %.1f°C\n💧 Humidité: %d%%\n💨 Vent: %.1f m/s\n\nUtilisez 'Suggérer offre météo' pour créer une offre adaptée!",
+                    ville, icone, desc, temp, humidite, vent
+            );
+
+            showAlert(Alert.AlertType.INFORMATION, "Météo à " + ville, message);
+        });
     }
 
     @FXML

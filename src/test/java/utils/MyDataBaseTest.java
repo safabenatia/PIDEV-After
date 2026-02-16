@@ -29,7 +29,7 @@ public class MyDataBaseTest {
         MyDataBase autreInstance = MyDataBase.getInstance();
         assertSame(myDataBase, autreInstance, "Les deux instances devraient être identiques (singleton)");
 
-        System.out.println("✅ Singleton fonctionne correctement");
+        System.out.println("Singleton fonctionne correctement");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class MyDataBaseTest {
     void testGetCnx() {
         System.out.println("Test 2: Obtention de la connexion...");
         assertNotNull(connection, "La connexion ne devrait pas être null");
-        System.out.println("✅ Connexion obtenue avec succès");
+        System.out.println("Connexion obtenue avec succès");
     }
 
     @Test
@@ -48,7 +48,7 @@ public class MyDataBaseTest {
             assertNotNull(connection, "La connexion doit être initialisée");
             assertFalse(connection.isClosed(), "La connexion ne devrait pas être fermée");
             assertTrue(connection.isValid(5), "La connexion devrait être valide (timeout 5 secondes)");
-            System.out.println("✅ Connexion valide et opérationnelle");
+            System.out.println("Connexion valide et opérationnelle");
         } catch (SQLException e) {
             fail("Erreur lors de la validation de la connexion: " + e.getMessage());
         }
@@ -61,7 +61,7 @@ public class MyDataBaseTest {
         // Ce test vérifie simplement que le message "Connected to the database" s'est affiché
         // Le message est déjà affiché dans le constructeur
         assertNotNull(connection, "La connexion a dû afficher le message lors de l'initialisation");
-        System.out.println("✅ Le message de connexion a été affiché (vérifiez la console)");
+        System.out.println(" Le message de connexion a été affiché (vérifiez la console)");
     }
 
     @Test
@@ -78,7 +78,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Requête simple exécutée avec succès");
+            System.out.println("Requête simple exécutée avec succès");
         } catch (SQLException e) {
             fail("Erreur lors de l'exécution de la requête: " + e.getMessage());
         }
@@ -97,7 +97,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Table 'service' existe");
+            System.out.println("Table 'service' existe");
         } catch (SQLException e) {
             fail("Erreur lors de la vérification de la table: " + e.getMessage());
         }
@@ -116,7 +116,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Table 'offre' existe");
+            System.out.println("Table 'offre' existe");
         } catch (SQLException e) {
             fail("Erreur lors de la vérification de la table: " + e.getMessage());
         }
@@ -152,7 +152,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Structure de la table 'service' correcte");
+            System.out.println("Structure de la table 'service' correcte");
         } catch (SQLException e) {
             fail("Erreur lors de la vérification de la structure: " + e.getMessage());
         }
@@ -191,7 +191,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Structure de la table 'offre' correcte");
+            System.out.println("Structure de la table 'offre' correcte");
         } catch (SQLException e) {
             fail("Erreur lors de la vérification de la structure: " + e.getMessage());
         }
@@ -215,7 +215,7 @@ public class MyDataBaseTest {
 
             rs.close();
             stmt.close();
-            System.out.println("✅ Clé étrangère correctement configurée");
+            System.out.println("Clé étrangère correctement configurée");
         } catch (SQLException e) {
             fail("Erreur lors de la vérification de la clé étrangère: " + e.getMessage());
         }
