@@ -24,6 +24,9 @@
             <TextField fx:id="paysField" promptText="Pays" />
             <TextField fx:id="villeField" promptText="Ville" />
             <TextField fx:id="continentField" promptText="Continent" />
+            <TextField fx:id="imageField" promptText="Image sélectionnée"/>
+            <Button text="Choisir Image" onAction="#chooseImage"/>
+
 
             <Button onAction="#updateDestination" style="-fx-background-color:#16325c;" text="Modifier Destination" textFill="WHITE" />
 

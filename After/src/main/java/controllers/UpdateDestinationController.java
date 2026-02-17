@@ -7,6 +7,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import models.destination;
 import services.ServiceDestination;
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
+import java.io.File;
 
 import java.util.List;
 
@@ -16,6 +19,10 @@ public class UpdateDestinationController {
     @FXML private TextField paysField;
     @FXML private TextField villeField;
     @FXML private TextField continentField;
+    @FXML
+    private TextField imageField;
+
+    private String selectedImagePath;
 
     private ServiceDestination serviceDestination = new ServiceDestination();
 
@@ -30,6 +37,9 @@ public class UpdateDestinationController {
                 paysField.setText(d.getPays());
                 villeField.setText(d.getVille());
                 continentField.setText(d.getContinent());
+                selectedImagePath = d.getImage();
+                imageField.setText(d.getImage());
+
                 break;
             }
         }
@@ -38,45 +48,77 @@ public class UpdateDestinationController {
     @FXML
     public void updateDestination() {
 
-        if (!validateInputs()) return;
+        if (idField.getText().isEmpty()) {
+            showAlert("ID vide !");
+            return;
+        }
+
+        int id;
+
+        try {
+            id = Integer.parseInt(idField.getText());
+        } catch (Exception e) {
+            showAlert("ID doit être un nombre !");
+            return;
+        }
+
+        if (paysField.getText().isEmpty()) {
+            showAlert("Pays vide !");
+            return;
+        }
+
+        if (villeField.getText().isEmpty()) {
+            showAlert("Ville vide !");
+            return;
+        }
+
+        if (continentField.getText().isEmpty()) {
+            showAlert("Continent vide !");
+            return;
+        }
+
 
         destination d = new destination();
-
-        d.setId_destination(Integer.parseInt(idField.getText()));
+        d.setId_destination(id);
         d.setPays(paysField.getText());
         d.setVille(villeField.getText());
         d.setContinent(continentField.getText());
+        if (selectedImagePath == null) {
+            d.setImage(imageField.getText());
+        } else {
+            d.setImage(selectedImagePath);
+        }
+
 
         serviceDestination.update(d);
 
         goBack();
     }
 
-    private boolean validateInputs() {
 
-        boolean valid = true;
-        resetStyle();
-
-        try {
-            Integer.parseInt(idField.getText());
-        } catch (Exception e) {
-            idField.setStyle("-fx-border-color:red;");
-            valid = false;
-        }
-
-        if (paysField.getText().isEmpty()) {
-            paysField.setStyle("-fx-border-color:red;");
-            valid = false;
-        }
-
-        return valid;
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
+    @FXML
+    public void chooseImage() {
 
-    private void resetStyle() {
-        idField.setStyle(null);
-        paysField.setStyle(null);
-        villeField.setStyle(null);
-        continentField.setStyle(null);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (file != null) {
+            selectedImagePath = file.toURI().toString();
+            imageField.setText(file.getAbsolutePath());
+        }
     }
 
     @FXML
@@ -85,14 +127,18 @@ public class UpdateDestinationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
 
-            StackPane mainContent =
-                    (StackPane) idField.getScene().lookup("#mainContent");
+            MainViewController controller = loader.getController();
+            controller.showDestinations();
 
-            mainContent.getChildren().clear();
-            mainContent.getChildren().add(root.lookup("#mainContent"));
+            StackPane mainContent =
+                    (StackPane) paysField.getScene().lookup("#mainContent");
+
+            mainContent.getChildren().setAll(root.lookup("#mainContent"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

@@ -38,14 +38,18 @@ public class DeleteDestinationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
 
+            MainViewController controller = loader.getController();
+            controller.showDestinations();
+
             StackPane mainContent =
                     (StackPane) idField.getScene().lookup("#mainContent");
 
-            mainContent.getChildren().clear();
-            mainContent.getChildren().add(root.lookup("#mainContent"));
+            mainContent.getChildren().setAll(root.lookup("#mainContent"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

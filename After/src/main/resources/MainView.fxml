@@ -6,7 +6,6 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
 
-    <!-- NAVBAR -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color:#16325c; -fx-padding:15;">
 
@@ -29,17 +28,14 @@
         </HBox>
     </top>
 
-    <!-- CENTER -->
     <center>
         <BorderPane style="-fx-background-color:#F5F5DC;">
 
-            <!-- Dynamic CRUD buttons (Top Right) -->
             <top>
                 <HBox fx:id="crudBox" alignment="CENTER_RIGHT" spacing="15" style="-fx-padding:15;">
                 </HBox>
             </top>
 
-            <!-- CONTENT -->
             <center>
                 <StackPane fx:id="mainContent" style="-fx-padding:20;" />
             </center>

@@ -10,7 +10,7 @@
         <VBox alignment="CENTER" spacing="10" style="-fx-background-color:#F5F5DC; -fx-padding:30;">
          <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
             <image>
-               <Image url="@images/Blue%20and%20Yellow%20Illustrative%20Travel%20Agency%20Logo%20-%201.png" />
+               <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
             </image>
          </ImageView>
 

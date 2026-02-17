@@ -1,5 +1,9 @@
 package controllers;
-
+import javafx.scene.control.Alert;
+import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.File;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,48 +19,67 @@ public class AddDestinationController {
     @FXML private TextField continentField;
 
     private ServiceDestination serviceDestination = new ServiceDestination();
+    @FXML
+    private TextField imageField;
+
+    private String selectedImagePath;
 
     @FXML
     public void addDestination() {
 
-        if (!validateInputs()) return;
+        if (paysField.getText().isEmpty()) {
+            showAlert("Pays vide !");
+            return;
+        }
+
+        if (villeField.getText().isEmpty()) {
+            showAlert("Ville vide !");
+            return;
+        }
+
+        if (continentField.getText().isEmpty()) {
+            showAlert("Continent vide !");
+            return;
+        }
 
         destination d = new destination();
-
         d.setPays(paysField.getText());
         d.setVille(villeField.getText());
         d.setContinent(continentField.getText());
+        d.setImage(selectedImagePath);
 
         serviceDestination.add(d);
 
         goBack();
     }
 
-    private boolean validateInputs() {
 
-        boolean valid = true;
-        resetStyle();
-
-        if (paysField.getText().isEmpty()) {
-            paysField.setStyle("-fx-border-color:red;");
-            valid = false;
-        }
-        if (villeField.getText().isEmpty()) {
-            villeField.setStyle("-fx-border-color:red;");
-            valid = false;
-        }
-        if (continentField.getText().isEmpty()) {
-            continentField.setStyle("-fx-border-color:red;");
-            valid = false;
-        }
-
-        return valid;
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
-    private void resetStyle() {
-        paysField.setStyle(null);
-        villeField.setStyle(null);
-        continentField.setStyle(null);
+
+
+    @FXML
+    public void chooseImage() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (file != null) {
+            selectedImagePath = file.toURI().toString();
+            imageField.setText(file.getAbsolutePath());
+        }
     }
 
     @FXML
@@ -65,14 +88,17 @@ public class AddDestinationController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
 
+            MainViewController controller = loader.getController();
+            controller.showDestinations();
+
             StackPane mainContent =
                     (StackPane) paysField.getScene().lookup("#mainContent");
 
-            mainContent.getChildren().clear();
-            mainContent.getChildren().add(root.lookup("#mainContent"));
+            mainContent.getChildren().setAll(root.lookup("#mainContent"));
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

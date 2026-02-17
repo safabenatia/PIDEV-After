@@ -7,6 +7,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.control.TextField;
 import models.voyage;
 import services.ServiceVoyage;
+import javafx.scene.control.Alert;
 
 import java.sql.Date;
 import java.util.List;
@@ -53,24 +54,73 @@ public class UpdateVoyageController {
     @FXML
     public void updateVoyage() {
 
-        voyage v = new voyage();
+        if (idField.getText().isEmpty()) {
+            showAlert("ID vide !");
+            return;
+        }
 
-        v.setIdVoyage(Integer.parseInt(idField.getText()));
+        int id;
+        double prix;
+        int nbPlaces;
+        int idDestination;
+
+        try {
+            id = Integer.parseInt(idField.getText());
+        } catch (Exception e) {
+            showAlert("ID doit être un nombre !");
+            return;
+        }
+
+        if (titreField.getText().isEmpty()) {
+            showAlert("Titre vide !");
+            return;
+        }
+
+        try {
+            prix = Double.parseDouble(prixField.getText());
+        } catch (Exception e) {
+            showAlert("Prix invalide !");
+            return;
+        }
+
+        try {
+            nbPlaces = Integer.parseInt(nbPlacesField.getText());
+        } catch (Exception e) {
+            showAlert("Nombre de places invalide !");
+            return;
+        }
+
+        try {
+            idDestination = Integer.parseInt(idDestinationField.getText());
+        } catch (Exception e) {
+            showAlert("ID Destination invalide !");
+            return;
+        }
+
+        voyage v = new voyage();
+        v.setIdVoyage(id);
         v.setTitre(titreField.getText());
         v.setDescription(descriptionField.getText());
-        v.setPrix(Double.parseDouble(prixField.getText()));
-        v.setNbPlaces(Integer.parseInt(nbPlacesField.getText()));
+        v.setPrix(prix);
+        v.setNbPlaces(nbPlaces);
         v.setStatut(statutField.getText());
-        v.setIdDestination(Integer.parseInt(idDestinationField.getText()));
+        v.setIdDestination(idDestination);
 
-        // 🔥 IMPORTANT FIX FOR DATE
-        v.setDateDebut(Date.valueOf("2026-03-01"));
-        v.setDateFin(Date.valueOf("2026-03-15"));
+        v.setDateDebut(java.sql.Date.valueOf("2026-03-01"));
+        v.setDateFin(java.sql.Date.valueOf("2026-03-15"));
 
         serviceVoyage.update(v);
 
         goBack();
     }
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Erreur de saisie");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 
     @FXML
     public void goBack() {

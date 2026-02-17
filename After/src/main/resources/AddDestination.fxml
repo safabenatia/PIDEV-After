@@ -27,6 +27,8 @@
             <TextField fx:id="paysField" promptText="Pays"/>
             <TextField fx:id="villeField" promptText="Ville"/>
             <TextField fx:id="continentField" promptText="Continent"/>
+            <TextField fx:id="imageField" promptText="image url" />
+            <Button text="Choisir Image" onAction="#chooseImage"/>
 
             <HBox spacing="20">
                 <Button text="Ajouter Destination"

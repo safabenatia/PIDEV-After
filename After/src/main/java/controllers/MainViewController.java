@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.voyage;
 import models.destination;
@@ -35,8 +37,7 @@ public class MainViewController {
     public void initialize() {
         showVoyages();
     }
-    // DISPLAY VOYAGES IN GRID
-    // ===============================
+
 
     @FXML
     public void showVoyages() {
@@ -68,13 +69,18 @@ public class MainViewController {
             grid.getChildren().add(createVoyageCard(v));
         }
 
-        mainContent.getChildren().setAll(grid);
+        Label header = new Label("Bienvenue à AFTER");
+        header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label subHeader = new Label("Où vos rêves deviennent réalité");
+        subHeader.setStyle("-fx-font-size:16px; -fx-text-fill:#16325c;");
+
+        VBox container = new VBox(20);
+        container.setStyle("-fx-padding:20;");
+        container.getChildren().addAll(header, subHeader, grid);
+
+        mainContent.getChildren().setAll(container);
     }
-
-
-    // ===============================
-    // DISPLAY DESTINATIONS IN GRID
-    // ===============================
 
     @FXML
     public void showDestinations() {
@@ -89,7 +95,6 @@ public class MainViewController {
         updateBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
 
-        // You will create these controllers later
         addBtn.setOnAction(e -> loadCenter("/AddDestination.fxml"));
         updateBtn.setOnAction(e -> loadCenter("/UpdateDestination.fxml"));
         deleteBtn.setOnAction(e -> loadCenter("/DeleteDestination.fxml"));
@@ -107,13 +112,18 @@ public class MainViewController {
             grid.getChildren().add(createDestinationCard(d));
         }
 
-        mainContent.getChildren().setAll(grid);
+        Label header = new Label("Bienvenue à AFTER");
+        header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label subHeader = new Label("Où vos rêves deviennent réalité");
+        subHeader.setStyle("-fx-font-size:16px; -fx-text-fill:#16325c;");
+
+        VBox container = new VBox(20);
+        container.setStyle("-fx-padding:20;");
+        container.getChildren().addAll(header, subHeader, grid);
+
+        mainContent.getChildren().setAll(container);
     }
-
-
-    // ===============================
-    // SEARCH VOYAGE BY TITRE
-    // ===============================
 
     @FXML
     public void handleSearch() {
@@ -125,7 +135,6 @@ public class MainViewController {
         grid.setVgap(20);
         grid.setPrefColumns(3);
 
-        // SEARCH VOYAGES BY TITRE
         List<voyage> voyages = serviceVoyage.getAll();
         for (voyage v : voyages) {
             if (v.getTitre().toLowerCase().contains(keyword)) {
@@ -133,7 +142,6 @@ public class MainViewController {
             }
         }
 
-        // SEARCH DESTINATIONS BY ID
         List<destination> destinations = serviceDestination.getAll();
         for (destination d : destinations) {
             if (String.valueOf(d.getId_destination()).contains(keyword)) {
@@ -143,12 +151,6 @@ public class MainViewController {
 
         mainContent.getChildren().setAll(grid);
     }
-
-
-
-    // ===============================
-    // CARD CREATION
-    // ===============================
 
     private VBox createVoyageCard(voyage v) {
         VBox box = new VBox(8);
@@ -173,15 +175,31 @@ public class MainViewController {
     }
 
     private VBox createDestinationCard(destination d) {
-        VBox box = new VBox(8);
+
+        VBox box = new VBox(10);
         box.setPrefWidth(250);
         box.setStyle("""
-                -fx-background-color:white;
-                -fx-padding:15;
-                -fx-background-radius:10;
-                -fx-border-radius:10;
-                -fx-border-color:#16325c;
-                """);
+            -fx-background-color:white;
+            -fx-padding:15;
+            -fx-background-radius:10;
+            -fx-border-radius:10;
+            -fx-border-color:#16325c;
+            """);
+
+        // IMAGE
+        if (d.getImage() != null && !d.getImage().isEmpty()) {
+            try {
+                Image image = new Image(d.getImage(), 200, 150, true, true);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(200);
+                imageView.setFitHeight(150);
+                imageView.setPreserveRatio(true);
+
+                box.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.out.println("Image load failed");
+            }
+        }
 
         box.getChildren().addAll(
                 new Label("ID: " + d.getId_destination()),
@@ -193,9 +211,6 @@ public class MainViewController {
         return box;
     }
 
-    // ===============================
-    // LOAD FORMS INSIDE CENTER
-    // ===============================
 
     @FXML
     public void showAddForm() {
