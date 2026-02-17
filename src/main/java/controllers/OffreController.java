@@ -16,6 +16,8 @@ import models.Service;
 import services.OffreService;
 import services.ServiceService;
 import api.MeteoAPI;
+import api.QRCodeAPI;
+import api.QRCodeView;
 
 import java.io.IOException;
 import java.net.URL;
@@ -52,14 +54,14 @@ public class OffreController implements Initializable {
     private OffreService offreService = new OffreService();
     private ServiceService serviceService = new ServiceService();
     private MeteoAPI meteoAPI = new MeteoAPI();
+    private QRCodeAPI qrAPI = new QRCodeAPI();
     private Offre offreSelectionne = null;
     private Button selectedButton = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupWindowButtons();
-        scrollPane.setFitToWidth(true);
-        scrollPane.setStyle("-fx-background: white; -fx-background-color: white; -fx-border-color: #16325c; -fx-border-radius: 8;");
+        configureScrollPane();
         chargerServices();
         chargerOffres();
     }
@@ -80,40 +82,49 @@ public class OffreController implements Initializable {
         }
     }
 
+    private void configureScrollPane() {
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background: white; -fx-background-color: white; -fx-border-color: #16325c; -fx-border-radius: 8;");
+    }
+
     private void chargerServices() {
         try {
             List<Service> services = serviceService.getAll();
-            if (services != null) {
+            if (services != null && !services.isEmpty()) {
                 serviceCombo.setItems(javafx.collections.FXCollections.observableArrayList(services));
-
-                serviceCombo.setCellFactory(lv -> new ListCell<Service>() {
-                    @Override
-                    protected void updateItem(Service service, boolean empty) {
-                        super.updateItem(service, empty);
-                        if (empty || service == null) {
-                            setText(null);
-                        } else {
-                            setText(service.getNom_service() + " (ID: " + service.getId_service() + ")");
-                        }
-                    }
-                });
-
-                serviceCombo.setButtonCell(new ListCell<Service>() {
-                    @Override
-                    protected void updateItem(Service service, boolean empty) {
-                        super.updateItem(service, empty);
-                        if (empty || service == null) {
-                            setText(null);
-                        } else {
-                            setText(service.getNom_service());
-                        }
-                    }
-                });
+                configureComboBox();
             }
         } catch (Exception e) {
             showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des services: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    private void configureComboBox() {
+        serviceCombo.setCellFactory(lv -> new ListCell<Service>() {
+            @Override
+            protected void updateItem(Service service, boolean empty) {
+                super.updateItem(service, empty);
+                if (empty || service == null) {
+                    setText(null);
+                } else {
+                    // Affiche UNIQUEMENT le nom du service, sans ID
+                    setText(service.getNom_service());
+                }
+            }
+        });
+
+        serviceCombo.setButtonCell(new ListCell<Service>() {
+            @Override
+            protected void updateItem(Service service, boolean empty) {
+                super.updateItem(service, empty);
+                if (empty || service == null) {
+                    setText(null);
+                } else {
+                    setText(service.getNom_service());
+                }
+            }
+        });
     }
 
     private void chargerOffres() {
@@ -123,9 +134,7 @@ public class OffreController implements Initializable {
             List<Offre> offres = offreService.getAll();
 
             if (offres.isEmpty()) {
-                Label emptyLabel = new Label("Aucune offre disponible");
-                emptyLabel.setStyle("-fx-text-fill: #16325c; -fx-font-size: 16px; -fx-padding: 20;");
-                offresVBox.getChildren().add(emptyLabel);
+                afficherMessageAucuneOffre();
             } else {
                 for (Offre offre : offres) {
                     VBox offreCard = createOffreCard(offre);
@@ -138,60 +147,70 @@ public class OffreController implements Initializable {
         }
     }
 
+    private void afficherMessageAucuneOffre() {
+        Label emptyLabel = new Label("Aucune offre disponible");
+        emptyLabel.setStyle("-fx-text-fill: #16325c; -fx-font-size: 16px; -fx-padding: 20;");
+        offresVBox.getChildren().add(emptyLabel);
+    }
+
     private VBox createOffreCard(Offre offre) {
         VBox card = new VBox();
-        card.setStyle(
-                "-fx-background-color: white;" +
-                        "-fx-border-color: #16325c;" +
-                        "-fx-border-width: 1px;" +
-                        "-fx-border-radius: 8;" +
-                        "-fx-background-radius: 8;" +
-                        "-fx-padding: 15;" +
-                        "-fx-spacing: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
-        );
-        card.setPrefWidth(450);
+        card.setStyle(getCardStyle());
+        card.setPrefWidth(650);
+        card.setMaxWidth(650);
 
         card.setOnMouseEntered(e ->
-                card.setStyle(card.getStyle() + "-fx-effect: dropshadow(gaussian, #16325c, 10, 0, 0, 5);")
+                card.setStyle(getCardStyle() + "-fx-effect: dropshadow(gaussian, #16325c, 15, 0, 0, 8); -fx-scale-x: 1.01; -fx-scale-y: 1.01;")
         );
-        card.setOnMouseExited(e ->
-                card.setStyle(
-                        "-fx-background-color: white;" +
-                                "-fx-border-color: #16325c;" +
-                                "-fx-border-width: 1px;" +
-                                "-fx-border-radius: 8;" +
-                                "-fx-background-radius: 8;" +
-                                "-fx-padding: 15;" +
-                                "-fx-spacing: 10;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
-                )
-        );
+        card.setOnMouseExited(e -> card.setStyle(getCardStyle()));
 
-        // En-tête avec ID
+        HBox header = createHeader(offre);
+        Label titleLabel = createTitleLabel(offre);
+        HBox detailsBox = createDetailsBox(offre);
+
+        // Séparateur décoratif
+        Separator separator = new Separator();
+        separator.setStyle("-fx-background-color: #16325c; -fx-opacity: 0.3;");
+
+        HBox actions = createActionButtons(offre);
+
+        card.getChildren().addAll(header, titleLabel, detailsBox, separator, actions);
+        return card;
+    }
+
+    private String getCardStyle() {
+        return "-fx-background-color: white;" +
+                "-fx-border-color: #16325c;" +
+                "-fx-border-width: 2px;" +
+                "-fx-border-radius: 15;" +
+                "-fx-background-radius: 15;" +
+                "-fx-padding: 20;" +
+                "-fx-spacing: 12;" +
+                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);";
+    }
+
+    private HBox createHeader(Offre offre) {
         HBox header = new HBox();
         header.setStyle("-fx-alignment: CENTER_LEFT; -fx-spacing: 10;");
 
-        Label idLabel = new Label("#" + offre.getId_offre());
-        idLabel.setStyle(
-                "-fx-background-color: #16325c;" +
-                        "-fx-text-fill: #F5F5DC;" +
-                        "-fx-padding: 5 10;" +
-                        "-fx-background-radius: 15;" +
+        // Badge de catégorie (remplace l'ID)
+        Label categoryBadge = new Label("⭐ OFFRE SPÉCIALE");
+        categoryBadge.setStyle(
+                "-fx-background-color: #FFD700;" +
+                        "-fx-text-fill: #16325c;" +
+                        "-fx-padding: 5 15;" +
+                        "-fx-background-radius: 20;" +
                         "-fx-font-size: 12px;" +
                         "-fx-font-weight: bold;"
         );
 
-        Label prixLabel = new Label(String.format("%.2f DT", offre.getPrix()));
+        Label prixLabel = new Label(String.format("%.0f DT", offre.getPrix()));
         prixLabel.setStyle(
-                "-fx-background-color: #F5F5DC;" +
-                        "-fx-text-fill: #16325c;" +
-                        "-fx-padding: 5 10;" +
-                        "-fx-background-radius: 15;" +
-                        "-fx-border-color: #16325c;" +
-                        "-fx-border-width: 1px;" +
-                        "-fx-border-radius: 15;" +
-                        "-fx-font-size: 12px;" +
+                "-fx-background-color: #16325c;" +
+                        "-fx-text-fill: #F5F5DC;" +
+                        "-fx-padding: 5 15;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-font-size: 14px;" +
                         "-fx-font-weight: bold;"
         );
 
@@ -199,79 +218,101 @@ public class OffreController implements Initializable {
         spacer.setPrefWidth(Double.MAX_VALUE);
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        header.getChildren().addAll(idLabel, spacer, prixLabel);
+        header.getChildren().addAll(categoryBadge, spacer, prixLabel);
+        return header;
+    }
 
-        // Titre
+    private Label createTitleLabel(Offre offre) {
         Label titleLabel = new Label(offre.getTitre());
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;");
         titleLabel.setWrapText(true);
+        return titleLabel;
+    }
 
-        // Détails
+    private HBox createDetailsBox(Offre offre) {
         HBox detailsBox = new HBox();
-        detailsBox.setStyle("-fx-spacing: 15; -fx-alignment: CENTER_LEFT;");
+        detailsBox.setStyle("-fx-spacing: 25; -fx-alignment: CENTER_LEFT; -fx-padding: 5 0;");
 
         Label dureeLabel = new Label("⏱️ " + offre.getDuree() + " jours");
-        dureeLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 14px;");
+        dureeLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 15px; -fx-font-weight: bold;");
 
-        String serviceName = "Service inconnu";
+        String serviceName = getServiceName(offre);
+        Label serviceLabel = new Label("🏨 " + serviceName);
+        serviceLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 15px; -fx-font-weight: bold;");
+
+        detailsBox.getChildren().addAll(dureeLabel, serviceLabel);
+        return detailsBox;
+    }
+
+    private String getServiceName(Offre offre) {
         try {
             List<Service> services = serviceService.getAll();
             for (Service s : services) {
                 if (s.getId_service() == offre.getServiceId()) {
-                    serviceName = s.getNom_service();
-                    break;
+                    return s.getNom_service();
                 }
             }
         } catch (Exception e) {
-            serviceName = "Service inconnu";
+            // Ignoré
         }
+        return "Service inconnu";
+    }
 
-        Label serviceLabel = new Label("🏨 " + serviceName);
-        serviceLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 14px;");
-
-        detailsBox.getChildren().addAll(dureeLabel, serviceLabel);
-
-        // Boutons
+    private HBox createActionButtons(Offre offre) {
         HBox actions = new HBox();
-        actions.setStyle("-fx-alignment: CENTER_RIGHT; -fx-spacing: 10; -fx-padding: 10 0 0 0;");
+        actions.setStyle("-fx-alignment: CENTER_RIGHT; -fx-spacing: 15; -fx-padding: 10 0 0 0;");
 
-        Button selectBtn = new Button("Sélectionner");
+        Button selectBtn = createSelectButton(offre);
+        Button qrBtn = createQRButton(offre);
+        Button deleteBtn = createDeleteButton(offre);
+
+        actions.getChildren().addAll(selectBtn, qrBtn, deleteBtn);
+        return actions;
+    }
+
+    private Button createSelectButton(Offre offre) {
+        Button selectBtn = new Button("✓ Sélectionner");
         selectBtn.setStyle(
                 "-fx-background-color: #16325c;" +
                         "-fx-text-fill: #F5F5DC;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
-                        "-fx-cursor: hand;"
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 14px;"
         );
         selectBtn.setOnAction(e -> selectOffre(offre, selectBtn));
+        return selectBtn;
+    }
 
+    private Button createQRButton(Offre offre) {
         Button qrBtn = new Button("📱 QR Code");
         qrBtn.setStyle(
                 "-fx-background-color: #9c27b0;" +
                         "-fx-text-fill: white;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
-                        "-fx-cursor: hand;"
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 14px;"
         );
-        qrBtn.setOnAction(e -> {
-            // À implémenter plus tard
-            showAlert(Alert.AlertType.INFORMATION, "QR Code", "Fonctionnalité à venir");
-        });
+        qrBtn.setOnAction(e -> afficherQRCode(offre));
+        return qrBtn;
+    }
 
-        Button deleteBtn = new Button("Supprimer");
+    private Button createDeleteButton(Offre offre) {
+        Button deleteBtn = new Button("✕ Supprimer");
         deleteBtn.setStyle(
                 "-fx-background-color: #d32f2f;" +
                         "-fx-text-fill: white;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
-                        "-fx-cursor: hand;"
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 14px;"
         );
         deleteBtn.setOnAction(e -> supprimerOffre(offre));
-
-        actions.getChildren().addAll(selectBtn, qrBtn, deleteBtn);
-
-        card.getChildren().addAll(header, titleLabel, detailsBox, actions);
-        return card;
+        return deleteBtn;
     }
 
     private void selectOffre(Offre offre, Button selectBtn) {
@@ -279,8 +320,8 @@ public class OffreController implements Initializable {
             selectedButton.setStyle(
                     "-fx-background-color: #16325c;" +
                             "-fx-text-fill: #F5F5DC;" +
-                            "-fx-padding: 8 15;" +
-                            "-fx-background-radius: 5;" +
+                            "-fx-padding: 12 25;" +
+                            "-fx-background-radius: 25;" +
                             "-fx-cursor: hand;"
             );
         }
@@ -290,8 +331,8 @@ public class OffreController implements Initializable {
         selectBtn.setStyle(
                 "-fx-background-color: #4CAF50;" +
                         "-fx-text-fill: white;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
                         "-fx-cursor: hand;" +
                         "-fx-font-weight: bold;"
         );
@@ -309,7 +350,17 @@ public class OffreController implements Initializable {
         }
     }
 
-    // NOUVELLE MÉTHODE: Suggérer offre basée sur la météo
+    private void afficherQRCode(Offre offre) {
+        try {
+            String serviceName = getServiceName(offre);
+            QRCodeView qrView = new QRCodeView(offre, serviceName);
+            qrView.show();
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible de générer le QR Code: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void suggererOffreMeteo() {
         TextInputDialog dialog = new TextInputDialog("Tunis");
@@ -335,7 +386,6 @@ public class OffreController implements Initializable {
         });
     }
 
-    // NOUVELLE MÉTHODE: Afficher la météo
     @FXML
     private void afficherMeteo() {
         TextInputDialog dialog = new TextInputDialog("Tunis");
@@ -448,8 +498,8 @@ public class OffreController implements Initializable {
             selectedButton.setStyle(
                     "-fx-background-color: #16325c;" +
                             "-fx-text-fill: #F5F5DC;" +
-                            "-fx-padding: 8 15;" +
-                            "-fx-background-radius: 5;" +
+                            "-fx-padding: 12 25;" +
+                            "-fx-background-radius: 25;" +
                             "-fx-cursor: hand;"
             );
             selectedButton = null;
