@@ -94,104 +94,113 @@ public class ServiceController implements Initializable {
         }
     }
 
+    /**
+     * Crée une carte de service moderne et élégante
+     */
     private VBox createServiceCard(Service service) {
         VBox card = new VBox();
         card.setStyle(
                 "-fx-background-color: white;" +
                         "-fx-border-color: #16325c;" +
-                        "-fx-border-width: 1px;" +
-                        "-fx-border-radius: 8;" +
-                        "-fx-background-radius: 8;" +
-                        "-fx-padding: 15;" +
-                        "-fx-spacing: 10;" +
-                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+                        "-fx-border-width: 2px;" +
+                        "-fx-border-radius: 20;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-padding: 20;" +
+                        "-fx-spacing: 15;" +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);"
         );
-        card.setPrefWidth(450);
+        card.setPrefWidth(630);
+        card.setMaxWidth(630);
 
+        // Effet au survol
         card.setOnMouseEntered(e ->
-                card.setStyle(card.getStyle() + "-fx-effect: dropshadow(gaussian, #16325c, 10, 0, 0, 5);")
+                card.setStyle(card.getStyle() + "-fx-effect: dropshadow(gaussian, #16325c, 20, 0, 0, 10); -fx-scale-x: 1.01; -fx-scale-y: 1.01;")
         );
         card.setOnMouseExited(e ->
                 card.setStyle(
                         "-fx-background-color: white;" +
                                 "-fx-border-color: #16325c;" +
-                                "-fx-border-width: 1px;" +
-                                "-fx-border-radius: 8;" +
-                                "-fx-background-radius: 8;" +
-                                "-fx-padding: 15;" +
-                                "-fx-spacing: 10;" +
-                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+                                "-fx-border-width: 2px;" +
+                                "-fx-border-radius: 20;" +
+                                "-fx-background-radius: 20;" +
+                                "-fx-padding: 20;" +
+                                "-fx-spacing: 15;" +
+                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);"
                 )
         );
 
-        // En-tête
+        // EN-TÊTE AVEC BADGES
         HBox header = new HBox();
         header.setStyle("-fx-alignment: CENTER_LEFT; -fx-spacing: 10;");
 
-        Label idLabel = new Label("#" + service.getId_service());
-        idLabel.setStyle(
+        Label idBadge = new Label("#" + service.getId_service());
+        idBadge.setStyle(
                 "-fx-background-color: #16325c;" +
                         "-fx-text-fill: #F5F5DC;" +
-                        "-fx-padding: 5 10;" +
-                        "-fx-background-radius: 15;" +
+                        "-fx-padding: 5 15;" +
+                        "-fx-background-radius: 25;" +
                         "-fx-font-size: 12px;" +
                         "-fx-font-weight: bold;"
         );
 
-        Label categoryLabel = new Label(service.getCategorie());
-        categoryLabel.setStyle(
-                "-fx-background-color: #F5F5DC;" +
+        Label categoryBadge = new Label(service.getCategorie());
+        categoryBadge.setStyle(
+                "-fx-background-color: #FFD700;" +
                         "-fx-text-fill: #16325c;" +
-                        "-fx-padding: 5 10;" +
-                        "-fx-background-radius: 15;" +
-                        "-fx-border-color: #16325c;" +
-                        "-fx-border-width: 1px;" +
-                        "-fx-border-radius: 15;" +
-                        "-fx-font-size: 12px;"
+                        "-fx-padding: 5 15;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-font-size: 12px;" +
+                        "-fx-font-weight: bold;"
         );
 
         Region spacer = new Region();
         spacer.setPrefWidth(Double.MAX_VALUE);
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
-        header.getChildren().addAll(idLabel, spacer, categoryLabel);
+        header.getChildren().addAll(idBadge, spacer, categoryBadge);
 
-        // Titre
+        // TITRE
         Label titleLabel = new Label(service.getNom_service());
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;");
+        titleLabel.setStyle("-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #16325c;");
 
-        // Description
+        // DESCRIPTION
         Label descLabel = new Label(service.getDescription());
         descLabel.setStyle("-fx-text-fill: #666666; -fx-font-size: 14px;");
         descLabel.setWrapText(true);
 
-        // Boutons
-        HBox actions = new HBox();
-        actions.setStyle("-fx-alignment: CENTER_RIGHT; -fx-spacing: 10; -fx-padding: 10 0 0 0;");
+        // SÉPARATEUR
+        Separator separator = new Separator();
+        separator.setStyle("-fx-background-color: #16325c; -fx-opacity: 0.3;");
 
-        Button selectBtn = new Button("Sélectionner");
+        // BOUTONS (plus grands et arrondis)
+        HBox actions = new HBox();
+        actions.setStyle("-fx-alignment: CENTER_RIGHT; -fx-spacing: 15; -fx-padding: 10 0 0 0;");
+
+        Button selectBtn = new Button("✓ Sélectionner");
         selectBtn.setStyle(
                 "-fx-background-color: #16325c;" +
                         "-fx-text-fill: #F5F5DC;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
-                        "-fx-cursor: hand;"
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;"
         );
         selectBtn.setOnAction(e -> selectService(service, selectBtn));
 
-        Button deleteBtn = new Button("Supprimer");
+        Button deleteBtn = new Button("✕ Supprimer");
         deleteBtn.setStyle(
                 "-fx-background-color: #d32f2f;" +
                         "-fx-text-fill: white;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
-                        "-fx-cursor: hand;"
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;"
         );
         deleteBtn.setOnAction(e -> deleteService(service));
 
         actions.getChildren().addAll(selectBtn, deleteBtn);
 
-        card.getChildren().addAll(header, titleLabel, descLabel, actions);
+        card.getChildren().addAll(header, titleLabel, descLabel, separator, actions);
         return card;
     }
 
@@ -200,8 +209,8 @@ public class ServiceController implements Initializable {
             selectedButton.setStyle(
                     "-fx-background-color: #16325c;" +
                             "-fx-text-fill: #F5F5DC;" +
-                            "-fx-padding: 8 15;" +
-                            "-fx-background-radius: 5;" +
+                            "-fx-padding: 12 25;" +
+                            "-fx-background-radius: 25;" +
                             "-fx-cursor: hand;"
             );
         }
@@ -211,8 +220,8 @@ public class ServiceController implements Initializable {
         selectBtn.setStyle(
                 "-fx-background-color: #4CAF50;" +
                         "-fx-text-fill: white;" +
-                        "-fx-padding: 8 15;" +
-                        "-fx-background-radius: 5;" +
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
                         "-fx-cursor: hand;" +
                         "-fx-font-weight: bold;"
         );
@@ -324,8 +333,8 @@ public class ServiceController implements Initializable {
             selectedButton.setStyle(
                     "-fx-background-color: #16325c;" +
                             "-fx-text-fill: #F5F5DC;" +
-                            "-fx-padding: 8 15;" +
-                            "-fx-background-radius: 5;" +
+                            "-fx-padding: 12 25;" +
+                            "-fx-background-radius: 25;" +
                             "-fx-cursor: hand;"
             );
             selectedButton = null;
