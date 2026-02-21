@@ -20,6 +20,8 @@
             <TextField fx:id="descriptionField" promptText="Description" />
             <TextField fx:id="prixField" promptText="Prix" />
             <TextField fx:id="nbPlacesField" promptText="Nombre Places" />
+            <DatePicker fx:id="dateDebutPicker" promptText="Date début" prefWidth="1600" maxWidth="1700"/>
+            <DatePicker fx:id="dateFinPicker" promptText="Date fin" prefWidth="1600" maxWidth="1700"/>
             <TextField fx:id="imageField" promptText="Image sélectionnée"/>
             <Button text="Choisir Image" onAction="#chooseImage"/>
             <TextField fx:id="idDestinationField" promptText="ID Destination" />

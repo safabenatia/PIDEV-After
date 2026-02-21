@@ -3,6 +3,8 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -21,8 +23,27 @@ public class AddVoyageController {
     @FXML private TextField nbPlacesField;
     @FXML private TextField imageField ;
     @FXML private TextField idDestinationField;
+    @FXML private DatePicker dateDebutPicker;
+    @FXML private DatePicker dateFinPicker;
     private String selectedImagePath;
     private ServiceVoyage serviceVoyage = new ServiceVoyage();
+
+    @FXML
+    public void initialize() {
+        dateDebutPicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(java.time.LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisabled(empty || date.isBefore(java.time.LocalDate.now()));
+            }
+        });
+
+        dateFinPicker.setDayCellFactory(picker -> new DateCell() {
+            public void updateItem(java.time.LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                setDisabled(empty || date.isBefore(java.time.LocalDate.now()));
+            }
+        });
+    }
 
     @FXML
     public void addVoyage() {
@@ -69,9 +90,21 @@ public class AddVoyageController {
         v.setNbPlaces(nbPlaces);
         v.setImage(selectedImagePath);
         v.setIdDestination(idDestination);
+        if (dateDebutPicker.getValue() == null) {
+            showAlert("Date début vide !");
+            return;
+        }
+        if (dateFinPicker.getValue() == null) {
+            showAlert("Date fin vide !");
+            return;
+        }
+        if (dateFinPicker.getValue().isBefore(dateDebutPicker.getValue())) {
+            showAlert("Date fin doit être après date début !");
+            return;
+        }
 
-        v.setDateDebut(new java.sql.Date(System.currentTimeMillis()));
-        v.setDateFin(new java.sql.Date(System.currentTimeMillis()));
+        v.setDateDebut(java.sql.Date.valueOf(dateDebutPicker.getValue()));
+        v.setDateFin(java.sql.Date.valueOf(dateFinPicker.getValue()));
 
         serviceVoyage.add(v);
 
