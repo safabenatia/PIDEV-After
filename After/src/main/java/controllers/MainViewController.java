@@ -210,8 +210,11 @@ public class MainViewController {
             -fx-border-color:#16325c;
             """);
 
+        Label titreLabel = new Label(v.getTitre());
+        titreLabel.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        box.getChildren().add(titreLabel);
         box.getChildren().addAll(
-                new Label("Titre: " + v.getTitre()),
                 new Label("Prix: " + v.getPrix()),
                 new Label("Places: " + v.getNbPlaces()),
                 new Label("Statut: " + v.getStatut())
