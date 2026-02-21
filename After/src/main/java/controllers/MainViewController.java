@@ -164,7 +164,6 @@ public class MainViewController {
                 """);
 
         box.getChildren().addAll(
-                new Label("ID: " + v.getIdVoyage()),
                 new Label("Titre: " + v.getTitre()),
                 new Label("Prix: " + v.getPrix()),
                 new Label("Places: " + v.getNbPlaces()),
@@ -202,7 +201,6 @@ public class MainViewController {
         }
 
         box.getChildren().addAll(
-                new Label("ID: " + d.getId_destination()),
                 new Label("Pays: " + d.getPays()),
                 new Label("Ville: " + d.getVille()),
                 new Label("Continent: " + d.getContinent())
