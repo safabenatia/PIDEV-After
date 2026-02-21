@@ -19,13 +19,11 @@
 
             <TextField fx:id="idField" promptText="ID Destination" />
 
-            <Button onAction="#loadDestination" style="-fx-background-color:#16325c;" text="Charger" textFill="WHITE" />
-
             <TextField fx:id="paysField" promptText="Pays" />
             <TextField fx:id="villeField" promptText="Ville" />
             <TextField fx:id="continentField" promptText="Continent" />
-            <TextField fx:id="imageField" promptText="Image sélectionnée"/>
-            <Button text="Choisir Image" onAction="#chooseImage"/>
+            <TextField fx:id="imageField" promptText="Image sélectionnée" />
+            <Button onAction="#chooseImage" text="Choisir Image" />
 
 
             <Button onAction="#updateDestination" style="-fx-background-color:#16325c;" text="Modifier Destination" textFill="WHITE" />

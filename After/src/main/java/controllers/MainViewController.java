@@ -1,5 +1,6 @@
 package controllers;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -45,18 +46,12 @@ public class MainViewController {
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter voyage");
-        Button updateBtn = new Button("Modifier voyage");
-        Button deleteBtn = new Button("Supprimer voyage");
 
         addBtn.setOnAction(e -> showAddForm());
-        updateBtn.setOnAction(e -> showUpdateForm());
-        deleteBtn.setOnAction(e -> showDeleteForm());
 
         addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
-        updateBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
-        deleteBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
 
-        crudBox.getChildren().addAll(addBtn, updateBtn, deleteBtn);
+        crudBox.getChildren().addAll(addBtn);
 
         List<voyage> voyages = serviceVoyage.getAll();
 
@@ -88,18 +83,12 @@ public class MainViewController {
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter destination");
-        Button updateBtn = new Button("Modifier destination");
-        Button deleteBtn = new Button("Supprimer destination");
 
         addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
-        updateBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
-        deleteBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
 
         addBtn.setOnAction(e -> loadCenter("/AddDestination.fxml"));
-        updateBtn.setOnAction(e -> loadCenter("/UpdateDestination.fxml"));
-        deleteBtn.setOnAction(e -> loadCenter("/DeleteDestination.fxml"));
 
-        crudBox.getChildren().addAll(addBtn, updateBtn, deleteBtn);
+        crudBox.getChildren().addAll(addBtn);
 
         List<destination> destinations = serviceDestination.getAll();
 
@@ -124,7 +113,65 @@ public class MainViewController {
 
         mainContent.getChildren().setAll(container);
     }
+    private void openEditVoyage(voyage v) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateVoyage.fxml"));
+            Node node = loader.load();
+            UpdateVoyageController ctrl = loader.getController();
+            ctrl.setVoyage(v); // we'll pre-fill the form
+            mainContent.getChildren().setAll(node);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void openEditDestination(destination d) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateDestination.fxml"));
+            Node node = loader.load();
+            UpdateDestinationController ctrl = loader.getController();
+            ctrl.setDestination(d); // we'll pre-fill the form
+            mainContent.getChildren().setAll(node);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void confirmDeleteVoyage(voyage v) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer ce voyage ?");
+
+        ButtonType oui = new ButtonType("Oui");
+        ButtonType annuler = new ButtonType("Annuler");
+        alert.getButtonTypes().setAll(oui, annuler);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == oui) {
+                serviceVoyage.delete(v);
+                showVoyages();
+            }
+        });
+    }
+
+    private void confirmDeleteDestination(destination d) {
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir supprimer cette destination ?");
+
+        ButtonType oui = new ButtonType("Oui");
+        ButtonType annuler = new ButtonType("Annuler");
+        alert.getButtonTypes().setAll(oui, annuler);
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == oui) {
+                serviceDestination.delete(d);
+                showDestinations();
+            }
+        });
+    }
     @FXML
     public void handleSearch() {
 
@@ -156,12 +203,12 @@ public class MainViewController {
         VBox box = new VBox(8);
         box.setPrefWidth(250);
         box.setStyle("""
-                -fx-background-color:white;
-                -fx-padding:15;
-                -fx-background-radius:10;
-                -fx-border-radius:10;
-                -fx-border-color:#16325c;
-                """);
+            -fx-background-color:white;
+            -fx-padding:15;
+            -fx-background-radius:10;
+            -fx-border-radius:10;
+            -fx-border-color:#16325c;
+            """);
 
         box.getChildren().addAll(
                 new Label("Titre: " + v.getTitre()),
@@ -170,22 +217,32 @@ public class MainViewController {
                 new Label("Statut: " + v.getStatut())
         );
 
+        Button editBtn = new Button("✏️");
+        Button deleteBtn = new Button("🗑️");
+
+        editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
+
+        editBtn.setOnAction(e -> openEditVoyage(v));
+        deleteBtn.setOnAction(e -> confirmDeleteVoyage(v));
+
+        HBox actions = new HBox(10, editBtn, deleteBtn);
+        box.getChildren().add(actions);
+
         return box;
     }
 
     private VBox createDestinationCard(destination d) {
-
         VBox box = new VBox(10);
         box.setPrefWidth(250);
         box.setStyle("""
-            -fx-background-color:white;
-            -fx-padding:15;
-            -fx-background-radius:10;
-            -fx-border-radius:10;
-            -fx-border-color:#16325c;
-            """);
+        -fx-background-color:white;
+        -fx-padding:15;
+        -fx-background-radius:10;
+        -fx-border-radius:10;
+        -fx-border-color:#16325c;
+        """);
 
-        // IMAGE
         if (d.getImage() != null && !d.getImage().isEmpty()) {
             try {
                 Image image = new Image(d.getImage(), 200, 150, true, true);
@@ -193,7 +250,6 @@ public class MainViewController {
                 imageView.setFitWidth(200);
                 imageView.setFitHeight(150);
                 imageView.setPreserveRatio(true);
-
                 box.getChildren().add(imageView);
             } catch (Exception e) {
                 System.out.println("Image load failed");
@@ -206,9 +262,20 @@ public class MainViewController {
                 new Label("Continent: " + d.getContinent())
         );
 
+        Button editBtn = new Button("✏️");
+        Button deleteBtn = new Button("🗑️");
+
+        editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+        deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
+
+        editBtn.setOnAction(e -> openEditDestination(d));
+        deleteBtn.setOnAction(e -> confirmDeleteDestination(d));
+
+        HBox actions = new HBox(10, editBtn, deleteBtn);
+        box.getChildren().add(actions);
+
         return box;
     }
-
 
     @FXML
     public void showAddForm() {

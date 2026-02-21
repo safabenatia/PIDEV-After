@@ -50,7 +50,15 @@ public class UpdateVoyageController {
             }
         }
     }
-
+    public void setVoyage(voyage v) {
+        idField.setText(String.valueOf(v.getIdVoyage()));
+        titreField.setText(v.getTitre());
+        descriptionField.setText(v.getDescription());
+        prixField.setText(String.valueOf(v.getPrix()));
+        nbPlacesField.setText(String.valueOf(v.getNbPlaces()));
+        statutField.setText(v.getStatut());
+        idDestinationField.setText(String.valueOf(v.getIdDestination()));
+    }
     @FXML
     public void updateVoyage() {
 

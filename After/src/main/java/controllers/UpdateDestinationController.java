@@ -44,7 +44,14 @@ public class UpdateDestinationController {
             }
         }
     }
-
+    public void setDestination(destination d) {
+        idField.setText(String.valueOf(d.getId_destination()));
+        paysField.setText(d.getPays());
+        villeField.setText(d.getVille());
+        continentField.setText(d.getContinent());
+        selectedImagePath = d.getImage();
+        imageField.setText(d.getImage());
+    }
     @FXML
     public void updateDestination() {
 

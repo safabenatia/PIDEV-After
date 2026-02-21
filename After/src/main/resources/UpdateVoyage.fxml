@@ -18,8 +18,6 @@
 
             <TextField fx:id="idField" promptText="ID Voyage" />
 
-            <Button onAction="#loadVoyage" style="-fx-background-color: #16325c;" text="Charger" textFill="WHITE" />
-
             <TextField fx:id="titreField" promptText="Titre" />
             <TextField fx:id="descriptionField" promptText="Description" />
             <TextField fx:id="prixField" promptText="Prix" />
