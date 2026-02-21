@@ -15,7 +15,7 @@ public class ServiceVoyage implements Services <voyage>{
     }
     @Override
     public void add(voyage voyage) {
-        String req = "INSERT INTO `voyage`(`titre`, `description`, `date_debut`, `date_fin`, `prix`, `nb_places`, `statut`, `id_destination`) VALUES ('"+voyage.getTitre()+"','"+voyage.getDescription()+"','"+voyage.getDateDebut()+"','"+voyage.getDateFin()+"'," + voyage.getPrix() + ","+voyage.getNbPlaces()+",'"+voyage.getStatut()+"',"+voyage.getIdDestination()+")";
+        String req = "INSERT INTO `voyage`(`titre`, `description`, `date_debut`, `date_fin`, `prix`, `nb_places`, `image`, `id_destination`) VALUES ('"+voyage.getTitre()+"','"+voyage.getDescription()+"','"+voyage.getDateDebut()+"','"+voyage.getDateFin()+"'," + voyage.getPrix() + ","+voyage.getNbPlaces()+",'"+voyage.getImage()+"',"+voyage.getIdDestination()+")";
         try {
             Statement stm = cnx.createStatement();
             stm.executeUpdate(req);
@@ -42,7 +42,7 @@ public class ServiceVoyage implements Services <voyage>{
                 v.setDateFin(rs.getDate("date_fin"));
                 v.setPrix(rs.getDouble("prix"));
                 v.setNbPlaces(rs.getInt("nb_places"));
-                v.setStatut(rs.getString("statut"));
+                v.setImage(rs.getString("image"));
                 v.setIdDestination(rs.getInt("id_destination"));
 
                 voyages.add(v);
@@ -55,7 +55,7 @@ public class ServiceVoyage implements Services <voyage>{
 
     @Override
     public void update(voyage voyage) {
-        String req="UPDATE `voyage` SET `titre`='"+voyage.getTitre()+"',`description`='"+voyage.getDescription()+"',`date_debut`='"+voyage.getDateDebut()+"',`date_fin`='"+voyage.getDateFin()+"',`prix`='"+voyage.getPrix()+"',`nb_places`='"+voyage.getNbPlaces()+"',`statut`='"+voyage.getStatut()+"',`id_destination`='"+ voyage.getIdDestination()+"' WHERE id_voyage=" + voyage.getIdVoyage();
+        String req="UPDATE `voyage` SET `titre`='"+voyage.getTitre()+"',`description`='"+voyage.getDescription()+"',`date_debut`='"+voyage.getDateDebut()+"',`date_fin`='"+voyage.getDateFin()+"',`prix`='"+voyage.getPrix()+"',`nb_places`='"+voyage.getNbPlaces()+"',`image`='"+voyage.getImage()+"',`id_destination`='"+ voyage.getIdDestination()+"' WHERE id_voyage=" + voyage.getIdVoyage();
         try {
             Statement stm = cnx.createStatement();
             stm.executeUpdate(req);

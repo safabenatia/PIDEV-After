@@ -210,22 +210,32 @@ public class MainViewController {
             -fx-border-color:#16325c;
             """);
 
+        if (v.getImage() != null && !v.getImage().isEmpty()) {
+            try {
+                Image image = new Image(v.getImage(), 200, 150, true, true);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(200);
+                imageView.setFitHeight(150);
+                imageView.setPreserveRatio(true);
+                box.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.out.println("Image load failed");
+            }
+        }
+
         Label titreLabel = new Label(v.getTitre());
         titreLabel.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
         box.getChildren().add(titreLabel);
         box.getChildren().addAll(
                 new Label("Prix: " + v.getPrix()),
-                new Label("Places: " + v.getNbPlaces()),
-                new Label("Statut: " + v.getStatut())
+                new Label("Places: " + v.getNbPlaces())
         );
 
         Button editBtn = new Button("✏️");
         Button deleteBtn = new Button("🗑️");
-
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
-
         editBtn.setOnAction(e -> openEditVoyage(v));
         deleteBtn.setOnAction(e -> confirmDeleteVoyage(v));
 

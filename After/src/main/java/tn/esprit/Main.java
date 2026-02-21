@@ -94,7 +94,7 @@ public class Main {
                     System.out.print("description: ");
                     v.setDescription(sc.nextLine());
                     System.out.print("statut: ");
-                    v.setStatut(sc.nextLine());
+                    v.setImage(sc.nextLine());
                     System.out.print("nombre de place : ");
                     v.setNbPlaces(Integer.parseInt(sc.nextLine()));
                     System.out.print("id destination : ");
@@ -120,7 +120,7 @@ public class Main {
                                         voy.getDateDebut()  + " | " +
                                         voy.getDateFin()  + " | " +
                                         voy.getIdDestination()  + " | " +
-                                        voy.getStatut()  + " | " +
+                                        voy.getImage()  + " | " +
                                         voy.getDescription()
                         );
                     }
@@ -136,7 +136,7 @@ public class Main {
                     System.out.print("description: ");
                     vo.setDescription(sc.nextLine());
                     System.out.print("statut: ");
-                    vo.setStatut(sc.nextLine());
+                    vo.setImage(sc.nextLine());
                     System.out.print("nombre de place : ");
                     vo.setNbPlaces(Integer.parseInt(sc.nextLine()));
                     System.out.print("id destination : ");

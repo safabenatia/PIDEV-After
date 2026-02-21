@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import models.voyage;
 import services.ServiceVoyage;
 import javafx.scene.control.Alert;
 
+import java.io.File;
 import java.sql.Date;
 import java.util.List;
 
@@ -25,10 +27,10 @@ public class UpdateVoyageController {
     @FXML
     private TextField nbPlacesField;
     @FXML
-    private TextField statutField;
+    private TextField imageField ;
     @FXML
     private TextField idDestinationField;
-
+    private String selectedImagePath;
     private ServiceVoyage serviceVoyage = new ServiceVoyage();
 
     @FXML
@@ -44,7 +46,7 @@ public class UpdateVoyageController {
                 descriptionField.setText(v.getDescription());
                 prixField.setText(String.valueOf(v.getPrix()));
                 nbPlacesField.setText(String.valueOf(v.getNbPlaces()));
-                statutField.setText(v.getStatut());
+                imageField .setText(v.getImage());
                 idDestinationField.setText(String.valueOf(v.getIdDestination()));
                 break;
             }
@@ -56,8 +58,25 @@ public class UpdateVoyageController {
         descriptionField.setText(v.getDescription());
         prixField.setText(String.valueOf(v.getPrix()));
         nbPlacesField.setText(String.valueOf(v.getNbPlaces()));
-        statutField.setText(v.getStatut());
+        imageField .setText(v.getImage());
         idDestinationField.setText(String.valueOf(v.getIdDestination()));
+    }
+    @FXML
+    public void chooseImage() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (file != null) {
+            selectedImagePath = file.toURI().toString();
+            imageField.setText(file.getAbsolutePath());
+        }
     }
     @FXML
     public void updateVoyage() {
@@ -111,7 +130,11 @@ public class UpdateVoyageController {
         v.setDescription(descriptionField.getText());
         v.setPrix(prix);
         v.setNbPlaces(nbPlaces);
-        v.setStatut(statutField.getText());
+        if (selectedImagePath != null) {
+            v.setImage(selectedImagePath);
+        } else {
+            v.setImage(imageField.getText()); // already a file:// URI from DB
+        }
         v.setIdDestination(idDestination);
 
         v.setDateDebut(java.sql.Date.valueOf("2026-03-01"));

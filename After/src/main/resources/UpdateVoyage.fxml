@@ -22,7 +22,8 @@
             <TextField fx:id="descriptionField" promptText="Description" />
             <TextField fx:id="prixField" promptText="Prix" />
             <TextField fx:id="nbPlacesField" promptText="Nombre Places" />
-            <TextField fx:id="statutField" promptText="Statut" />
+            <TextField fx:id="imageField" promptText="Image sélectionnée"/>
+            <Button text="Choisir Image" onAction="#chooseImage"/>
             <TextField fx:id="idDestinationField" promptText="ID Destination" />
 
             <Button onAction="#updateVoyage" style="-fx-background-color: #16325c;" text=" Modifier voyage" textFill="WHITE" />

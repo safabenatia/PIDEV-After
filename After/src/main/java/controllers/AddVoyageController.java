@@ -5,10 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import models.voyage;
 import services.ServiceVoyage;
 import javafx.scene.control.Alert;
 
+import java.io.File;
 import java.sql.Date;
 
 public class AddVoyageController {
@@ -17,9 +19,9 @@ public class AddVoyageController {
     @FXML private TextField descriptionField;
     @FXML private TextField prixField;
     @FXML private TextField nbPlacesField;
-    @FXML private TextField statutField;
+    @FXML private TextField imageField ;
     @FXML private TextField idDestinationField;
-
+    private String selectedImagePath;
     private ServiceVoyage serviceVoyage = new ServiceVoyage();
 
     @FXML
@@ -65,7 +67,7 @@ public class AddVoyageController {
         v.setDescription(descriptionField.getText());
         v.setPrix(prix);
         v.setNbPlaces(nbPlaces);
-        v.setStatut(statutField.getText());
+        v.setImage(selectedImagePath);
         v.setIdDestination(idDestination);
 
         v.setDateDebut(new java.sql.Date(System.currentTimeMillis()));
@@ -83,18 +85,36 @@ public class AddVoyageController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+    @FXML
+    public void chooseImage() {
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choisir une image");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(imageField.getScene().getWindow());
+
+        if (file != null) {
+            selectedImagePath = file.toURI().toString();
+            imageField.setText(file.getAbsolutePath());
+        }
+    }
 
 
     @FXML
     public void goBack() {
         try {
-            StackPane mainContent = (StackPane) titreField.getScene().lookup("#mainContent");
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
 
-            mainContent.getChildren().clear();
-            mainContent.getChildren().add(root.lookup("#mainContent"));
+            MainViewController controller = loader.getController();
+            controller.showVoyages();
+
+            StackPane mainContent = (StackPane) titreField.getScene().lookup("#mainContent");
+            mainContent.getChildren().setAll(root.lookup("#mainContent"));
 
         } catch (Exception e) {
             e.printStackTrace();

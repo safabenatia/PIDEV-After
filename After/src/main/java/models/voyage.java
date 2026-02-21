@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class voyage {
     private int idVoyage,nbPlaces,idDestination;
-    private String titre,description,statut;
+    private String titre,description,image;
     private Date dateDebut,dateFin;
     private double prix;
 
@@ -17,7 +17,7 @@ public class voyage {
         this.idDestination = idDestination;
         this.titre = titre;
         this.description = description;
-        this.statut = statut;
+        this.image = statut;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.prix = prix;
@@ -63,12 +63,12 @@ public class voyage {
         this.description = description;
     }
 
-    public String getStatut() {
-        return statut;
+    public String getImage() {
+        return image;
     }
 
-    public void setStatut(String statut) {
-        this.statut = statut;
+    public void setImage(String statut) {
+        this.image = statut;
     }
 
     public Date getDateDebut() {
@@ -103,7 +103,7 @@ public class voyage {
                 ", idDestination=" + idDestination +
                 ", titre='" + titre + '\'' +
                 ", description='" + description + '\'' +
-                ", statut='" + statut + '\'' +
+                ", image='" + image + '\'' +
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", prix=" + prix +
