@@ -38,6 +38,8 @@ public class MainViewController {
     private RestCountriesService restCountriesService = new RestCountriesService();
     private ExchangeRateService exchangeRateService = new ExchangeRateService();
     private PdfExportService pdfExportService = new PdfExportService();
+    private FavoritesService favoritesService = new FavoritesService();
+
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -72,9 +74,12 @@ public class MainViewController {
         sortBtn.setOnAction(e -> {
             ascending[0] = !ascending[0];
             sortBtn.setText(ascending[0] ? "Trier par date ↑" : "Trier par date ↓");
-            voyages.sort((a, b) -> ascending[0]
-                    ? a.getDateDebut().compareTo(b.getDateDebut())
-                    : b.getDateDebut().compareTo(a.getDateDebut()));
+            voyages.sort((a, b) -> {
+                if (a.getDateDebut() == null || b.getDateDebut() == null) return 0;
+                return ascending[0]
+                        ? a.getDateDebut().compareTo(b.getDateDebut())
+                        : b.getDateDebut().compareTo(a.getDateDebut());
+            });
             grid.getChildren().clear();
             for (voyage vv : voyages) grid.getChildren().add(createVoyageCard(vv));
         });
@@ -295,16 +300,29 @@ public class MainViewController {
             });
         }).start();
 
-        Button editBtn = new Button("✏️");
-        Button deleteBtn = new Button("🗑️");
-        Button pdfBtn = new Button("📄");
+        Button editBtn = new Button("✎");
+        Button deleteBtn = new Button("✖");
+        Button pdfBtn = new Button("⬇ PDF");
+        Button favBtn = new Button(favoritesService.isFavorite(v) ? "❤" : "♡");
 
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
         pdfBtn.setStyle("-fx-background-color:#27ae60; -fx-text-fill:white;");
+        favBtn.setStyle("-fx-background-color:white; -fx-border-color:#c0392b; -fx-border-radius:5;");
 
         editBtn.setOnAction(e -> openEditVoyage(v));
         deleteBtn.setOnAction(e -> confirmDeleteVoyage(v));
+
+        favBtn.setOnAction(e -> {
+            if (favoritesService.isFavorite(v)) {
+                favoritesService.removeFavorite(v);
+                favBtn.setText("♡");
+            } else {
+                favoritesService.addFavorite(v);
+                favBtn.setText("❤");
+            }
+        });
+
         pdfBtn.setOnAction(e -> {
             javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
             fileChooser.setTitle("Enregistrer le PDF");
@@ -323,10 +341,44 @@ public class MainViewController {
             }
         });
 
-        HBox actions = new HBox(10, editBtn, deleteBtn, pdfBtn);
+        HBox actions = new HBox(10, editBtn, deleteBtn, pdfBtn, favBtn);
         box.getChildren().add(actions);
 
         return box;
+    }
+    @FXML
+    public void showFavorites() {
+        currentView = "favorites";
+        crudBox.getChildren().clear();
+
+        List<voyage> favs = favoritesService.getFavorites();
+
+        TilePane grid = new TilePane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        grid.setPrefColumns(3);
+
+        if (favs.isEmpty()) {
+            Label empty = new Label("Aucun voyage en favoris pour le moment 💔");
+            empty.setStyle("-fx-font-size:16px; -fx-text-fill:#16325c;");
+            grid.getChildren().add(empty);
+        } else {
+            for (voyage v : favs) {
+                grid.getChildren().add(createVoyageCard(v));
+            }
+        }
+
+        Label header = new Label("Mes Favoris ♥");
+        header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label subHeader = new Label("Vos voyages préférés");
+        subHeader.setStyle("-fx-font-size:16px; -fx-text-fill:#16325c;");
+
+        VBox container = new VBox(20);
+        container.setStyle("-fx-padding:20;");
+        container.getChildren().addAll(header, subHeader, grid);
+
+        mainContent.getChildren().setAll(container);
     }
     private VBox createDestinationCard(destination d) {
         VBox box = new VBox(10);
@@ -397,8 +449,8 @@ public class MainViewController {
             });
         }).start();
 
-        Button editBtn = new Button("✏️");
-        Button deleteBtn = new Button("🗑️");
+        Button editBtn = new Button("✎");
+        Button deleteBtn = new Button("✖");
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
         editBtn.setOnAction(e -> openEditDestination(d));

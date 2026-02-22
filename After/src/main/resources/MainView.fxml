@@ -19,7 +19,7 @@
             <Pane HBox.hgrow="ALWAYS" />
 
             <TextField fx:id="searchField" promptText="Rechercher..." />
-
+            <Button onAction="#showFavorites" text="♥ Favoris" />
             <Button onAction="#showVoyages" text="Voyages" />
             <Button onAction="#showDestinations" text="Destinations" />
 
