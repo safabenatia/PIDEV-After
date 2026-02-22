@@ -43,7 +43,7 @@ public class AfficherDocumentController {
         afficherCartes(documents);
     }
 
-    private void afficherCartes(List<Document> docs) {
+    void afficherCartes(List<Document> docs) {
 
         containerDocuments.getChildren().clear();
 
@@ -189,10 +189,7 @@ public class AfficherDocumentController {
 
             Parent root = loader.load();
 
-            // 🔥 RÉCUPÉRER LE CONTROLLER
             ModifierDocumentController controller = loader.getController();
-
-            // 🔥 PASSER LE DOCUMENT AU CONTROLLER
             controller.setDocument(documentSelectionne);
 
             Stage stage = new Stage();
@@ -200,7 +197,7 @@ public class AfficherDocumentController {
             stage.setTitle("Modifier Document");
             stage.showAndWait();
 
-            afficherCartes(); // refresh après modification
+            loadDocuments(); // ✅ refresh
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,6 +205,7 @@ public class AfficherDocumentController {
     }
 
     private void afficherCartes() {
+        loadDocuments();
     }
 
     public void refresh() {

@@ -3,7 +3,6 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
-
 import models.CategorieDocument;
 import models.Document;
 import services.serviceDocument;
@@ -27,13 +26,20 @@ public class DocumentsParCategorieController {
 
         containerDocuments.getChildren().clear();
 
+        if (docs.isEmpty()) {
+            javafx.scene.control.Label empty =
+                    new javafx.scene.control.Label("Aucun document dans cette catégorie");
+            containerDocuments.getChildren().add(empty);
+            return;
+        }
+
         for (Document doc : docs) {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/DocumentCard.fxml"));
                 VBox card = loader.load();
 
                 DocumentCardController controller = loader.getController();
-                controller.setData(doc, parent); // ⭐ CORRECTION ICI
+                controller.setData(doc, parent);
 
                 containerDocuments.getChildren().add(card);
 
