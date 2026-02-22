@@ -316,7 +316,15 @@ public class MainViewController {
             }
         }
 
-        mainContent.getChildren().setAll(grid);
+        if (grid.getChildren().isEmpty()) {
+            Label noResult = new Label("Aucun résultat trouvé pour : \"" + keyword + "\"");
+            noResult.setStyle("-fx-font-size:16px; -fx-text-fill:#c0392b; -fx-font-style:italic;");
+            VBox noResultBox = new VBox(noResult);
+            noResultBox.setStyle("-fx-padding:40; -fx-alignment:center;");
+            mainContent.getChildren().setAll(noResultBox);
+        } else {
+            mainContent.getChildren().setAll(grid);
+        }
     }
 
     private VBox createVoyageCard(voyage v) {
@@ -444,7 +452,8 @@ public class MainViewController {
 
         HBox actions = new HBox(10, editBtn, deleteBtn, pdfBtn, favBtn);
         box.getChildren().add(actions);
-
+        box.setOnMouseClicked(e -> showVoyageDetails(v));
+        box.setStyle(box.getStyle() + "-fx-cursor:hand;");
         return box;
     }
     @FXML
@@ -559,9 +568,164 @@ public class MainViewController {
 
         HBox actions = new HBox(10, editBtn, deleteBtn);
         box.getChildren().add(actions);
-
+        box.setOnMouseClicked(e -> showDestinationDetails(d));
+        box.setStyle(box.getStyle() + "-fx-cursor:hand;");
         return box;
     }
+    private void showVoyageDetails(voyage v) {
+        javafx.scene.control.Dialog<Void> dialog = new javafx.scene.control.Dialog<>();
+        dialog.setTitle("Details du Voyage");
+        dialog.setHeaderText(null);
+
+        // close button
+        dialog.getDialogPane().getButtonTypes().add(javafx.scene.control.ButtonType.CLOSE);
+
+        VBox content = new VBox(15);
+        content.setStyle("-fx-padding:20; -fx-background-color:white;");
+        content.setPrefWidth(450);
+
+        // image
+        if (v.getImage() != null && !v.getImage().isEmpty()) {
+            try {
+                Image image = new Image(v.getImage(), 400, 200, true, true);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(400);
+                imageView.setFitHeight(200);
+                imageView.setPreserveRatio(true);
+                content.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.out.println("Image load failed");
+            }
+        }
+
+        // title
+        Label titreLabel = new Label(v.getTitre());
+        titreLabel.setStyle("-fx-font-size:22px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        // separator
+        javafx.scene.control.Separator sep = new javafx.scene.control.Separator();
+
+        // details
+        Label descLabel = new Label("Description: " + v.getDescription());
+        descLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#444; -fx-wrap-text:true;");
+        descLabel.setMaxWidth(400);
+
+        Label dateLabel = new Label("Date: " + v.getDateDebut() + "  ->  " + v.getDateFin());
+        dateLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+
+        Label prixLabel = new Label("Prix: " + v.getPrix() + " TND");
+        prixLabel.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        // conversion
+        Label convLabel = new Label("Conversion: chargement...");
+        convLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#888;");
+
+        new Thread(() -> {
+            double eur = exchangeRateService.convertToEUR(v.getPrix());
+            double usd = exchangeRateService.convertToUSD(v.getPrix());
+            javafx.application.Platform.runLater(() -> {
+                if (eur != 0 && usd != 0) {
+                    convLabel.setText("Conversion: " + eur + " EUR  |  " + usd + " USD");
+                } else {
+                    convLabel.setText("Conversion: indisponible");
+                }
+            });
+        }).start();
+
+        Label placesLabel = new Label("Places disponibles: " + v.getNbPlaces());
+        placesLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+
+        Label favLabel = new Label(favoritesService.isFavorite(v) ? "♥ Dans vos favoris" : "♡ Pas dans vos favoris");
+        favLabel.setStyle("-fx-font-size:13px; -fx-text-fill:" +
+                (favoritesService.isFavorite(v) ? "#c0392b;" : "#888;"));
+
+        content.getChildren().addAll(
+                titreLabel, sep, descLabel, dateLabel,
+                prixLabel, convLabel, placesLabel, favLabel
+        );
+
+        dialog.getDialogPane().setContent(content);
+        dialog.getDialogPane().setStyle("-fx-background-color:white;");
+        dialog.showAndWait();
+    }
+    private void showDestinationDetails(destination d) {
+        javafx.scene.control.Dialog<Void> dialog = new javafx.scene.control.Dialog<>();
+        dialog.setTitle("Details de la Destination");
+        dialog.setHeaderText(null);
+
+        dialog.getDialogPane().getButtonTypes().add(javafx.scene.control.ButtonType.CLOSE);
+
+        VBox content = new VBox(15);
+        content.setStyle("-fx-padding:20; -fx-background-color:white;");
+        content.setPrefWidth(450);
+
+        // image
+        if (d.getImage() != null && !d.getImage().isEmpty()) {
+            try {
+                Image image = new Image(d.getImage(), 400, 200, true, true);
+                ImageView imageView = new ImageView(image);
+                imageView.setFitWidth(400);
+                imageView.setFitHeight(200);
+                imageView.setPreserveRatio(true);
+                content.getChildren().add(imageView);
+            } catch (Exception e) {
+                System.out.println("Image load failed");
+            }
+        }
+
+        Label paysLabel = new Label(d.getPays());
+        paysLabel.setStyle("-fx-font-size:22px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        javafx.scene.control.Separator sep = new javafx.scene.control.Separator();
+
+        Label villeLabel = new Label("Ville: " + d.getVille());
+        villeLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+
+        Label continentLabel = new Label("Continent: " + d.getContinent());
+        continentLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+
+        // API data placeholders
+        Label capitalLabel = new Label("Capitale: chargement...");
+        Label currencyLabel = new Label("Devise: chargement...");
+        Label languageLabel = new Label("Langue: chargement...");
+        ImageView flagView = new ImageView();
+        flagView.setFitWidth(60);
+        flagView.setFitHeight(40);
+
+        capitalLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+        currencyLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+        languageLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+
+        new Thread(() -> {
+            String flag = restCountriesService.getFlag(d.getPays());
+            String capital = restCountriesService.getCapital(d.getPays());
+            String currency = restCountriesService.getCurrency(d.getPays());
+            String language = restCountriesService.getLanguage(d.getPays());
+
+            javafx.application.Platform.runLater(() -> {
+                if (!flag.isEmpty()) {
+                    try {
+                        flagView.setImage(new Image(flag, 60, 40, true, true));
+                    } catch (Exception e) {
+                        System.out.println("Flag load failed");
+                    }
+                }
+                capitalLabel.setText("Capitale: " + (capital.isEmpty() ? "N/A" : capital));
+                currencyLabel.setText("Devise: " + (currency.isEmpty() ? "N/A" : currency));
+                languageLabel.setText("Langue: " + (language.isEmpty() ? "N/A" : language));
+            });
+        }).start();
+
+        content.getChildren().addAll(
+                paysLabel, sep, villeLabel, continentLabel,
+                flagView, capitalLabel, currencyLabel, languageLabel
+        );
+
+        dialog.getDialogPane().setContent(content);
+        dialog.getDialogPane().setStyle("-fx-background-color:white;");
+        dialog.showAndWait();
+    }
+
     @FXML
     public void showAddForm() {
         loadCenter("/AddVoyage.fxml");
