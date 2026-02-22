@@ -170,7 +170,80 @@ public class MainViewController {
             e.printStackTrace();
         }
     }
+    @FXML
+    public void showRecommendations() {
+        currentView = "recommendations";
+        crudBox.getChildren().clear();
 
+        List<voyage> favs = favoritesService.getFavorites();
+        List<voyage> allVoyages = serviceVoyage.getAll();
+        List<voyage> recommendations = new ArrayList<>();
+
+        if (favs.isEmpty()) {
+            // no favorites yet — show cheapest voyages
+            allVoyages.sort((a, b) -> Double.compare(a.getPrix(), b.getPrix()));
+            recommendations = allVoyages.stream().limit(3).collect(java.util.stream.Collectors.toList());
+        } else {
+            // calculate average price of favorites
+            double avgPrix = favs.stream().mapToDouble(voyage::getPrix).average().orElse(0);
+
+            // find voyages not in favorites with similar price (within 30% range)
+            for (voyage v : allVoyages) {
+                boolean alreadyFav = favs.stream().anyMatch(f -> f.getIdVoyage() == v.getIdVoyage());
+                if (!alreadyFav) {
+                    double diff = Math.abs(v.getPrix() - avgPrix);
+                    if (diff <= avgPrix * 0.30) {
+                        recommendations.add(v);
+                    }
+                }
+            }
+
+            // if not enough recommendations, fill with cheapest non-favorite voyages
+            if (recommendations.size() < 3) {
+                for (voyage v : allVoyages) {
+                    boolean alreadyFav = favs.stream().anyMatch(f -> f.getIdVoyage() == v.getIdVoyage());
+                    boolean alreadyAdded = recommendations.stream().anyMatch(r -> r.getIdVoyage() == v.getIdVoyage());
+                    if (!alreadyFav && !alreadyAdded) {
+                        recommendations.add(v);
+                    }
+                    if (recommendations.size() >= 6) break;
+                }
+            }
+        }
+
+        TilePane grid = new TilePane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        grid.setPrefColumns(3);
+
+        if (recommendations.isEmpty()) {
+            Label empty = new Label("Ajoutez des favoris pour recevoir des recommandations !");
+            empty.setStyle("-fx-font-size:14px; -fx-text-fill:#16325c;");
+            grid.getChildren().add(empty);
+        } else {
+            for (voyage v : recommendations) {
+                grid.getChildren().add(createVoyageCard(v));
+            }
+        }
+
+        Label header = new Label("Voyages Recommandes pour vous");
+        header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label subHeader;
+        if (favs.isEmpty()) {
+            subHeader = new Label("Les voyages les moins chers pour commencer");
+        } else {
+            double avg = favs.stream().mapToDouble(voyage::getPrix).average().orElse(0);
+            subHeader = new Label("Bases sur vos favoris - budget moyen: " + Math.round(avg) + " TND");
+        }
+        subHeader.setStyle("-fx-font-size:14px; -fx-text-fill:#16325c; -fx-font-style:italic;");
+
+        VBox container = new VBox(20);
+        container.setStyle("-fx-padding:20;");
+        container.getChildren().addAll(header, subHeader, grid);
+
+        mainContent.getChildren().setAll(container);
+    }
     private void confirmDeleteVoyage(voyage v) {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setTitle("Confirmation");
