@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -178,16 +179,35 @@ public class AfficherDocumentController {
 
 
 
-    private void modifierDocument(Document doc) {
+    @FXML
+    private void modifierDocument(Document documentSelectionne) {
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ModifierDocument.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/ModifierDocument.fxml")
+            );
+
+            Parent root = loader.load();
+
+            // 🔥 RÉCUPÉRER LE CONTROLLER
+            ModifierDocumentController controller = loader.getController();
+
+            // 🔥 PASSER LE DOCUMENT AU CONTROLLER
+            controller.setDocument(documentSelectionne);
+
             Stage stage = new Stage();
-            stage.setScene(new javafx.scene.Scene(loader.load()));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modifier Document");
             stage.showAndWait();
-            loadDocuments();
+
+            afficherCartes(); // refresh après modification
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void afficherCartes() {
     }
 
     public void refresh() {

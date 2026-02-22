@@ -9,6 +9,7 @@ import models.Document;
 import models.CategorieDocument;
 import services.serviceDocument;
 import services.serviceCategorieDocument;
+import services.MailService;
 
 import java.io.File;
 import java.sql.Date;
@@ -25,57 +26,44 @@ public class AjouterDocumentController {
 
     private final serviceDocument docService = new serviceDocument();
     private final serviceCategorieDocument catService = new serviceCategorieDocument();
+    private final MailService mailService = new MailService();
 
     @FXML
     public void initialize() {
 
-        // Charger catégories
         List<CategorieDocument> categories = catService.getAll();
         cbCategorie.getItems().addAll(categories);
         cbCategorie.setEditable(true);
 
-        // ===============================
-        // 🔹 Désactiver dates avant aujourd'hui pour date d'ajout
-        // ===============================
+        // Désactiver dates avant aujourd'hui
         dpAjout.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-
                 if (empty || date == null) return;
-
                 if (date.isBefore(LocalDate.now())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #ffc0cb;");
                 }
             }
         });
 
-        // ===============================
-        // 🔹 Désactiver dates avant date d'ajout pour expiration
-        // ===============================
+        // Désactiver expiration avant date ajout
         dpExpiration.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-
                 if (empty || date == null || dpAjout.getValue() == null) return;
-
                 if (date.isBefore(dpAjout.getValue())) {
                     setDisable(true);
-                    setStyle("-fx-background-color: #ffc0cb;");
                 }
             }
         });
     }
 
-    // ===============================
-    // 📂 Choisir fichier
-    // ===============================
     @FXML
     private void choisirFichier() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choisir un document de voyage");
+        fileChooser.setTitle("Choisir un document");
 
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
@@ -83,13 +71,9 @@ public class AjouterDocumentController {
         }
     }
 
-    // ===============================
-    // ➕ Ajouter document
-    // ===============================
     @FXML
     private void ajouterDocument() {
 
-        // Vérification champs obligatoires
         if (txtNom.getText().isEmpty()
                 || txtChemin.getText().isEmpty()
                 || dpAjout.getValue() == null) {
@@ -100,7 +84,6 @@ public class AjouterDocumentController {
             return;
         }
 
-        // Vérifier date ajout >= aujourd'hui
         if (dpAjout.getValue().isBefore(LocalDate.now())) {
             showAlert(Alert.AlertType.ERROR,
                     "Erreur Date",
@@ -108,7 +91,6 @@ public class AjouterDocumentController {
             return;
         }
 
-        // Vérifier expiration > ajout
         if (dpExpiration.getValue() != null &&
                 dpExpiration.getValue().isBefore(dpAjout.getValue())) {
 
@@ -127,23 +109,19 @@ public class AjouterDocumentController {
             return;
         }
 
-        // Vérifier si catégorie existe
         CategorieDocument categorie = catService.getAll().stream()
                 .filter(c -> c.getLibelle().equalsIgnoreCase(nomCategorie))
                 .findFirst()
                 .orElse(null);
 
-        // Si catégorie n'existe pas → créer nouvelle
         if (categorie == null) {
             categorie = new CategorieDocument();
             categorie.setLibelle(nomCategorie);
             categorie.setDescription("Document de voyage");
-
             catService.add(categorie);
             cbCategorie.getItems().add(categorie);
         }
 
-        // Créer document
         Document document = new Document(
                 0,
                 txtNom.getText(),
@@ -157,16 +135,20 @@ public class AjouterDocumentController {
 
         docService.add(document);
 
+        // ✅ Envoi Email
+        mailService.sendMail(
+                "mahdi.bribech12@gmail.com",
+                "Nouveau document ajouté ✈",
+                "Le document \"" + txtNom.getText() + "\" a été ajouté avec succès."
+        );
+
         showAlert(Alert.AlertType.INFORMATION,
                 "Succès",
-                "Document ajouté avec succès ✔");
+                "Document ajouté avec succès ✔\nEmail envoyé 📩");
 
         clearFields();
     }
 
-    // ===============================
-    // 🔄 Reset champs
-    // ===============================
     private void clearFields() {
         txtNom.clear();
         txtChemin.clear();
@@ -176,9 +158,6 @@ public class AjouterDocumentController {
         cbCategorie.getEditor().clear();
     }
 
-    // ===============================
-    // 🔔 Alert helper
-    // ===============================
     private void showAlert(Alert.AlertType type, String titre, String msg) {
         Alert alert = new Alert(type);
         alert.setTitle(titre);
