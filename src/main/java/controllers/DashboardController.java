@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
+    // ==================== LABELS STATISTIQUES ====================
     @FXML
     private Label dateLabel;
 
@@ -30,12 +31,24 @@ public class DashboardController implements Initializable {
     @FXML
     private Label totalOffres;
 
+    // ==================== LABELS DES CARTES ====================
+    @FXML
+    private Label totalServicesCard;  // Pour la carte Services
+
+    @FXML
+    private Label totalOffresCard;    // Pour la carte Offres
+
+    // ==================== BOUTONS DE FENÊTRE ====================
     @FXML
     private Button minimizeButton;
 
     @FXML
+    private Button maximizeButton;
+
+    @FXML
     private Button closeButton;
 
+    // ==================== SERVICES ====================
     private ServiceService serviceService = new ServiceService();
     private OffreService offreService = new OffreService();
 
@@ -59,7 +72,11 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Configure les boutons de la barre de titre
+     */
     private void setupWindowButtons() {
+        // Bouton MINIMISER
         if (minimizeButton != null) {
             minimizeButton.setOnAction(event -> {
                 Stage stage = (Stage) minimizeButton.getScene().getWindow();
@@ -67,6 +84,21 @@ public class DashboardController implements Initializable {
             });
         }
 
+        // Bouton MAXIMISER / RESTAURER
+        if (maximizeButton != null) {
+            maximizeButton.setOnAction(event -> {
+                Stage stage = (Stage) maximizeButton.getScene().getWindow();
+                if (stage.isMaximized()) {
+                    stage.setMaximized(false);
+                    maximizeButton.setText("□");  // Symbole agrandir
+                } else {
+                    stage.setMaximized(true);
+                    maximizeButton.setText("❐");  // Symbole restaurer
+                }
+            });
+        }
+
+        // Bouton FERMER
         if (closeButton != null) {
             closeButton.setOnAction(event -> {
                 Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -75,22 +107,39 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Charge les statistiques depuis la base de données
+     */
     private void chargerStatistiques() {
         try {
             int nbServices = serviceService.getAll().size();
             int nbOffres = offreService.getAll().size();
 
+            // Mise à jour des labels principaux
             totalServices.setText(String.valueOf(nbServices));
             totalOffres.setText(String.valueOf(nbOffres));
+
+            // Mise à jour des labels dans les cartes
+            if (totalServicesCard != null) {
+                totalServicesCard.setText(nbServices + " services");
+            }
+            if (totalOffresCard != null) {
+                totalOffresCard.setText(nbOffres + " promotions");
+            }
 
             System.out.println("📊 Statistiques: " + nbServices + " services, " + nbOffres + " offres");
         } catch (Exception e) {
             totalServices.setText("0");
             totalOffres.setText("0");
+            if (totalServicesCard != null) totalServicesCard.setText("0 services");
+            if (totalOffresCard != null) totalOffresCard.setText("0 promotions");
             System.out.println("⚠️ Erreur chargement stats: " + e.getMessage());
         }
     }
 
+    /**
+     * Ouvre la gestion des services
+     */
     @FXML
     private void handleServices() {
         try {
@@ -118,6 +167,9 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Ouvre la gestion des offres
+     */
     @FXML
     private void handleOffres() {
         try {
@@ -145,6 +197,26 @@ public class DashboardController implements Initializable {
         }
     }
 
+    /**
+     * Ouvre les statistiques
+     */
+    @FXML
+    private void handleStats() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/stats.fxml"));
+            Stage stage = (Stage) totalServices.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("AFTER Travel - Statistiques");
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir les statistiques");
+        }
+    }
+
+    /**
+     * Affiche une alerte d'erreur
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

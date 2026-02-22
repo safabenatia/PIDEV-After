@@ -6,19 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.paint.Color?>
 
 <AnchorPane prefHeight="750" prefWidth="1200" stylesheets="@style.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
 
-    <!-- FOND CLAIR (comme gestion offres) -->
+    <!-- FOND CLAIR -->
     <Rectangle width="1200" height="750" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0">
         <fill>
             <LinearGradient>
@@ -31,14 +28,15 @@
         </fill>
     </Rectangle>
 
-    <!-- BARRE DE TITRE (minimiser/fermer) -->
+    <!-- BARRE DE TITRE COMPLÈTE -->
     <HBox style="-fx-background-color: #16325c; -fx-padding: 8 25; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="50">
         <Region HBox.hgrow="ALWAYS" />
         <Label text="AFTER Travel - Dashboard" style="-fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold;" />
         <Region HBox.hgrow="ALWAYS" />
         <HBox spacing="10">
-            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-cursor: hand;" />
-            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-cursor: hand;" />
+            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Button fx:id="maximizeButton" text="□" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-font-weight: bold; -fx-cursor: hand;" />
         </HBox>
     </HBox>
 
@@ -62,7 +60,7 @@
             <VBox alignment="CENTER" spacing="5" prefWidth="200">
                 <Label text="📊" style="-fx-font-size: 28px;" />
                 <Label text="Services" style="-fx-text-fill: #16325c; -fx-font-size: 16px; -fx-font-weight: bold;" />
-                <Label fx:id="totalServices" text="6" style="-fx-text-fill: #16325c; -fx-font-size: 32px; -fx-font-weight: bold;" />
+                <Label fx:id="totalServices" text="7" style="-fx-text-fill: #16325c; -fx-font-size: 32px; -fx-font-weight: bold;" />
                 <Label text="prestations disponibles" style="-fx-text-fill: #666; -fx-font-size: 11px;" />
             </VBox>
 
@@ -103,17 +101,14 @@
 
             <!-- CARTE SERVICES -->
             <VBox style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" onMouseClicked="#handleServices" prefWidth="350" prefHeight="280">
-
                 <StackPane prefHeight="100" style="-fx-background-color: #16325c; -fx-background-radius: 20 20 0 0;">
                     <Label text="🏨" style="-fx-font-size: 48px;" />
                 </StackPane>
-
                 <VBox spacing="12" style="-fx-padding: 20;">
                     <Label text="Gestion des Services" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                     <Label text="Hébergement · Transport · Activités · Guides" style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-wrap-text: true;" />
-
-                    <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10 0 0 0;">
-                        <Label fx:id="totalServices" text="6 services" style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                    <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Label fx:id="totalServicesCard" text="7 services" style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-weight: bold;" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button text="Accéder →" style="-fx-background-color: #16325c; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;" />
                     </HBox>
@@ -122,17 +117,30 @@
 
             <!-- CARTE OFFRES -->
             <VBox style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" onMouseClicked="#handleOffres" prefWidth="350" prefHeight="280">
-
                 <StackPane prefHeight="100" style="-fx-background-color: #16325c; -fx-background-radius: 20 20 0 0;">
                     <Label text="🏷️" style="-fx-font-size: 48px;" />
                 </StackPane>
-
                 <VBox spacing="12" style="-fx-padding: 20;">
                     <Label text="Gestion des Offres" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                     <Label text="Promotions · Packs exclusifs · Offres saisonnières" style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-wrap-text: true;" />
+                    <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Label fx:id="totalOffresCard" text="3 promotions" style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-weight: bold;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button text="Accéder →" style="-fx-background-color: #16325c; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;" />
+                    </HBox>
+                </VBox>
+            </VBox>
 
-                    <HBox alignment="CENTER" spacing="10" style="-fx-padding: 10 0 0 0;">
-                        <Label fx:id="totalOffres" text="3 promotions" style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-weight: bold;" />
+            <!-- CARTE STATISTIQUES -->
+            <VBox style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" onMouseClicked="#handleStats" prefWidth="350" prefHeight="280">
+                <StackPane prefHeight="100" style="-fx-background-color: #16325c; -fx-background-radius: 20 20 0 0;">
+                    <Label text="📊" style="-fx-font-size: 48px;" />
+                </StackPane>
+                <VBox spacing="12" style="-fx-padding: 20;">
+                    <Label text="Statistiques" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                    <Label text="Analyses · Graphiques · KPIs · Performances" style="-fx-font-size: 12px; -fx-text-fill: #666; -fx-wrap-text: true;" />
+                    <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 0 0 0;">
+                        <Label text="Voir les analyses" style="-fx-text-fill: #16325c; -fx-font-size: 12px; -fx-font-weight: bold;" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button text="Accéder →" style="-fx-background-color: #16325c; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;" />
                     </HBox>

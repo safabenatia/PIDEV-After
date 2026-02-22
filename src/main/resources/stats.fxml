@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.StatsController"
+            stylesheets="@style.css">
+
+    <!-- BARRE DE TITRE -->
+    <HBox style="-fx-background-color: #16325c; -fx-padding: 8 20; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="45">
+        <Region HBox.hgrow="ALWAYS" />
+        <Label text="AFTER Travel - Statistiques" style="-fx-text-fill: #F5F5DC; -fx-font-size: 15px; -fx-font-weight: bold;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <HBox spacing="8">
+            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+            <Button fx:id="maximizeButton" text="□" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+        </HBox>
+    </HBox>
+
+    <BorderPane prefWidth="1300" prefHeight="750" AnchorPane.topAnchor="45" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" style="-fx-background-color: #F5F5DC;">
+
+        <!-- HEADER -->
+        <top>
+            <HBox style="-fx-background-color: #16325c; -fx-padding: 15 30; -fx-alignment: CENTER_LEFT;" spacing="20">
+                <Button text="← Retour au Dashboard" onAction="#handleDashboard" style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 10 25; -fx-background-radius: 25; -fx-font-weight: bold; -fx-cursor: hand;" prefWidth="200"/>
+                <Label text="Statistiques &amp; Analytics" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="📊" style="-fx-font-size: 40px;" />
+            </HBox>
+        </top>
+
+        <!-- CONTENU PRINCIPAL -->
+        <center>
+            <ScrollPane fitToWidth="true" style="-fx-background: transparent;">
+                <VBox spacing="20" style="-fx-padding: 20; -fx-background-color: #F5F5DC;">
+
+                    <!-- KPIs -->
+                    <HBox spacing="15" alignment="CENTER">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="180">
+                            <Label text="🏨 Services" style="-fx-font-size: 16px; -fx-text-fill: #16325c;"/>
+                            <Label fx:id="totalServicesLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                        </VBox>
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="180">
+                            <Label text="🏷️ Offres" style="-fx-font-size: 16px; -fx-text-fill: #16325c;"/>
+                            <Label fx:id="totalOffresLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                        </VBox>
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="180">
+                            <Label text="💰 Prix moyen" style="-fx-font-size: 16px; -fx-text-fill: #16325c;"/>
+                            <Label fx:id="prixMoyenLabel" text="0 DT" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                        </VBox>
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="180">
+                            <Label text="⭐ Top service" style="-fx-font-size: 16px; -fx-text-fill: #16325c;"/>
+                            <Label fx:id="topServiceLabel" text="-" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- GRAPHIQUES -->
+                    <HBox spacing="15" alignment="CENTER">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="500">
+                            <Label text="Offres par service" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                            <BarChart fx:id="offresParServiceChart" prefHeight="250" prefWidth="450">
+                                <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
+                                <yAxis><NumberAxis side="LEFT"/></yAxis>
+                            </BarChart>
+                        </VBox>
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" prefWidth="350">
+                            <Label text="Catégories" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                            <PieChart fx:id="categoriesChart" prefHeight="250" prefWidth="300"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- LINE CHART -->
+                    <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;">
+                        <Label text="Prix des offres" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                        <LineChart fx:id="prixOffresChart" prefHeight="200" prefWidth="850">
+                            <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
+                            <yAxis><NumberAxis side="LEFT"/></yAxis>
+                        </LineChart>
+                    </VBox>
+                </VBox>
+            </ScrollPane>
+        </center>
+    </BorderPane>
+</AnchorPane>
