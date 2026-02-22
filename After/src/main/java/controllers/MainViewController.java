@@ -35,15 +35,18 @@ public class MainViewController {
     private ServiceDestination serviceDestination = new ServiceDestination();
     private List<voyage> voyages = new ArrayList<>();
     private List<destination> destinations = new ArrayList<>();
+    private String currentView = "voyages";
 
     @FXML
     public void initialize() {
+        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            handleSearch();
+        });
         showVoyages();
     }
-
-
     @FXML
     public void showVoyages() {
+        currentView = "voyages";
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter voyage");
@@ -92,6 +95,7 @@ public class MainViewController {
 
     @FXML
     public void showDestinations() {
+        currentView = "destinations";
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter destination");
@@ -198,25 +202,38 @@ public class MainViewController {
     }
     @FXML
     public void handleSearch() {
+        String keyword = searchField.getText().toLowerCase().trim();
 
-        String keyword = searchField.getText().toLowerCase();
+        if (keyword.isEmpty()) {
+            if (currentView.equals("voyages")) showVoyages();
+            else showDestinations();
+            return;
+        }
 
         TilePane grid = new TilePane();
         grid.setHgap(20);
         grid.setVgap(20);
         grid.setPrefColumns(3);
 
-        List<voyage> voyages = serviceVoyage.getAll();
-        for (voyage v : voyages) {
-            if (v.getTitre().toLowerCase().contains(keyword)) {
-                grid.getChildren().add(createVoyageCard(v));
+        if (currentView.equals("voyages")) {
+            List<voyage> allVoyages = serviceVoyage.getAll();
+            for (voyage v : allVoyages) {
+                if (v.getTitre().toLowerCase().contains(keyword) ||
+                        String.valueOf(v.getPrix()).contains(keyword) ||
+                        String.valueOf(v.getNbPlaces()).contains(keyword) ||
+                        (v.getDateDebut() != null && v.getDateDebut().toString().contains(keyword)) ||
+                        (v.getDateFin() != null && v.getDateFin().toString().contains(keyword))) {
+                    grid.getChildren().add(createVoyageCard(v));
+                }
             }
-        }
-
-        List<destination> destinations = serviceDestination.getAll();
-        for (destination d : destinations) {
-            if (String.valueOf(d.getId_destination()).contains(keyword)) {
-                grid.getChildren().add(createDestinationCard(d));
+        } else {
+            List<destination> allDestinations = serviceDestination.getAll();
+            for (destination d : allDestinations) {
+                if (d.getPays().toLowerCase().contains(keyword) ||
+                        d.getVille().toLowerCase().contains(keyword) ||
+                        d.getContinent().toLowerCase().contains(keyword)) {
+                    grid.getChildren().add(createDestinationCard(d));
+                }
             }
         }
 

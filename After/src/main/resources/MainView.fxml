@@ -19,7 +19,6 @@
             <Pane HBox.hgrow="ALWAYS" />
 
             <TextField fx:id="searchField" promptText="Rechercher..." />
-            <Button onAction="#handleSearch" text="Rechercher" />
 
             <Button onAction="#showVoyages" text="Voyages" />
             <Button onAction="#showDestinations" text="Destinations" />
