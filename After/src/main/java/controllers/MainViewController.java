@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.voyage;
 import models.destination;
+import services.RestCountriesService;
 import services.ServiceVoyage;
 import services.ServiceDestination;
 
@@ -36,7 +37,7 @@ public class MainViewController {
     private List<voyage> voyages = new ArrayList<>();
     private List<destination> destinations = new ArrayList<>();
     private String currentView = "voyages";
-
+    private RestCountriesService restCountriesService = new RestCountriesService();
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -305,6 +306,7 @@ public class MainViewController {
         -fx-border-color:#16325c;
         """);
 
+        // destination image
         if (d.getImage() != null && !d.getImage().isEmpty()) {
             try {
                 Image image = new Image(d.getImage(), 200, 150, true, true);
@@ -318,18 +320,54 @@ public class MainViewController {
             }
         }
 
-        box.getChildren().addAll(
-                new Label("Pays: " + d.getPays()),
-                new Label("Ville: " + d.getVille()),
-                new Label("Continent: " + d.getContinent())
-        );
+        // flag placeholder — will be filled by API
+        ImageView flagView = new ImageView();
+        flagView.setFitWidth(40);
+        flagView.setFitHeight(25);
+        box.getChildren().add(flagView);
+
+        Label paysLabel = new Label("🌍 " + d.getPays());
+        paysLabel.setStyle("-fx-font-size:15px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label villeLabel = new Label("🏙️ " + d.getVille());
+        Label continentLabel = new Label("🗺️ " + d.getContinent());
+
+        // placeholders for API data
+        Label capitalLabel = new Label("🏛️ Capitale: ...");
+        Label currencyLabel = new Label("💵 Devise: ...");
+        Label languageLabel = new Label("🗣️ Langue: ...");
+        capitalLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#555;");
+        currencyLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#555;");
+        languageLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#555;");
+
+        box.getChildren().addAll(paysLabel, villeLabel, continentLabel,
+                capitalLabel, currencyLabel, languageLabel);
+
+        // fetch API in background thread
+        new Thread(() -> {
+            String flag = restCountriesService.getFlag(d.getPays());
+            String currency = restCountriesService.getCurrency(d.getPays());
+            String language = restCountriesService.getLanguage(d.getPays());
+            String capital = restCountriesService.getCapital(d.getPays());
+
+            javafx.application.Platform.runLater(() -> {
+                if (!flag.isEmpty()) {
+                    try {
+                        flagView.setImage(new Image(flag, 40, 25, true, true));
+                    } catch (Exception e) {
+                        System.out.println("Flag load failed");
+                    }
+                }
+                capitalLabel.setText("🏛️ Capitale: " + (capital.isEmpty() ? "N/A" : capital));
+                currencyLabel.setText("💵 Devise: " + (currency.isEmpty() ? "N/A" : currency));
+                languageLabel.setText("🗣️ Langue: " + (language.isEmpty() ? "N/A" : language));
+            });
+        }).start();
 
         Button editBtn = new Button("✏️");
         Button deleteBtn = new Button("🗑️");
-
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
-
         editBtn.setOnAction(e -> openEditDestination(d));
         deleteBtn.setOnAction(e -> confirmDeleteDestination(d));
 
@@ -338,7 +376,6 @@ public class MainViewController {
 
         return box;
     }
-
     @FXML
     public void showAddForm() {
         loadCenter("/AddVoyage.fxml");
