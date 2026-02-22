@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.AjouterDocumentController"
+      spacing="18"
+      alignment="TOP_CENTER"
+      style="-fx-padding: 35; -fx-background-color: white;">
+
+    <Label text="Ajouter un document de voyage"
+           style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+
+    <TextField fx:id="txtNom"
+               promptText="Type de document (Passeport, Visa, Assurance...)"
+               prefWidth="320"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtChemin"
+                   promptText="Fichier du document"
+                   editable="false"
+                   prefWidth="240"/>
+        <Button text="📎"
+                onAction="#choisirFichier"
+                prefWidth="70"/>
+    </HBox>
+
+    <DatePicker fx:id="dpAjout"
+                promptText="Date d'ajout"
+                prefWidth="320"/>
+
+    <DatePicker fx:id="dpExpiration"
+                promptText="Date d'expiration"
+                prefWidth="320"/>
+
+    <ComboBox fx:id="cbCategorie"
+              promptText="Catégorie du document"
+              editable="true"
+              prefWidth="320"/>
+
+    <Button text="Ajouter le document"
+            onAction="#ajouterDocument"
+            style="-fx-background-color: #2E86DE; -fx-text-fill: white; -fx-font-size: 14px;"
+            prefWidth="200"/>
+
+</VBox>
