@@ -12,10 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.voyage;
 import models.destination;
-import services.ExchangeRateService;
-import services.RestCountriesService;
-import services.ServiceVoyage;
-import services.ServiceDestination;
+import services.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,6 +37,7 @@ public class MainViewController {
     private String currentView = "voyages";
     private RestCountriesService restCountriesService = new RestCountriesService();
     private ExchangeRateService exchangeRateService = new ExchangeRateService();
+    private PdfExportService pdfExportService = new PdfExportService();
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -276,7 +274,6 @@ public class MainViewController {
         Label prixLabel = new Label("💰 " + v.getPrix() + " TND");
         prixLabel.setStyle("-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
-        // placeholder for converted prices
         Label conversionLabel = new Label("  ≈ chargement...");
         conversionLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#888;");
 
@@ -289,7 +286,6 @@ public class MainViewController {
         new Thread(() -> {
             double eur = exchangeRateService.convertToEUR(v.getPrix());
             double usd = exchangeRateService.convertToUSD(v.getPrix());
-
             javafx.application.Platform.runLater(() -> {
                 if (eur != 0 && usd != 0) {
                     conversionLabel.setText("  ≈ " + eur + " EUR  |  " + usd + " USD");
@@ -301,12 +297,33 @@ public class MainViewController {
 
         Button editBtn = new Button("✏️");
         Button deleteBtn = new Button("🗑️");
+        Button pdfBtn = new Button("📄");
+
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
         deleteBtn.setStyle("-fx-background-color:#c0392b; -fx-text-fill:white;");
+        pdfBtn.setStyle("-fx-background-color:#27ae60; -fx-text-fill:white;");
+
         editBtn.setOnAction(e -> openEditVoyage(v));
         deleteBtn.setOnAction(e -> confirmDeleteVoyage(v));
+        pdfBtn.setOnAction(e -> {
+            javafx.stage.FileChooser fileChooser = new javafx.stage.FileChooser();
+            fileChooser.setTitle("Enregistrer le PDF");
+            fileChooser.setInitialFileName(v.getTitre() + "_voyage.pdf");
+            fileChooser.getExtensionFilters().add(
+                    new javafx.stage.FileChooser.ExtensionFilter("PDF Files", "*.pdf")
+            );
+            java.io.File file = fileChooser.showSaveDialog(pdfBtn.getScene().getWindow());
+            if (file != null) {
+                pdfExportService.exportVoyage(v, file.getAbsolutePath());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Succès");
+                alert.setHeaderText(null);
+                alert.setContentText("PDF exporté avec succès !");
+                alert.showAndWait();
+            }
+        });
 
-        HBox actions = new HBox(10, editBtn, deleteBtn);
+        HBox actions = new HBox(10, editBtn, deleteBtn, pdfBtn);
         box.getChildren().add(actions);
 
         return box;
