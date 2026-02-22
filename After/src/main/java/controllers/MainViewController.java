@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import models.voyage;
 import models.destination;
+import services.ExchangeRateService;
 import services.RestCountriesService;
 import services.ServiceVoyage;
 import services.ServiceDestination;
@@ -38,6 +39,7 @@ public class MainViewController {
     private List<destination> destinations = new ArrayList<>();
     private String currentView = "voyages";
     private RestCountriesService restCountriesService = new RestCountriesService();
+    private ExchangeRateService exchangeRateService = new ExchangeRateService();
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -245,12 +247,12 @@ public class MainViewController {
         VBox box = new VBox(8);
         box.setPrefWidth(250);
         box.setStyle("""
-            -fx-background-color:white;
-            -fx-padding:15;
-            -fx-background-radius:10;
-            -fx-border-radius:10;
-            -fx-border-color:#16325c;
-            """);
+        -fx-background-color:white;
+        -fx-padding:15;
+        -fx-background-radius:10;
+        -fx-border-radius:10;
+        -fx-border-color:#16325c;
+        """);
 
         if (v.getImage() != null && !v.getImage().isEmpty()) {
             try {
@@ -268,19 +270,34 @@ public class MainViewController {
         Label titreLabel = new Label(v.getTitre());
         titreLabel.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
-// Date from → to in a cool way
         Label dateLabel = new Label("📅 " + v.getDateDebut() + "  →  " + v.getDateFin());
         dateLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#888888; -fx-font-style:italic;");
 
-// Prix with TND
         Label prixLabel = new Label("💰 " + v.getPrix() + " TND");
         prixLabel.setStyle("-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
-        Label placesLabel = new Label( v.getNbPlaces() + " places disponibles");
+        // placeholder for converted prices
+        Label conversionLabel = new Label("  ≈ chargement...");
+        conversionLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#888;");
+
+        Label placesLabel = new Label(v.getNbPlaces() + " places disponibles");
         placesLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#555;");
 
-        box.getChildren().add(titreLabel);
-        box.getChildren().addAll(dateLabel, prixLabel, placesLabel);
+        box.getChildren().addAll(titreLabel, dateLabel, prixLabel, conversionLabel, placesLabel);
+
+        // fetch conversion in background
+        new Thread(() -> {
+            double eur = exchangeRateService.convertToEUR(v.getPrix());
+            double usd = exchangeRateService.convertToUSD(v.getPrix());
+
+            javafx.application.Platform.runLater(() -> {
+                if (eur != 0 && usd != 0) {
+                    conversionLabel.setText("  ≈ " + eur + " EUR  |  " + usd + " USD");
+                } else {
+                    conversionLabel.setText("  ≈ conversion indisponible");
+                }
+            });
+        }).start();
 
         Button editBtn = new Button("✏️");
         Button deleteBtn = new Button("🗑️");
@@ -294,7 +311,6 @@ public class MainViewController {
 
         return box;
     }
-
     private VBox createDestinationCard(destination d) {
         VBox box = new VBox(10);
         box.setPrefWidth(250);
