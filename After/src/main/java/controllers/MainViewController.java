@@ -16,6 +16,7 @@ import services.ServiceVoyage;
 import services.ServiceDestination;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainViewController {
@@ -32,7 +33,8 @@ public class MainViewController {
 
     private ServiceVoyage serviceVoyage = new ServiceVoyage();
     private ServiceDestination serviceDestination = new ServiceDestination();
-
+    private List<voyage> voyages = new ArrayList<>();
+    private List<destination> destinations = new ArrayList<>();
 
     @FXML
     public void initialize() {
@@ -42,18 +44,13 @@ public class MainViewController {
 
     @FXML
     public void showVoyages() {
-
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter voyage");
-
         addBtn.setOnAction(e -> showAddForm());
-
         addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
 
-        crudBox.getChildren().addAll(addBtn);
-
-        List<voyage> voyages = serviceVoyage.getAll();
+        voyages = serviceVoyage.getAll();
 
         TilePane grid = new TilePane();
         grid.setHgap(20);
@@ -63,6 +60,22 @@ public class MainViewController {
         for (voyage v : voyages) {
             grid.getChildren().add(createVoyageCard(v));
         }
+
+        Button sortBtn = new Button("Trier par date ↑");
+        sortBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+
+        final boolean[] ascending = {true};
+        sortBtn.setOnAction(e -> {
+            ascending[0] = !ascending[0];
+            sortBtn.setText(ascending[0] ? "Trier par date ↑" : "Trier par date ↓");
+            voyages.sort((a, b) -> ascending[0]
+                    ? a.getDateDebut().compareTo(b.getDateDebut())
+                    : b.getDateDebut().compareTo(a.getDateDebut()));
+            grid.getChildren().clear();
+            for (voyage vv : voyages) grid.getChildren().add(createVoyageCard(vv));
+        });
+
+        crudBox.getChildren().addAll(addBtn, sortBtn); // only ONE addAll
 
         Label header = new Label("Bienvenue à AFTER");
         header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
@@ -79,18 +92,13 @@ public class MainViewController {
 
     @FXML
     public void showDestinations() {
-
         crudBox.getChildren().clear();
 
         Button addBtn = new Button("Ajouter destination");
-
         addBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
-
         addBtn.setOnAction(e -> loadCenter("/AddDestination.fxml"));
 
-        crudBox.getChildren().addAll(addBtn);
-
-        List<destination> destinations = serviceDestination.getAll();
+        destinations = serviceDestination.getAll();
 
         TilePane grid = new TilePane();
         grid.setHgap(20);
@@ -100,6 +108,22 @@ public class MainViewController {
         for (destination d : destinations) {
             grid.getChildren().add(createDestinationCard(d));
         }
+
+        Button sortBtn = new Button("Trier par pays ↑");
+        sortBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
+
+        final boolean[] ascending = {true};
+        sortBtn.setOnAction(e -> {
+            ascending[0] = !ascending[0];
+            sortBtn.setText(ascending[0] ? "Trier par pays ↑" : "Trier par pays ↓");
+            destinations.sort((a, b) -> ascending[0]
+                    ? a.getPays().compareTo(b.getPays())
+                    : b.getPays().compareTo(a.getPays()));
+            grid.getChildren().clear();
+            for (destination dd : destinations) grid.getChildren().add(createDestinationCard(dd));
+        });
+
+        crudBox.getChildren().addAll(addBtn, sortBtn); // only ONE addAll
 
         Label header = new Label("Bienvenue à AFTER");
         header.setStyle("-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
@@ -226,11 +250,19 @@ public class MainViewController {
         Label titreLabel = new Label(v.getTitre());
         titreLabel.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
+// Date from → to in a cool way
+        Label dateLabel = new Label("📅 " + v.getDateDebut() + "  →  " + v.getDateFin());
+        dateLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#888888; -fx-font-style:italic;");
+
+// Prix with TND
+        Label prixLabel = new Label("💰 " + v.getPrix() + " TND");
+        prixLabel.setStyle("-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
+
+        Label placesLabel = new Label( v.getNbPlaces() + " places disponibles");
+        placesLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#555;");
+
         box.getChildren().add(titreLabel);
-        box.getChildren().addAll(
-                new Label("Prix: " + v.getPrix()),
-                new Label("Places: " + v.getNbPlaces())
-        );
+        box.getChildren().addAll(dateLabel, prixLabel, placesLabel);
 
         Button editBtn = new Button("✏️");
         Button deleteBtn = new Button("🗑️");
