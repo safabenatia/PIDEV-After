@@ -39,7 +39,7 @@ public class MainViewController {
     private ExchangeRateService exchangeRateService = new ExchangeRateService();
     private PdfExportService pdfExportService = new PdfExportService();
     private FavoritesService favoritesService = new FavoritesService();
-
+    private TranslateService translateService = new TranslateService();
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -346,19 +346,47 @@ public class MainViewController {
         Label titreLabel = new Label(v.getTitre());
         titreLabel.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
-        Label dateLabel = new Label("📅 " + v.getDateDebut() + "  →  " + v.getDateFin());
+        Label descLabel = new Label(v.getDescription());
+        descLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#666; -fx-wrap-text:true;");
+        descLabel.setMaxWidth(220);
+
+        Button translateBtn = new Button("FR -> EN");
+        translateBtn.setStyle("-fx-background-color:#8e44ad; -fx-text-fill:white; -fx-font-size:10px;");
+
+        final boolean[] translated = {false};
+        translateBtn.setOnAction(e -> {
+            if (!translated[0]) {
+                translateBtn.setText("chargement...");
+                translateBtn.setDisable(true);
+                new Thread(() -> {
+                    String translatedText = translateService.translate(v.getDescription(), "en");
+                    javafx.application.Platform.runLater(() -> {
+                        descLabel.setText(translatedText);
+                        translateBtn.setText("EN -> FR");
+                        translateBtn.setDisable(false);
+                        translated[0] = true;
+                    });
+                }).start();
+            } else {
+                descLabel.setText(v.getDescription());
+                translateBtn.setText("FR -> EN");
+                translated[0] = false;
+            }
+        });
+
+        Label dateLabel = new Label("Date: " + v.getDateDebut() + "  ->  " + v.getDateFin());
         dateLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#888888; -fx-font-style:italic;");
 
-        Label prixLabel = new Label("💰 " + v.getPrix() + " TND");
+        Label prixLabel = new Label("Prix: " + v.getPrix() + " TND");
         prixLabel.setStyle("-fx-font-size:13px; -fx-font-weight:bold; -fx-text-fill:#16325c;");
 
-        Label conversionLabel = new Label("  ≈ chargement...");
+        Label conversionLabel = new Label("  chargement...");
         conversionLabel.setStyle("-fx-font-size:11px; -fx-text-fill:#888;");
 
         Label placesLabel = new Label(v.getNbPlaces() + " places disponibles");
         placesLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#555;");
 
-        box.getChildren().addAll(titreLabel, dateLabel, prixLabel, conversionLabel, placesLabel);
+        box.getChildren().addAll(titreLabel, descLabel, translateBtn, dateLabel, prixLabel, conversionLabel, placesLabel);
 
         // fetch conversion in background
         new Thread(() -> {
@@ -366,16 +394,16 @@ public class MainViewController {
             double usd = exchangeRateService.convertToUSD(v.getPrix());
             javafx.application.Platform.runLater(() -> {
                 if (eur != 0 && usd != 0) {
-                    conversionLabel.setText("  ≈ " + eur + " EUR  |  " + usd + " USD");
+                    conversionLabel.setText("  " + eur + " EUR  |  " + usd + " USD");
                 } else {
-                    conversionLabel.setText("  ≈ conversion indisponible");
+                    conversionLabel.setText("  conversion indisponible");
                 }
             });
         }).start();
 
         Button editBtn = new Button("✎");
         Button deleteBtn = new Button("✖");
-        Button pdfBtn = new Button("⬇ PDF");
+        Button pdfBtn = new Button("PDF");
         Button favBtn = new Button(favoritesService.isFavorite(v) ? "❤" : "♡");
 
         editBtn.setStyle("-fx-background-color:#16325c; -fx-text-fill:white;");
@@ -407,9 +435,9 @@ public class MainViewController {
             if (file != null) {
                 pdfExportService.exportVoyage(v, file.getAbsolutePath());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Succès");
+                alert.setTitle("Succes");
                 alert.setHeaderText(null);
-                alert.setContentText("PDF exporté avec succès !");
+                alert.setContentText("PDF exporte avec succes !");
                 alert.showAndWait();
             }
         });
