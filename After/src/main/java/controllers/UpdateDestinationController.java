@@ -133,18 +133,10 @@ public class UpdateDestinationController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
-
             MainViewController controller = loader.getController();
             controller.showDestinations();
-
-            StackPane mainContent =
-                    (StackPane) paysField.getScene().lookup("#mainContent");
-
-            mainContent.getChildren().setAll(root.lookup("#mainContent"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            paysField.getScene().setRoot(root);
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
 

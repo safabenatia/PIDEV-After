@@ -9,6 +9,9 @@
             fx:controller="controllers.DeleteDestinationController">
 
     <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background:#F5F5DC; -fx-background-color:#F5F5DC;">
+        <content>
         <VBox alignment="CENTER"
               spacing="15"
               style="-fx-background-color:#F5F5DC; -fx-padding:50;">
@@ -41,6 +44,8 @@
             </HBox>
 
         </VBox>
+        </content>
+        </ScrollPane>
     </center>
 
 </BorderPane>

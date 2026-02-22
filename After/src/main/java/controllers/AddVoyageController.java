@@ -142,15 +142,9 @@ public class AddVoyageController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
-
             MainViewController controller = loader.getController();
             controller.showVoyages();
-
-            StackPane mainContent = (StackPane) titreField.getScene().lookup("#mainContent");
-            mainContent.getChildren().setAll(root.lookup("#mainContent"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            titreField.getScene().setRoot(root);
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

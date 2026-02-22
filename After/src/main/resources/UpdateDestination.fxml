@@ -7,6 +7,9 @@
 <BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.UpdateDestinationController">
 
     <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background:#F5F5DC; -fx-background-color:#F5F5DC;">
+        <content>
         <VBox alignment="CENTER" spacing="10" style="-fx-padding:40; -fx-background-color:#F5F5DC;">
 
             <ImageView fitHeight="150.0" fitWidth="200.0" preserveRatio="true">
@@ -31,6 +34,8 @@
             <Button onAction="#goBack" style="-fx-background-color:#16325c;" text="Retour" textFill="WHITE" />
 
         </VBox>
+        </content>
+        </ScrollPane>
     </center>
 
 </BorderPane>

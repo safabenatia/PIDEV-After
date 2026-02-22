@@ -158,15 +158,9 @@ public class UpdateVoyageController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
-
-            StackPane mainContent =
-                    (StackPane) idField.getScene().lookup("#mainContent");
-
-            mainContent.getChildren().clear();
-            mainContent.getChildren().add(root.lookup("#mainContent"));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            MainViewController controller = loader.getController();
+            controller.showVoyages();
+            titreField.getScene().setRoot(root);
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

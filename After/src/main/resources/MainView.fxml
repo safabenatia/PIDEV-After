@@ -37,7 +37,12 @@
             </top>
 
             <center>
-                <StackPane fx:id="mainContent" style="-fx-padding:20;" />
+                <ScrollPane fitToWidth="true"
+                            style="-fx-background:#F5F5DC; -fx-background-color:#F5F5DC;">
+                    <content>
+                        <StackPane fx:id="mainContent" style="-fx-padding:20; -fx-background-color:#F5F5DC;" />
+                    </content>
+                </ScrollPane>
             </center>
 
         </BorderPane>
