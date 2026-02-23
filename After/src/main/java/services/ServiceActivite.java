@@ -101,7 +101,7 @@ public class ServiceActivite implements Services<Activite> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // si non trouvé
+        return null;
     }
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM `activite`";
