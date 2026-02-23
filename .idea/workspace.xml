@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
+=======
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+>>>>>>> Stashed changes
   <component name="ChangeListManager">
     <list default="true" id="d1fe160a-4b3f-4416-9ada-7dce9527fedc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/After/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/After/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/.idea/IntelliLang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/IntelliLang.xml" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/After/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/misc.xml" afterDir="false" />
+=======
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/After/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/AddDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/AddDestinationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/AddVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/AddVoyageController.java" afterDir="false" />
@@ -18,8 +27,18 @@
       <change beforePath="$PROJECT_DIR$/After/src/main/java/interfaces/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/interfaces/Services.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/models/destination.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/models/destination.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/models/voyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/models/voyage.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ExchangeRateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ExchangeRateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/FavoritesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/FavoritesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/PdfExportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/PdfExportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/RestCountriesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/RestCountriesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/TranslateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/TranslateService.java" afterDir="false" />
+>>>>>>> Stashed changes
       <change beforePath="$PROJECT_DIR$/After/src/main/java/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/test/MainFx.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/tn/esprit/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/tn/esprit/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/main/java/utils/Mydatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/utils/Mydatabase.java" afterDir="false" />
@@ -33,7 +52,10 @@
       <change beforePath="$PROJECT_DIR$/After/src/test/java/services/DestinationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/services/DestinationTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/test/java/services/VoyageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/services/VoyageTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/After/src/test/java/utils/Mydatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/utils/Mydatabase.java" afterDir="false" />
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+=======
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,9 +65,15 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 0
 }]]></component>
+=======
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+>>>>>>> Stashed changes
   <component name="ProjectId" id="3A2PNohCIIF4x2ig6nssYYdV6UJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -60,6 +88,14 @@
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/espace info/Documents/GitHub/PIDEV-After",
+<<<<<<< Updated upstream
+=======
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+>>>>>>> Stashed changes
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -79,6 +115,10 @@
       <option name="presentableId" value="Default" />
       <updated>1771787655689</updated>
       <workItem from="1771787657344" duration="91000" />
+<<<<<<< Updated upstream
+=======
+      <workItem from="1771812933489" duration="582000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>
