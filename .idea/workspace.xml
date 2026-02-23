@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d1fe160a-4b3f-4416-9ada-7dce9527fedc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/After/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/After/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/.idea/IntelliLang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/IntelliLang.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/AddDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/AddDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/AddVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/AddVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/DeleteDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/DeleteDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/DeleteVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/DeleteVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/UpdateDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/UpdateDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/controllers/UpdateVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/controllers/UpdateVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/interfaces/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/interfaces/Services.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/models/destination.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/models/destination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/models/voyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/models/voyage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceDestination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/services/ServiceVoyage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/test/MainFx.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/test/MainFx.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/tn/esprit/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/tn/esprit/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/java/utils/Mydatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/java/utils/Mydatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/AddDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/AddDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/AddVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/AddVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/DeleteDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/DeleteDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/DeleteVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/DeleteVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/UpdateDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/UpdateDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/main/resources/UpdateVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/main/resources/UpdateVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/test/java/services/DestinationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/services/DestinationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/test/java/services/VoyageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/services/VoyageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/src/test/java/utils/Mydatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/After/src/test/java/utils/Mydatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="3A2PNohCIIF4x2ig6nssYYdV6UJ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "gestion-voyage",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/espace info/Documents/GitHub/PIDEV-After",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.25557.131" />
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-IU-252.25557.131" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1fe160a-4b3f-4416-9ada-7dce9527fedc" name="Changes" comment="" />
+      <created>1771787655689</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1771787655689</updated>
+      <workItem from="1771787657344" duration="91000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
