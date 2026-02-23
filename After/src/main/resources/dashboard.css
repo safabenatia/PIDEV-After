@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: #F5F5DC ;
+    -fx-background-color: "#F5F5DC" ;
     -fx-font-family: "Segoe UI", system-ui, sans-serif;
 }
 
@@ -217,4 +217,15 @@
 
 .btn-delete:hover {
     -fx-background-color: #dc2626;
+}
+.btn-success {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.btn-info {
+    -fx-background-color: #17a2b8;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
 }

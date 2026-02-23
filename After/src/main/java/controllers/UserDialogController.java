@@ -7,10 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.Role;
+import models.Admin;
 import models.Users;
+import models.Voyageur;
 import services.ServiceUsers;
-import utils.PasswordUtil;
+import services.EmailService;
 import javafx.scene.layout.HBox;
 
 import java.io.File;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class UserDialogController {
@@ -28,53 +30,36 @@ public class UserDialogController {
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private TextField telephoneField;
-    @FXML private ComboBox<Role> roleCombo;
+    @FXML private ComboBox<String> typeCombo;
     @FXML private ImageView photoPreview;
     @FXML private Label photoFileName;
     @FXML private ToggleButton toggleEye;
-    private TextInputControl currentPasswordInput;
 
-    private Users user;
+    private TextInputControl currentPasswordInput;
+    private Users currentUser;
     private DashboardController parent;
     private final ServiceUsers service = new ServiceUsers();
+    private final EmailService emailService = new EmailService();
 
     private File selectedImageFile = null;
     private String currentPhotoPath = null;
 
-    // Regex pour email (plus permissive mais réaliste)
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
-
-    // Regex mot de passe : min 8, maj, min, chiffre, caractère spécial
-    private static final Pattern PASSWORD_PATTERN =
-            Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$");
 
     @FXML
     public void initialize() {
-        roleCombo.setItems(FXCollections.observableArrayList(Role.values()));
-
-        // Initialisation cruciale
+        typeCombo.setItems(FXCollections.observableArrayList("ADMIN", "VOYAGEUR"));
+        typeCombo.setValue("VOYAGEUR"); // défaut création
         currentPasswordInput = passwordField;
-
-        toggleEye.selectedProperty().addListener((obs, oldVal, newVal) -> {
-            togglePasswordVisibility(newVal);
-        });
+        toggleEye.selectedProperty().addListener((obs, oldVal, newVal) -> togglePasswordVisibility(newVal));
     }
 
     private void togglePasswordVisibility(boolean show) {
-        if (currentPasswordInput == null || currentPasswordInput.getParent() == null) {
-            System.out.println("Toggle ignoré : champ ou parent non prêt");
-            return;
-        }
-
+        if (currentPasswordInput == null || currentPasswordInput.getParent() == null) return;
         HBox container = (HBox) currentPasswordInput.getParent();
         int index = container.getChildren().indexOf(currentPasswordInput);
-
-        if (index < 0) {
-            System.out.println("Index invalide");
-            return;
-        }
-
+        if (index < 0) return;
         if (show) {
             TextField textField = new TextField(currentPasswordInput.getText());
             textField.setPromptText(currentPasswordInput.getPromptText());
@@ -94,21 +79,35 @@ public class UserDialogController {
     }
 
     public void setUser(Users user) {
-        this.user = user;
+        this.currentUser = user;
         if (user == null) {
             titleLabel.setText("Ajouter un utilisateur");
             clearFields();
             passwordField.setPromptText("Mot de passe obligatoire");
+            typeCombo.setDisable(false);
         } else {
             titleLabel.setText("Modifier l'utilisateur");
             nomField.setText(user.getNom());
             prenomField.setText(user.getPrenom());
             emailField.setText(user.getEmail());
+            telephoneField.setText(user.getTelephone() != null ? user.getTelephone() : "");
             passwordField.setPromptText("Laissez vide pour garder l'ancien");
-            telephoneField.setText(user.getTelephone());
-            roleCombo.setValue(user.getRole());
 
-            if (user.getPhotoProfilUrl() != null && !user.getPhotoProfilUrl().isEmpty()) {
+            String type;
+            if (user instanceof Admin) {
+                Admin admin = (Admin) user;
+                type = "ADMIN";
+                typeCombo.setDisable(true); // empêche changement type
+            } else if (user instanceof Voyageur) {
+                Voyageur voy = (Voyageur) user;
+                type = "VOYAGEUR";
+                typeCombo.setDisable(true);
+            } else {
+                type = "VOYAGEUR";
+            }
+            typeCombo.setValue(type);
+
+            if (user.getPhotoProfilUrl() != null && !user.getPhotoProfilUrl().isBlank()) {
                 currentPhotoPath = user.getPhotoProfilUrl();
                 photoFileName.setText(new File(currentPhotoPath).getName());
                 try {
@@ -122,44 +121,23 @@ public class UserDialogController {
         this.parent = parent;
     }
 
-
-
     @FXML
     private void handleChooseImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une photo de profil");
-
-        // Filtres d'extension (images courantes)
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"),
                 new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
         );
-
-        // Essaie d'ouvrir le dialogue
-        Stage stage = null;
-        try {
-            stage = (Stage) photoPreview.getScene().getWindow();  // ou nomField.getScene().getWindow()
-        } catch (Exception e) {
-            showErrorAlert("Erreur", "Impossible de récupérer la fenêtre actuelle : " + e.getMessage());
-            return;
-        }
-
-        if (stage == null) {
-            showErrorAlert("Erreur", "La fenêtre parent est introuvable");
-            return;
-        }
-
+        Stage stage = (Stage) photoPreview.getScene().getWindow();
         selectedImageFile = fileChooser.showOpenDialog(stage);
-
         if (selectedImageFile != null) {
             photoFileName.setText(selectedImageFile.getName());
             try {
                 photoPreview.setImage(new Image(selectedImageFile.toURI().toString()));
-                showErrorAlert("Succès", "Image chargée : " + selectedImageFile.getName());
             } catch (Exception e) {
-                showErrorAlert("Erreur de chargement", "Impossible d'afficher l'image : " + e.getMessage());
+                showErrorAlert("Erreur", "Impossible d'afficher l'image");
                 photoPreview.setImage(null);
-                photoFileName.setText("Erreur de chargement");
             }
         } else {
             photoFileName.setText("Aucune image sélectionnée");
@@ -171,41 +149,32 @@ public class UserDialogController {
         String nom = nomField.getText().trim();
         String prenom = prenomField.getText().trim();
         String email = emailField.getText().trim();
-        String password = currentPasswordInput.getText(); // ← IMPORTANT : toujours current !
+        String password = currentPasswordInput.getText().trim();
         String tel = telephoneField.getText().trim();
-        Role role = roleCombo.getValue();
+        String type = typeCombo.getValue();
 
         StringBuilder errors = new StringBuilder();
 
-        // Contrôles obligatoires
         if (nom.isEmpty()) errors.append("• Nom obligatoire\n");
         if (prenom.isEmpty()) errors.append("• Prénom obligatoire\n");
         if (email.isEmpty()) errors.append("• Email obligatoire\n");
-        if (role == null) errors.append("• Rôle obligatoire\n");
+        if (type == null) errors.append("• Type obligatoire\n");
 
-        // Contrôle format email
         if (!email.isEmpty() && !EMAIL_PATTERN.matcher(email).matches()) {
-            errors.append("• Format d'email invalide (ex: nom@domaine.com)\n");
+            errors.append("• Format email invalide\n");
         }
 
-        // Contrôle unicité email
-        boolean emailChanged = (user == null) || !email.equals(user.getEmail());
+        boolean emailChanged = (currentUser == null) || !email.equals(currentUser.getEmail());
         if (emailChanged && service.emailExistsSafe(email)) {
             errors.append("• Cet email est déjà utilisé\n");
         }
 
-        // Contrôle mot de passe
-        boolean isNewPassword = !password.trim().isEmpty();
-        if (user == null && !isNewPassword) {
-            errors.append("• Mot de passe obligatoire pour un nouvel utilisateur\n");
+        boolean isNewPassword = !password.isEmpty();
+        if (currentUser == null && !isNewPassword) {
+            errors.append("• Mot de passe obligatoire pour création\n");
         }
         if (isNewPassword && !PASSWORD_PATTERN.matcher(password).matches()) {
-            errors.append("• Mot de passe trop faible :\n");
-            errors.append("  - Minimum 8 caractères\n");
-            errors.append("  - Au moins 1 majuscule\n");
-            errors.append("  - Au moins 1 minuscule\n");
-            errors.append("  - Au moins 1 chiffre\n");
-            errors.append("  - Au moins 1 caractère spécial (!@#$%^&* etc.)\n");
+            errors.append("• Mot de passe trop faible (8+ car., maj, min, chiffre, spécial)\n");
         }
 
         if (errors.length() > 0) {
@@ -213,40 +182,67 @@ public class UserDialogController {
             return;
         }
 
-        // Tout OK → sauvegarde
-        boolean isNew = (user == null);
-        if (isNew) user = new Users();
+        Users userToSave;
+        boolean isNew = (currentUser == null);
 
-        user.setNom(nom);
-        user.setPrenom(prenom);
-        user.setEmail(email);
-        user.setTelephone(tel);
-        user.setRole(role);
+        if (isNew) {
+            if ("ADMIN".equals(type)) {
+                userToSave = new Admin();
+            } else {
+                userToSave = new Voyageur();
+            }
+        } else {
+            userToSave = currentUser;
+        }
 
-        // Mot de passe : seulement si saisi
+        userToSave.setNom(nom);
+        userToSave.setPrenom(prenom);
+        userToSave.setEmail(email);
+        userToSave.setTelephone(tel.isEmpty() ? null : tel);
+
         if (isNewPassword) {
-            user.setMotDePasse(password); // sera hashé dans ServiceUsers
-        } // sinon → modification + vide = on garde l'ancien
+            userToSave.setMotDePasse(password); // hashé dans service
+        }
 
         // Photo
         if (selectedImageFile != null) {
             try {
-                user.setPhotoProfilUrl(saveImage(selectedImageFile));
+                userToSave.setPhotoProfilUrl(saveImage(selectedImageFile));
             } catch (IOException e) {
-                showErrorAlert("Erreur", "Impossible de sauvegarder la photo");
+                showErrorAlert("Erreur", "Échec sauvegarde photo");
                 return;
             }
         } else if (currentPhotoPath != null) {
-            user.setPhotoProfilUrl(currentPhotoPath);
+            userToSave.setPhotoProfilUrl(currentPhotoPath);
         }
 
+        // DOUBLE OPT-IN : seulement pour les nouveaux utilisateurs
         if (isNew) {
-            service.add(user);
-        } else {
-            service.update(user);
+            String token = UUID.randomUUID().toString();
+            userToSave.setVerificationToken(token);
+            userToSave.setVerificationExpiry(java.time.LocalDateTime.now().plusHours(24));
+            userToSave.setVerified(false);
+
+            // Envoi email de confirmation
+            try {
+                new EmailService().sendVerificationEmail(email, token);
+            } catch (Exception e) {
+                showErrorAlert("Attention", "Utilisateur ajouté mais email de confirmation non envoyé.");
+                e.printStackTrace();
+            }
         }
 
-        if (parent != null) parent.refreshUsers();
+        // Sauvegarde
+        if (isNew) {
+            service.add(userToSave);
+        } else {
+            service.update(userToSave);
+        }
+
+        if (parent != null) {
+            parent.refreshUsers();
+        }
+
         close();
     }
 
@@ -254,7 +250,6 @@ public class UserDialogController {
         String dir = "src/main/resources/public/profiles/";
         Path dirPath = Path.of(dir);
         if (!Files.exists(dirPath)) Files.createDirectories(dirPath);
-
         String ext = source.getName().substring(source.getName().lastIndexOf("."));
         String name = System.currentTimeMillis() + ext;
         Path dest = Path.of(dir + name);
@@ -262,7 +257,10 @@ public class UserDialogController {
         return "/public/profiles/" + name;
     }
 
-    @FXML private void handleCancel() { close(); }
+    @FXML
+    private void handleCancel() {
+        close();
+    }
 
     private void close() {
         Stage stage = (Stage) titleLabel.getScene().getWindow();
@@ -275,7 +273,7 @@ public class UserDialogController {
         emailField.clear();
         passwordField.clear();
         telephoneField.clear();
-        roleCombo.setValue(null);
+        typeCombo.setValue("VOYAGEUR");
         photoPreview.setImage(null);
         photoFileName.setText("Aucune image sélectionnée");
         selectedImageFile = null;

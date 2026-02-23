@@ -1,6 +1,5 @@
 package services;
 
-import models.Role;
 import models.Users;
 import org.junit.jupiter.api.*;
 import java.sql.SQLException;
@@ -22,7 +21,7 @@ public class UserServiceTest {
     @Test
     @Order(1)
     void testAjouterUser() throws SQLException {
-        Users u = new Users();
+        Users u = new Users(id, nom, prenom, email, motDePasse, photoProfilUrl, telephone);
         u.setNom("TestNom");
         u.setPrenom("TestPrenom");
         u.setEmail("test.ajout@example.com");
@@ -55,7 +54,7 @@ public class UserServiceTest {
             return; // évite erreur si premier test échoue
         }
 
-        Users u = new Users();
+        Users u = new Users(id, nom, prenom, email, motDePasse, photoProfilUrl, telephone);
         u.setId(idUserTest);
         u.setNom("NouveauNom");
         u.setPrenom("NouveauPrenom");
@@ -82,7 +81,7 @@ public class UserServiceTest {
            return;
         }
 
-        Users u = new Users();
+        Users u = new Users(id, nom, prenom, email, motDePasse, photoProfilUrl, telephone);
         u.setId(idUserTest);
 
         service.delete(u);

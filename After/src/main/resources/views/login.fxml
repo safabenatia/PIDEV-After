@@ -35,7 +35,7 @@
             <ToggleButton fx:id="toggleEye" text="👁" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-font-size: 18px;"/>
         </HBox>
 
-        <Hyperlink text="Mot de passe oublié ?" style="-fx-text-fill: #3b82f6; -fx-font-size: 14px; -fx-alignment: center-right;"/>
+
 
         <Button text="Se connecter" prefWidth="9999" prefHeight="48"
                 style="-fx-background-color: #1d4ed8; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 12;"

@@ -1,30 +1,36 @@
 package models;
 
-public class Users {
+// Classe mère abstraite
+public abstract class Users {
+
     private int id;
     private String nom;
     private String prenom;
     private String email;
     private String motDePasse;
-    private Role role; // ADMIN ou VOYAGEUR
-    private String photoProfilUrl; // URL de la photo
+    private String photoProfilUrl;
     private String telephone;
+    private boolean verified = false;               // is_verified
+    private String verificationToken;               // verification_token
+    private java.time.LocalDateTime verificationExpiry; // verification_expiry
 
-    public Users (){
-
+    // Constructeur vide
+    public Users() {
     }
 
-    public Users(int id, String nom, String prenom, String email, String motDePasse, String photoProfilUrl) {
+    // Constructeur commun (appelé par les sous-classes avec super())
+    public Users(int id, String nom, String prenom, String email,
+                 String motDePasse, String photoProfilUrl, String telephone) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.motDePasse = motDePasse;
-        this.role = role;
         this.photoProfilUrl = photoProfilUrl;
         this.telephone = telephone;
     }
 
+    // Getters et setters inchangés
     public int getId() {
         return id;
     }
@@ -65,14 +71,6 @@ public class Users {
         this.motDePasse = motDePasse;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public String getPhotoProfilUrl() {
         return photoProfilUrl;
     }
@@ -89,5 +87,30 @@ public class Users {
         this.telephone = telephone;
     }
 
+    // Méthode abstraite (exemple) → les sous-classes devront l'implémenter
+    public abstract String getTypeUtilisateur();
 
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public java.time.LocalDateTime getVerificationExpiry() {
+        return verificationExpiry;
+    }
+
+    public void setVerificationExpiry(java.time.LocalDateTime verificationExpiry) {
+        this.verificationExpiry = verificationExpiry;
+    }
 }

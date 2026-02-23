@@ -4,18 +4,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.DashboardController"
             stylesheets="@dashboard.css"
             style="-fx-background-color: #F5F5DC;">
 
-    <!-- Sidebar gauche (style moderne, plus compact) -->
+    <!-- Sidebar gauche -->
     <left>
         <VBox styleClass="sidebar" spacing="20">
             <padding>
                 <Insets top="32" right="16" bottom="32" left="16"/>
             </padding>
-            <Label text="After Travel " styleClass="sidebar-title"/>
+            <Label text="After Travel" styleClass="sidebar-title"/>
             <VBox spacing="12">
                 <Label text="Utilisateurs" styleClass="sidebar-btn"/>
             </VBox>
@@ -27,18 +28,43 @@
     <!-- Contenu principal -->
     <center>
         <VBox spacing="28" style="-fx-padding: 32;">
-            <!-- Header -->
+
+            <!-- Header avec recherche + filtres + boutons -->
             <VBox spacing="20" styleClass="main-header">
                 <Label text="Gestion des utilisateurs" styleClass="page-title"/>
+
                 <HBox spacing="16" alignment="CENTER_LEFT">
-                    <TextField fx:id="searchField" promptText="Rechercher un utilisateur..." styleClass="search-box" prefWidth="360"/>
-                    <ComboBox fx:id="roleFilterCombo" promptText="Tous les rôles" prefWidth="200"/>
-                    <Button text="Réinitialiser" styleClass="btn-secondary" onAction="#resetFilters"/>
-                    <Button text="Ajouter utilisateur" styleClass="btn-primary" onAction="#handleAddUser"/>
+                    <TextField fx:id="searchField"
+                               promptText="Rechercher un utilisateur..."
+                               styleClass="search-box"
+                               prefWidth="360"/>
+
+                    <ComboBox fx:id="typeFilterCombo"
+                              promptText="Tous les types"
+                              prefWidth="200"/>
+
+                    <Button text="Réinitialiser"
+                            styleClass="btn-secondary"
+                            onAction="#resetFilters"/>
+
+                    <Button text="Ajouter utilisateur"
+                            styleClass="btn-primary"
+                            onAction="#handleAddUser"/>
+
+                    <!-- BOUTONS D'EXPORT AJOUTÉS ICI -->
+                    <Button text=" CSV"
+                            styleClass="btn-success"
+                            onAction="#handleExportCSV"
+                            style="-fx-padding: 8 16; -fx-font-size: 13px;"/>
+
+                    <Button text=" PDF"
+                            styleClass="btn-info"
+                            onAction="#handleExportPDF"
+                            style="-fx-padding: 8 16; -fx-font-size: 13px;"/>
                 </HBox>
             </VBox>
 
-            <!-- Statistiques (carte unique centrée) -->
+            <!-- Statistiques -->
             <HBox spacing="24" alignment="CENTER">
                 <VBox styleClass="stats-card" alignment="CENTER" prefWidth="320">
                     <Label text="Total utilisateurs" styleClass="stats-label"/>
@@ -46,10 +72,16 @@
                 </VBox>
             </HBox>
 
-            <!-- Cartes utilisateurs -->
-            <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent;">
-                <FlowPane fx:id="usersFlowPane" hgap="24" vgap="24" alignment="CENTER"/>
+            <!-- Zone des cartes utilisateurs -->
+            <ScrollPane fitToWidth="true"
+                        style="-fx-background: transparent; -fx-background-color: transparent;">
+                <FlowPane fx:id="usersFlowPane"
+                          hgap="24"
+                          vgap="24"
+                          alignment="CENTER"/>
             </ScrollPane>
+
         </VBox>
     </center>
+
 </BorderPane>

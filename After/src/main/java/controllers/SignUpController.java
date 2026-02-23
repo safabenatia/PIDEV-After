@@ -11,16 +11,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import models.Role;
-import models.Users;
+import models.Voyageur;
 import services.ServiceUsers;
-import utils.PasswordUtil;
-
+import services.EmailService; // ← importe-le ici
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class SignUpController {
@@ -33,38 +32,27 @@ public class SignUpController {
     @FXML private ImageView photoPreview;
     @FXML private Label photoFileName;
     @FXML private ToggleButton toggleEye;
-    @FXML private Label errorLabel;  // on garde pour info en bas, mais l'Alert sera prioritaire
+    @FXML private Label errorLabel;
 
     private File selectedImageFile = null;
     private TextInputControl currentPasswordInput;
-
     private final ServiceUsers service = new ServiceUsers();
+    private final EmailService emailService = new EmailService(); // ← instance
 
-    // Regex email
-    private static final Pattern EMAIL_PATTERN =
-            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
-
-    // Regex mot de passe fort
-    private static final Pattern PASSWORD_PATTERN =
-            Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$");
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+=\\-\\[\\]{};':\"\\\\|,.<>\\/?]).{8,}$");
 
     @FXML
     public void initialize() {
-        // Initialisation toggle mot de passe
         currentPasswordInput = passwordField;
-
-        toggleEye.selectedProperty().addListener((obs, old, selected) -> {
-            togglePasswordVisibility(selected);
-        });
+        toggleEye.selectedProperty().addListener((obs, old, selected) -> togglePasswordVisibility(selected));
     }
 
     private void togglePasswordVisibility(boolean show) {
         if (currentPasswordInput == null || currentPasswordInput.getParent() == null) return;
-
         HBox container = (HBox) currentPasswordInput.getParent();
         int index = container.getChildren().indexOf(currentPasswordInput);
         if (index < 0) return;
-
         if (show) {
             TextField textField = new TextField(currentPasswordInput.getText());
             textField.setPromptText(currentPasswordInput.getPromptText());
@@ -78,8 +66,9 @@ public class SignUpController {
             currentPasswordInput = passField;
         }
     }
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
@@ -90,38 +79,19 @@ public class SignUpController {
     private void handleChooseImage() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une photo de profil");
-
-        // Filtres d'extension (images courantes)
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"),
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif"),
                 new FileChooser.ExtensionFilter("Tous les fichiers", "*.*")
         );
-
-        // Essaie d'ouvrir le dialogue
-        Stage stage = null;
-        try {
-            stage = (Stage) photoPreview.getScene().getWindow();  // ou nomField.getScene().getWindow()
-        } catch (Exception e) {
-            showAlert("Erreur", "Impossible de récupérer la fenêtre actuelle : " + e.getMessage());
-            return;
-        }
-
-        if (stage == null) {
-            showAlert("Erreur", "La fenêtre parent est introuvable");
-            return;
-        }
-
+        Stage stage = (Stage) photoPreview.getScene().getWindow();
         selectedImageFile = fileChooser.showOpenDialog(stage);
-
         if (selectedImageFile != null) {
             photoFileName.setText(selectedImageFile.getName());
             try {
                 photoPreview.setImage(new Image(selectedImageFile.toURI().toString()));
-                showAlert("Succès", "Image chargée : " + selectedImageFile.getName());
             } catch (Exception e) {
-                showAlert("Erreur de chargement", "Impossible d'afficher l'image : " + e.getMessage());
+                showAlert("Erreur", "Impossible d'afficher l'image", Alert.AlertType.ERROR);
                 photoPreview.setImage(null);
-                photoFileName.setText("Erreur de chargement");
             }
         } else {
             photoFileName.setText("Aucune image sélectionnée");
@@ -138,98 +108,85 @@ public class SignUpController {
 
         StringBuilder errors = new StringBuilder();
 
-        // Contrôles obligatoires
         if (nom.isEmpty()) errors.append("• Le nom est obligatoire\n");
         if (prenom.isEmpty()) errors.append("• Le prénom est obligatoire\n");
         if (email.isEmpty()) errors.append("• L'email est obligatoire\n");
         if (password.isEmpty()) errors.append("• Le mot de passe est obligatoire\n");
 
-        // Format email
         if (!email.isEmpty() && !EMAIL_PATTERN.matcher(email).matches()) {
-            errors.append("• Le format de l'email est invalide (ex: nom@domaine.com)\n");
+            errors.append("• Format d'email invalide\n");
         }
 
-        // Unicité email
         if (service.emailExistsSafe(email)) {
-            errors.append("• Cet email est déjà utilisé par un autre compte\n");
+            errors.append("• Cet email est déjà utilisé\n");
         }
 
-        // Complexité mot de passe
         if (!password.isEmpty() && !PASSWORD_PATTERN.matcher(password).matches()) {
-            errors.append("• Le mot de passe ne respecte pas les exigences :\n");
-            errors.append("  - Au moins 8 caractères\n");
-            errors.append("  - Au moins 1 lettre majuscule\n");
-            errors.append("  - Au moins 1 lettre minuscule\n");
-            errors.append("  - Au moins 1 chiffre\n");
-            errors.append("  - Au moins 1 caractère spécial (!@#$%^&* etc.)\n");
+            errors.append("• Mot de passe trop faible :\n");
+            errors.append("  - ≥ 8 caractères\n");
+            errors.append("  - ≥ 1 majuscule\n");
+            errors.append("  - ≥ 1 minuscule\n");
+            errors.append("  - ≥ 1 chiffre\n");
+            errors.append("  - ≥ 1 caractère spécial\n");
         }
 
-        // Affichage d'une Alert si erreurs
         if (errors.length() > 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur d'inscription");
-            alert.setHeaderText("Veuillez corriger les erreurs suivantes :");
-            alert.setContentText(errors.toString());
-            alert.showAndWait();
-            errorLabel.setText("Vérifiez les erreurs ci-dessus"); // optionnel : petit message en bas
+            showAlert("Erreur d'inscription", errors.toString(), Alert.AlertType.ERROR);
+            errorLabel.setText("Vérifiez les erreurs ci-dessus");
             return;
         }
 
-        // Tout est correct → création de l'utilisateur
-        Users newUser = new Users();
+        Voyageur newUser = new Voyageur();
         newUser.setNom(nom);
         newUser.setPrenom(prenom);
         newUser.setEmail(email);
         newUser.setMotDePasse(password); // sera hashé dans service.add()
-        newUser.setTelephone(tel);
-        newUser.setRole(Role.VOYAGEUR); // rôle forcé
+        newUser.setTelephone(tel.isEmpty() ? null : tel);
 
         // Photo
         if (selectedImageFile != null) {
             try {
                 newUser.setPhotoProfilUrl(saveImage(selectedImageFile));
             } catch (IOException e) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Erreur photo");
-                alert.setContentText("Impossible de sauvegarder la photo : " + e.getMessage());
-                alert.showAndWait();
+                showAlert("Erreur", "Impossible de sauvegarder la photo", Alert.AlertType.ERROR);
                 return;
             }
         } else {
-            newUser.setPhotoProfilUrl("default.jpg");
+            newUser.setPhotoProfilUrl("/public/profiles/default.jpg");
         }
+
+        // Génération token de vérification
+        String token = UUID.randomUUID().toString();
+        newUser.setVerificationToken(token);
+        newUser.setVerificationExpiry(java.time.LocalDateTime.now().plusHours(24));
 
         // Enregistrement
         service.add(newUser);
 
-        // Succès → Alert de confirmation + redirection
-        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-        successAlert.setTitle("Inscription réussie");
-        successAlert.setHeaderText("Bienvenue sur After !");
-        successAlert.setContentText("Votre compte a été créé avec succès.\nVous allez être redirigé vers la page de connexion.");
-        successAlert.showAndWait();
-
-        // Redirection vers login
+        // Envoi email de confirmation
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 500));
-            stage.setTitle("After Travel - Connexion");
-        } catch (IOException e) {
-            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-            errorAlert.setTitle("Erreur");
-            errorAlert.setContentText("Impossible de charger la page de connexion");
-            errorAlert.showAndWait();
+            new EmailService().sendVerificationEmail(email, token);
+            showAlert(
+                    "Inscription réussie",
+                    "Votre compte a été créé avec succès !\n\n" +
+                            "Pour finaliser votre inscription :\n" +
+                            "→ Consultez votre boîte email (" + email + ")\n" +
+                            "→ Cliquez sur le lien de confirmation reçu\n\n" +
+                            "Le lien est valide 24 heures.",
+                    Alert.AlertType.INFORMATION
+            );
+        } catch (Exception e) {
+            showAlert("Attention", "Compte créé mais email de confirmation non envoyé.", Alert.AlertType.WARNING);
             e.printStackTrace();
         }
+
+        goToLogin();
     }
 
     private String saveImage(File source) throws IOException {
         String dir = "src/main/resources/public/profiles/";
         Path dirPath = Path.of(dir);
         if (!Files.exists(dirPath)) Files.createDirectories(dirPath);
-
         String ext = source.getName().substring(source.getName().lastIndexOf("."));
         String name = System.currentTimeMillis() + ext;
         Path dest = Path.of(dir + name);
@@ -243,9 +200,10 @@ public class SignUpController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root, 600, 500));
+            stage.setScene(new Scene(root));
             stage.setTitle("After Travel - Connexion");
         } catch (IOException e) {
+            showAlert("Erreur", "Impossible de charger la page de connexion", Alert.AlertType.ERROR);
             e.printStackTrace();
         }
     }
