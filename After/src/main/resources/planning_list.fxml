@@ -12,11 +12,11 @@
                    -fx-background-position: center center;
                    -fx-background-repeat: no-repeat;">
 
-    <!-- ================= HEADER ================= -->
+
     <top>
         <VBox spacing="0" style="-fx-background-color: rgba(0,0,0,0.4);">
 
-            <!-- Title -->
+
             <HBox alignment="CENTER" spacing="20">
                 <padding>
                     <Insets top="80" right="30" bottom="20" left="30"/>
@@ -51,7 +51,7 @@
                         onAction="#handleBack"/>
             </HBox>
 
-            <!-- Toolbar -->
+
             <HBox alignment="CENTER_LEFT" spacing="15"
                   style="-fx-background-color: rgba(0,0,0,0.35);">
                 <padding>
@@ -73,7 +73,7 @@
         </VBox>
     </top>
 
-    <!-- ================= CONTENT ================= -->
+
     <center>
         <ScrollPane fitToWidth="true"
                     style="-fx-background-color: transparent;">
@@ -84,7 +84,7 @@
         </ScrollPane>
     </center>
 
-    <!-- ================= FOOTER ================= -->
+
     <bottom>
         <HBox alignment="CENTER"
               spacing="40"
