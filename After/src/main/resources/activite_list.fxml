@@ -12,7 +12,7 @@
                    -fx-background-position: center center;
                    -fx-background-repeat: no-repeat;">
 
-    <!-- ================= HEADER ================= -->
+
     <top>
         <VBox spacing="0" style="-fx-background-color: rgba(0,0,0,0.4);">
 
@@ -47,7 +47,6 @@
                                -fx-background-radius: 20;"/>
             </HBox>
 
-            <!-- Toolbar -->
             <HBox alignment="CENTER_LEFT" spacing="15"
                   style="-fx-background-color: rgba(0,0,0,0.35);">
                 <padding>
@@ -63,7 +62,7 @@
 
                 <Region HBox.hgrow="ALWAYS"/>
 
-                <!-- 🔎 Recherche -->
+
                 <HBox alignment="CENTER_LEFT" spacing="8"
                       style="-fx-background-color: rgba(255,255,255,0.9);
                              -fx-background-radius: 20;
@@ -75,13 +74,13 @@
                                style="-fx-background-color: transparent; -fx-border-width: 0;"/>
                 </HBox>
 
-                <!-- 🔽 Tri par prix -->
+
                 <ComboBox fx:id="comboSort"
                           promptText="Trier par prix"
                           prefWidth="180"
                           style="-fx-font-size: 13px;"/>
 
-                <!-- ➕ Ajouter -->
+
                 <Button text="+ Nouvelle Activité"
                         onAction="#handleAdd"
                         prefHeight="40" prefWidth="180"
@@ -94,7 +93,7 @@
         </VBox>
     </top>
 
-    <!-- ================= CONTENT ================= -->
+
     <center>
         <ScrollPane fitToWidth="true"
                     style="-fx-background-color: transparent;">
@@ -105,7 +104,6 @@
         </ScrollPane>
     </center>
 
-    <!-- ================= FOOTER ================= -->
     <bottom>
         <HBox alignment="CENTER" spacing="40"
               style="-fx-background-color: rgba(255,255,255,0.9);
@@ -113,7 +111,7 @@
                      -fx-border-color: #E9ECEF;
                      -fx-border-width: 1 0 0 0;">
 
-            <!-- Budget -->
+
             <VBox alignment="CENTER">
                 <Label text="💰 Budget Total"
                        style="-fx-font-size: 12px; -fx-text-fill: #6C757D;"/>
@@ -124,7 +122,7 @@
                               -fx-text-fill: #2D6A4F;"/>
             </VBox>
 
-            <!-- Total Activités -->
+
             <VBox alignment="CENTER">
                 <Label text="📌 Nombre d'Activités"
                        style="-fx-font-size: 12px; -fx-text-fill: #6C757D;"/>
@@ -135,7 +133,7 @@
                               -fx-text-fill: #2D6A4F;"/>
             </VBox>
 
-            <!-- Dernière mise à jour -->
+
             <VBox alignment="CENTER">
                 <Label text="📅 Dernière Mise à Jour"
                        style="-fx-font-size: 12px; -fx-text-fill: #6C757D;"/>
