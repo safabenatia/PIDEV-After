@@ -34,7 +34,7 @@ public class PlanningController {
 
     private int fixedUserId=1;
 
-    // ✅ IMPORTANT : variable pour savoir si on est en modification
+
     private Planning editingPlanning = null;
 
     public void setFixedUserId(int id) {
@@ -45,7 +45,7 @@ public class PlanningController {
     public void initialize() {
         loadActivites();
 
-        // Afficher uniquement le NOM dans le ComboBox
+
         activiteComboBox.setCellFactory(cb -> new ListCell<>() {
             @Override
             protected void updateItem(Activite item, boolean empty) {
@@ -69,7 +69,7 @@ public class PlanningController {
         activiteComboBox.setItems(obsList);
     }
 
-    // ✅ MÉTHODE UTILISÉE POUR MODIFIER
+
     public void loadPlanning(Planning planning) {
         this.editingPlanning = planning;
 
@@ -85,7 +85,7 @@ public class PlanningController {
         dureeField.setText(String.valueOf(planning.getDuree()));
     }
 
-    // ✅ UNE SEULE MÉTHODE POUR AJOUT + MODIFICATION
+
     @FXML
     public void ajouter() {
 
@@ -127,7 +127,7 @@ public class PlanningController {
             return;
         }
 
-        // 🔹 SI on est en modification
+
         if (editingPlanning != null) {
 
             editingPlanning.setIdActivite(selectedActivite.getIdActivite());
@@ -140,7 +140,7 @@ public class PlanningController {
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Planning modifié avec succès !");
 
         } else {
-            // 🔹 SINON c'est un ajout
+
 
             Planning p = new Planning(
                     fixedUserId,
