@@ -12,14 +12,14 @@
 
     <children>
 
-        <!-- Background Image -->
+
         <ImageView fitHeight="680" fitWidth="989.0">
             <image>
                 <Image url="@./images/j.jpg"/>
             </image>
         </ImageView>
 
-        <!-- Glass Container -->
+
         <AnchorPane layoutX="200.0" layoutY="60.0"
                     prefHeight="500.0" prefWidth="550.0"
                     style="
@@ -33,7 +33,7 @@
 
             <children>
 
-                <!-- TITLE -->
+
                 <Label layoutX="160" layoutY="20"
                        text="Ajouter Planning"
                        textFill="#00d4ff">
@@ -42,14 +42,14 @@
                     </font>
                 </Label>
 
-                <!-- ID ACTIVITE -->
+
                 <Label layoutX="40" layoutY="90" text="Activité" textFill="white"/>
                 <ComboBox fx:id="activiteComboBox"
                           layoutX="150" layoutY="85"
                           prefWidth="320"
                           promptText="Sélectionner une activité"/>
 
-                <!-- DATE -->
+
                 <Label layoutX="40" layoutY="130"
                        text="Date"
                        textFill="white"/>
@@ -58,7 +58,7 @@
                             layoutX="180" layoutY="125"
                             prefWidth="290"/>
 
-                <!-- HEURE -->
+
                 <Label layoutX="40" layoutY="170"
                        text="Heure Début"
                        textFill="white"/>
@@ -68,7 +68,7 @@
                            prefWidth="290"
                            promptText="Ex: 14:30"/>
 
-                <!-- DUREE -->
+
                 <Label layoutX="40" layoutY="210"
                        text="Durée (min)"
                        textFill="white"/>
@@ -78,7 +78,7 @@
                            prefWidth="290"
                            promptText="Durée en minutes"/>
 
-                <!-- BUTTONS -->
+
                 <Button layoutX="200" layoutY="270"
                         text="Ajouter"
                         onAction="#ajouter"
