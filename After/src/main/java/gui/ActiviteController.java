@@ -51,9 +51,7 @@ public class ActiviteController {
         });
     }
 
-    // ============================
-    // Validation bordure rouge
-    // ============================
+
     private void addValidation(TextField field) {
 
         field.focusedProperty().addListener((obs, oldVal, newVal) -> {
@@ -69,9 +67,6 @@ public class ActiviteController {
         });
     }
 
-    // ============================
-    // AJOUTER
-    // ============================
     @FXML
     public void ajouter() {
 
@@ -166,14 +161,6 @@ public class ActiviteController {
 
 
 
-    // ============================
-    // MODIFIER
-    // ============================
-
-
-    // ============================
-    // CLEAR
-    // ============================
     private void clearFields() {
         nomField.clear();
         descriptionField.clear();
