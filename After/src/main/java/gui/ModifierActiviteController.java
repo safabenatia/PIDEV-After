@@ -22,9 +22,7 @@ public class ModifierActiviteController {
     private Activite activite;
     private ServiceActivite service = new ServiceActivite();
 
-    // ============================
-    // RECEVOIR ACTIVITE SELECTIONNEE
-    // ============================
+
     public void setActivite(Activite activite) {
         this.activite = activite;
 
@@ -35,9 +33,7 @@ public class ModifierActiviteController {
         prixField.setText(String.valueOf(activite.getPrix()));
     }
 
-    // ============================
-    // MODIFIER
-    // ============================
+
     @FXML
     private void handleUpdate() {
 
@@ -111,7 +107,7 @@ public class ModifierActiviteController {
             return;
         }
 
-        // ================= MISE A JOUR =================
+
 
         activite.setNom(nom);
         activite.setDescription(description);
@@ -127,17 +123,13 @@ public class ModifierActiviteController {
         closeWindow();
     }
 
-    // ============================
-    // ANNULER
-    // ============================
+
     @FXML
     private void handleCancel() {
         closeWindow();
     }
 
-    // ============================
-    // ALERTES
-    // ============================
+
     private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erreur de saisie");
