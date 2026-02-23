@@ -33,9 +33,7 @@ public class ModifierPlanningController {
     private ServicePlanning servicePlanning = new ServicePlanning();
     private ServiceActivite serviceActivite = new ServiceActivite();
 
-    // ===============================
-    // INITIALISATION
-    // ===============================
+
     @FXML
     public void initialize() {
 
@@ -52,7 +50,7 @@ public class ModifierPlanningController {
             }
         });
 
-        // 🔥 Afficher seulement le NOM quand sélectionné
+
         activiteComboBox.setButtonCell(new ListCell<>() {
             @Override
             protected void updateItem(Activite item, boolean empty) {
@@ -62,9 +60,7 @@ public class ModifierPlanningController {
         });
     }
 
-    // ===============================
-    // RECEVOIR LE PLANNING À MODIFIER
-    // ===============================
+
     public void setPlanning(Planning planning) {
         this.planning = planning;
 
@@ -81,9 +77,7 @@ public class ModifierPlanningController {
         dureeField.setText(String.valueOf(planning.getDuree()));
     }
 
-    // ===============================
-    // METTRE À JOUR
-    // ===============================
+
     @FXML
     private void handleUpdate() {
 
@@ -137,25 +131,19 @@ public class ModifierPlanningController {
         closeWindow();
     }
 
-    // ===============================
-    // ANNULER
-    // ===============================
+
     @FXML
     private void handleCancel() {
         closeWindow();
     }
 
-    // ===============================
-    // FERMER LA FENÊTRE
-    // ===============================
+
     private void closeWindow() {
         Stage stage = (Stage) activiteComboBox.getScene().getWindow();
         stage.close();
     }
 
-    // ===============================
-    // ALERT
-    // ===============================
+
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
