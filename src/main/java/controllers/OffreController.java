@@ -22,6 +22,7 @@ import api.QRCodeView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -51,6 +52,27 @@ public class OffreController implements Initializable {
     @FXML
     private Button closeButton;
 
+    // ==================== RECHERCHE AVANCÉE ====================
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private ComboBox<String> filtreCombo;
+
+    @FXML
+    private ComboBox<String> triCombo;
+
+    @FXML
+    private TextField prixMinField;
+
+    @FXML
+    private TextField prixMaxField;
+
+    @FXML
+    private Label resultatsCountLabel;
+
+    private List<Offre> toutesLesOffres;  // Pour stocker toutes les offres
+
     private OffreService offreService = new OffreService();
     private ServiceService serviceService = new ServiceService();
     private MeteoAPI meteoAPI = new MeteoAPI();
@@ -64,6 +86,9 @@ public class OffreController implements Initializable {
         configureScrollPane();
         chargerServices();
         chargerOffres();
+
+        // Initialiser les composants de recherche
+        initRecherche();
     }
 
     private void setupWindowButtons() {
@@ -108,7 +133,6 @@ public class OffreController implements Initializable {
                 if (empty || service == null) {
                     setText(null);
                 } else {
-                    // Affiche UNIQUEMENT le nom du service, sans ID
                     setText(service.getNom_service());
                 }
             }
@@ -127,24 +151,40 @@ public class OffreController implements Initializable {
         });
     }
 
-    private void chargerOffres() {
-        offresVBox.getChildren().clear();
-
-        try {
-            List<Offre> offres = offreService.getAll();
-
-            if (offres.isEmpty()) {
-                afficherMessageAucuneOffre();
-            } else {
-                for (Offre offre : offres) {
-                    VBox offreCard = createOffreCard(offre);
-                    offresVBox.getChildren().add(offreCard);
-                }
-            }
-        } catch (Exception e) {
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors du chargement des offres: " + e.getMessage());
-            e.printStackTrace();
+    // ==================== INITIALISATION RECHERCHE ====================
+    private void initRecherche() {
+        // Initialiser les combobox de recherche
+        if (filtreCombo != null) {
+            filtreCombo.setValue("Tous les champs");
         }
+
+        if (triCombo != null) {
+            triCombo.setValue("Pertinence");
+        }
+
+        // Ajouter des listeners pour la recherche en temps réel
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+                rechercherOffres();
+            });
+        }
+
+        if (prixMinField != null) {
+            prixMinField.textProperty().addListener((obs, oldVal, newVal) -> {
+                rechercherOffres();
+            });
+        }
+
+        if (prixMaxField != null) {
+            prixMaxField.textProperty().addListener((obs, oldVal, newVal) -> {
+                rechercherOffres();
+            });
+        }
+    }
+
+    private void chargerOffres() {
+        toutesLesOffres = offreService.getAll();
+        afficherResultats(toutesLesOffres);
     }
 
     private void afficherMessageAucuneOffre() {
@@ -168,7 +208,6 @@ public class OffreController implements Initializable {
         Label titleLabel = createTitleLabel(offre);
         HBox detailsBox = createDetailsBox(offre);
 
-        // Séparateur décoratif
         Separator separator = new Separator();
         separator.setStyle("-fx-background-color: #16325c; -fx-opacity: 0.3;");
 
@@ -193,7 +232,6 @@ public class OffreController implements Initializable {
         HBox header = new HBox();
         header.setStyle("-fx-alignment: CENTER_LEFT; -fx-spacing: 10;");
 
-        // Badge de catégorie (remplace l'ID)
         Label categoryBadge = new Label("⭐ OFFRE SPÉCIALE");
         categoryBadge.setStyle(
                 "-fx-background-color: #FFD700;" +
@@ -410,6 +448,163 @@ public class OffreController implements Initializable {
         });
     }
 
+    // ==================== MÉTHODES DE RECHERCHE ====================
+
+    @FXML
+    private void rechercherOffres() {
+        if (toutesLesOffres == null) return;
+
+        String recherche = searchField != null ? searchField.getText().toLowerCase().trim() : "";
+        String filtre = filtreCombo != null ? filtreCombo.getValue() : "Tous les champs";
+        String tri = triCombo != null ? triCombo.getValue() : "Pertinence";
+
+        List<Offre> resultats = new ArrayList<>();
+
+        // 1. APPLIQUER LES FILTRES
+        for (Offre o : toutesLesOffres) {
+            boolean correspond = false;
+
+            if (filtre == null || filtre.equals("Tous les champs")) {
+                correspond = rechercherDansTousLesChamps(o, recherche);
+            } else if (filtre.equals("Titre")) {
+                correspond = o.getTitre().toLowerCase().contains(recherche);
+            } else if (filtre.equals("Service")) {
+                String serviceName = getServiceName(o);
+                correspond = serviceName.toLowerCase().contains(recherche);
+            } else if (filtre.equals("Prix minimum")) {
+                try {
+                    double prixMin = Double.parseDouble(recherche);
+                    correspond = o.getPrix() >= prixMin;
+                } catch (NumberFormatException e) {
+                    correspond = true;
+                }
+            } else if (filtre.equals("Prix maximum")) {
+                try {
+                    double prixMax = Double.parseDouble(recherche);
+                    correspond = o.getPrix() <= prixMax;
+                } catch (NumberFormatException e) {
+                    correspond = true;
+                }
+            } else if (filtre.equals("Durée")) {
+                try {
+                    int duree = Integer.parseInt(recherche);
+                    correspond = o.getDuree() == duree;
+                } catch (NumberFormatException e) {
+                    correspond = true;
+                }
+            }
+
+            // Appliquer aussi les filtres de prix
+            if (correspond) {
+                correspond = appliquerFiltresPrix(o);
+            }
+
+            if (correspond) {
+                resultats.add(o);
+            }
+        }
+
+        // 2. APPLIQUER LE TRI
+        resultats = trierResultats(resultats, tri);
+
+        // 3. METTRE À JOUR L'AFFICHAGE
+        afficherResultats(resultats);
+    }
+
+    private boolean rechercherDansTousLesChamps(Offre offre, String recherche) {
+        if (recherche == null || recherche.isEmpty()) return true;
+
+        if (offre.getTitre().toLowerCase().contains(recherche)) return true;
+
+        String serviceName = getServiceName(offre);
+        if (serviceName.toLowerCase().contains(recherche)) return true;
+
+        if (String.valueOf(offre.getPrix()).contains(recherche)) return true;
+
+        if (String.valueOf(offre.getDuree()).contains(recherche)) return true;
+
+        return false;
+    }
+
+    private boolean appliquerFiltresPrix(Offre offre) {
+        double prix = offre.getPrix();
+
+        try {
+            if (prixMinField != null && !prixMinField.getText().isEmpty()) {
+                double prixMin = Double.parseDouble(prixMinField.getText());
+                if (prix < prixMin) return false;
+            }
+        } catch (NumberFormatException e) {
+            // Ignorer
+        }
+
+        try {
+            if (prixMaxField != null && !prixMaxField.getText().isEmpty()) {
+                double prixMax = Double.parseDouble(prixMaxField.getText());
+                if (prix > prixMax) return false;
+            }
+        } catch (NumberFormatException e) {
+            // Ignorer
+        }
+
+        return true;
+    }
+
+    private List<Offre> trierResultats(List<Offre> resultats, String tri) {
+        if (tri == null) return resultats;
+
+        List<Offre> triee = new ArrayList<>(resultats);
+
+        switch (tri) {
+            case "Prix (croissant)":
+                triee.sort((a, b) -> Double.compare(a.getPrix(), b.getPrix()));
+                break;
+            case "Prix (décroissant)":
+                triee.sort((a, b) -> Double.compare(b.getPrix(), a.getPrix()));
+                break;
+            case "Durée (croissante)":
+                triee.sort((a, b) -> Integer.compare(a.getDuree(), b.getDuree()));
+                break;
+            case "Durée (décroissante)":
+                triee.sort((a, b) -> Integer.compare(b.getDuree(), a.getDuree()));
+                break;
+            default:
+                break;
+        }
+        return triee;
+    }
+
+    private void afficherResultats(List<Offre> resultats) {
+        if (resultatsCountLabel != null) {
+            resultatsCountLabel.setText(resultats.size() + " offre(s) trouvée(s)");
+        }
+
+        offresVBox.getChildren().clear();
+
+        if (resultats.isEmpty()) {
+            Label emptyLabel = new Label("Aucune offre ne correspond à votre recherche");
+            emptyLabel.setStyle("-fx-text-fill: #16325c; -fx-font-size: 16px; -fx-padding: 20;");
+            offresVBox.getChildren().add(emptyLabel);
+        } else {
+            for (Offre offre : resultats) {
+                VBox offreCard = createOffreCard(offre);
+                offresVBox.getChildren().add(offreCard);
+            }
+        }
+    }
+
+    @FXML
+    private void reinitialiserRecherche() {
+        if (searchField != null) searchField.clear();
+        if (filtreCombo != null) filtreCombo.setValue("Tous les champs");
+        if (triCombo != null) triCombo.setValue("Pertinence");
+        if (prixMinField != null) prixMinField.clear();
+        if (prixMaxField != null) prixMaxField.clear();
+
+        toutesLesOffres = offreService.getAll();
+        afficherResultats(toutesLesOffres);
+    }
+
     @FXML
     private void ajouterOffre() {
         if (!validateFields()) return;
@@ -423,6 +618,7 @@ public class OffreController implements Initializable {
             );
 
             offreService.add(offre);
+            toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
             chargerOffres();
             annuler();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre ajoutée avec succès!");
@@ -448,6 +644,7 @@ public class OffreController implements Initializable {
             offreSelectionne.setServiceId(serviceCombo.getValue().getId_service());
 
             offreService.update(offreSelectionne);
+            toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
             chargerOffres();
             annuler();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre modifiée avec succès!");
@@ -469,6 +666,7 @@ public class OffreController implements Initializable {
                 if (offreSelectionne != null && offreSelectionne.getId_offre() == offre.getId_offre()) {
                     annuler();
                 }
+                toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
                 chargerOffres();
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre supprimée avec succès!");
             } catch (Exception e) {
