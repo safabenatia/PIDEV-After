@@ -12,14 +12,12 @@
 
     <children>
 
-        <!-- Background Image -->
         <ImageView fitHeight="680" fitWidth="989.0" preserveRatio="false">
             <image>
                 <Image url="@./images/p.jpg"/>
             </image>
         </ImageView>
 
-        <!-- Glass Card -->
         <AnchorPane layoutX="200.0" layoutY="60.0"
                     prefHeight="500.0" prefWidth="550.0"
                     style="
@@ -33,7 +31,6 @@
 
             <children>
 
-                <!-- TITRE -->
                 <Label layoutX="170" layoutY="20"
                        text="Modifier Activité"
                        textFill="#00d4ff">
@@ -42,37 +39,36 @@
                     </font>
                 </Label>
 
-                <!-- NOM -->
                 <Label layoutX="40" layoutY="90" text="Nom" textFill="white"/>
                 <TextField fx:id="nomField"
                            layoutX="150" layoutY="85"
                            prefWidth="320"/>
 
-                <!-- DESCRIPTION -->
+
                 <Label layoutX="40" layoutY="130" text="Description" textFill="white"/>
                 <TextField fx:id="descriptionField"
                            layoutX="150" layoutY="125"
                            prefWidth="320"/>
 
-                <!-- CATEGORIE -->
+
                 <Label layoutX="40" layoutY="170" text="Catégorie" textFill="white"/>
                 <TextField fx:id="categorieField"
                            layoutX="150" layoutY="165"
                            prefWidth="320"/>
 
-                <!-- LIEU -->
+
                 <Label layoutX="40" layoutY="210" text="Lieu" textFill="white"/>
                 <TextField fx:id="lieuField"
                            layoutX="150" layoutY="205"
                            prefWidth="320"/>
 
-                <!-- PRIX -->
+
                 <Label layoutX="40" layoutY="250" text="Prix" textFill="white"/>
                 <TextField fx:id="prixField"
                            layoutX="150" layoutY="245"
                            prefWidth="320"/>
 
-                <!-- BOUTONS -->
+
                 <Button layoutX="200" layoutY="330"
                         text="Modifier"
                         onAction="#handleUpdate"
