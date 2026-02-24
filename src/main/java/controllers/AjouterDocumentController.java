@@ -10,6 +10,7 @@ import models.CategorieDocument;
 import services.serviceDocument;
 import services.serviceCategorieDocument;
 import services.MailService;
+import services.GoogleCalendarService;
 
 import java.io.File;
 import java.sql.Date;
@@ -35,25 +36,24 @@ public class AjouterDocumentController {
         cbCategorie.getItems().addAll(categories);
         cbCategorie.setEditable(true);
 
-        // Désactiver dates avant aujourd'hui
+        dpAjout.setValue(LocalDate.now());
+
         dpAjout.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                if (empty || date == null) return;
-                if (date.isBefore(LocalDate.now())) {
+                if (!empty && date.isBefore(LocalDate.now())) {
                     setDisable(true);
                 }
             }
         });
 
-        // Désactiver expiration avant date ajout
         dpExpiration.setDayCellFactory(picker -> new DateCell() {
             @Override
             public void updateItem(LocalDate date, boolean empty) {
                 super.updateItem(date, empty);
-                if (empty || date == null || dpAjout.getValue() == null) return;
-                if (date.isBefore(dpAjout.getValue())) {
+                if (!empty && dpAjout.getValue() != null &&
+                        date.isBefore(dpAjout.getValue())) {
                     setDisable(true);
                 }
             }
@@ -64,11 +64,8 @@ public class AjouterDocumentController {
     private void choisirFichier() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un document");
-
         File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null) {
-            txtChemin.setText(file.getAbsolutePath());
-        }
+        if (file != null) txtChemin.setText(file.getAbsolutePath());
     }
 
     @FXML
@@ -81,13 +78,6 @@ public class AjouterDocumentController {
             showAlert(Alert.AlertType.ERROR,
                     "Erreur",
                     "Veuillez remplir tous les champs obligatoires");
-            return;
-        }
-
-        if (dpAjout.getValue().isBefore(LocalDate.now())) {
-            showAlert(Alert.AlertType.ERROR,
-                    "Erreur Date",
-                    "La date d'ajout ne peut pas être avant aujourd'hui");
             return;
         }
 
@@ -135,16 +125,24 @@ public class AjouterDocumentController {
 
         docService.add(document);
 
-        // ✅ Envoi Email
+        // EMAIL
         mailService.sendMail(
                 "mahdi.bribech12@gmail.com",
                 "Nouveau document ajouté ✈",
-                "Le document \"" + txtNom.getText() + "\" a été ajouté avec succès."
+                "Le document \"" + txtNom.getText() + "\" a été ajouté."
         );
+
+        // GOOGLE CALENDAR (seulement si expiration existe)
+        if (dpExpiration.getValue() != null) {
+            GoogleCalendarService.ajouterRappelExpiration(
+                    txtNom.getText(),
+                    dpExpiration.getValue()
+            );
+        }
 
         showAlert(Alert.AlertType.INFORMATION,
                 "Succès",
-                "Document ajouté avec succès ✔\nEmail envoyé 📩");
+                "Document ajouté ✔\nEmail envoyé 📩\nRappel calendrier créé 📅");
 
         clearFields();
     }
@@ -152,7 +150,7 @@ public class AjouterDocumentController {
     private void clearFields() {
         txtNom.clear();
         txtChemin.clear();
-        dpAjout.setValue(null);
+        dpAjout.setValue(LocalDate.now());
         dpExpiration.setValue(null);
         cbCategorie.setValue(null);
         cbCategorie.getEditor().clear();
