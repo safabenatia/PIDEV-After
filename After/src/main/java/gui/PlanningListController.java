@@ -245,6 +245,21 @@ public class PlanningListController {
             showAlert("Erreur", "Impossible de retourner à la liste des activités !");
         }
     }
+    @FXML
+    private void openCountryPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/country.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Liste des pays");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
