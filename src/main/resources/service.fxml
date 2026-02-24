@@ -17,23 +17,24 @@
             fx:controller="controllers.ServiceController"
             stylesheets="@style.css">
 
-    <!-- BARRE DE TITRE -->
+    <!-- ========== BARRE DE TITRE UNIQUE (minimiser, maximiser, fermer) ========== -->
     <HBox style="-fx-background-color: #16325c; -fx-padding: 8 20; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="45">
         <Region HBox.hgrow="ALWAYS" />
         <Label text="AFTER Travel - Gestion des Services" style="-fx-text-fill: #F5F5DC; -fx-font-size: 15px; -fx-font-weight: bold;" />
         <Region HBox.hgrow="ALWAYS" />
         <HBox spacing="8">
             <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+            <Button fx:id="maximizeButton" text="□" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
             <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
         </HBox>
     </HBox>
 
     <BorderPane prefWidth="1300" prefHeight="750" AnchorPane.topAnchor="45" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" style="-fx-background-color: #F5F5DC;">
 
-        <!-- HEADER -->
+        <!-- ========== HEADER AVEC BANNIÈRE ========== -->
         <top>
             <VBox>
-                <!-- Bannière -->
+                <!-- Bannière décorative -->
                 <HBox style="-fx-background-color: #16325c; -fx-padding: 10 30; -fx-alignment: CENTER;" prefHeight="60">
                     <Label text="✈️" style="-fx-font-size: 24px;" />
                     <Label text="AFTER Travel - Services" style="-fx-text-fill: #FFD700; -fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 15;" />
@@ -42,9 +43,9 @@
                     <Label text="✨ Qualité premium" style="-fx-text-fill: #F5F5DC; -fx-font-size: 14px;" />
                 </HBox>
 
-                <!-- Header principal -->
+                <!-- Header principal avec bouton retour -->
                 <HBox style="-fx-background-color: #16325c; -fx-padding: 15 30; -fx-alignment: CENTER_LEFT;" spacing="20">
-                    <Button text="← Retour au Dashboard"
+                    <Button text="← Retour au Tableau de Bord"
                             onAction="#handleDashboard"
                             style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 10 25; -fx-background-radius: 25; -fx-font-weight: bold; -fx-cursor: hand;"
                             prefWidth="200"/>
@@ -55,11 +56,11 @@
             </VBox>
         </top>
 
-        <!-- CONTENU PRINCIPAL -->
+        <!-- ========== CONTENU PRINCIPAL ========== -->
         <center>
             <HBox spacing="30" alignment="CENTER" style="-fx-padding: 25;">
 
-                <!-- FORMULAIRE GAUCHE -->
+                <!-- ===== COLONNE GAUCHE : FORMULAIRE ===== -->
                 <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 30; -fx-border-color: #16325c; -fx-border-radius: 30; -fx-border-width: 2; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5);" prefWidth="450">
 
                     <StackPane prefHeight="80" style="-fx-background-color: #16325c; -fx-background-radius: 20;">
@@ -70,22 +71,34 @@
                     </StackPane>
 
                     <VBox spacing="15">
-                        <TextField fx:id="nomField" promptText="Nom du service" style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
-                        <TextField fx:id="descriptionField" promptText="Description" style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
-                        <TextField fx:id="categorieField" promptText="Catégorie" style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
+                        <TextField fx:id="nomField" promptText="Nom du service"
+                                   style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
+                        <TextField fx:id="descriptionField" promptText="Description"
+                                   style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
+                        <TextField fx:id="categorieField" promptText="Catégorie"
+                                   style="-fx-padding: 12; -fx-background-radius: 15; -fx-border-color: #16325c; -fx-border-radius: 15; -fx-background-color: #F5F5DC;"/>
 
                         <Separator style="-fx-background-color: #16325c;" />
 
+                        <!-- Boutons CRUD -->
                         <HBox spacing="10" alignment="CENTER">
-                            <Button text="Ajouter" onAction="#ajouterService" style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;" prefWidth="100"/>
-                            <Button text="Modifier" onAction="#modifierService" style="-fx-background-color: #1e4a7a; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;" prefWidth="100"/>
-                            <Button text="Supprimer" onAction="#supprimerService" style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;" prefWidth="100"/>
-                            <Button text="Annuler" onAction="#annuler" style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;" prefWidth="100"/>
+                            <Button text="Ajouter" onAction="#ajouterService"
+                                    style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
+                                    prefWidth="100"/>
+                            <Button text="Modifier" onAction="#modifierService"
+                                    style="-fx-background-color: #1e4a7a; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;"
+                                    prefWidth="100"/>
+                            <Button text="Supprimer" onAction="#supprimerService"
+                                    style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;"
+                                    prefWidth="100"/>
+                            <Button text="Annuler" onAction="#annuler"
+                                    style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand;"
+                                    prefWidth="100"/>
                         </HBox>
                     </VBox>
                 </VBox>
 
-                <!-- LISTE DES SERVICES DROITE -->
+                <!-- ===== COLONNE DROITE : LISTE DES SERVICES ===== -->
                 <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 30; -fx-background-radius: 30; -fx-border-color: #16325c; -fx-border-radius: 30; -fx-border-width: 2; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 20, 0, 0, 5);" prefWidth="700">
 
                     <StackPane prefHeight="80" style="-fx-background-color: #16325c; -fx-background-radius: 20;">
@@ -95,14 +108,17 @@
                         </HBox>
                     </StackPane>
 
-                    <ScrollPane fx:id="scrollPane" prefHeight="400" fitToWidth="true" style="-fx-background: transparent; -fx-border-color: #16325c; -fx-border-radius: 15;">
+                    <!-- ScrollPane contenant les cartes de services -->
+                    <ScrollPane fx:id="scrollPane" prefHeight="400" fitToWidth="true"
+                                style="-fx-background: transparent; -fx-border-color: #16325c; -fx-border-radius: 15;">
                         <VBox fx:id="servicesVBox" spacing="15" style="-fx-padding: 15;">
-                            <!-- Les cartes seront ajoutées dynamiquement -->
+                            <!-- Les cartes de services seront ajoutées dynamiquement par ServiceController.java -->
                         </VBox>
                     </ScrollPane>
 
+                    <!-- Message d'aide -->
                     <HBox alignment="CENTER">
-                        <Label text="✨ Cliquez sur une carte pour modifier ✨"
+                        <Label text="✨ Cliquez sur 'Sélectionner' pour modifier un service ✨"
                                style="-fx-text-fill: #16325c; -fx-font-size: 14px; -fx-font-style: italic; -fx-background-color: #F5F5DC; -fx-padding: 8 20; -fx-background-radius: 30;"/>
                     </HBox>
                 </VBox>

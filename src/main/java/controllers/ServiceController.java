@@ -4,7 +4,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,10 +14,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Service;
 import services.ServiceService;
+import api.PaiementAPI;
+import api.EmailAPI;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ServiceController implements Initializable {
@@ -45,6 +48,8 @@ public class ServiceController implements Initializable {
     private Button closeButton;
 
     private ServiceService serviceService = new ServiceService();
+    private PaiementAPI paiementAPI = new PaiementAPI();
+    private EmailAPI emailAPI = new EmailAPI();
     private Service serviceSelectionne = null;
     private Button selectedButton = null;
 
@@ -198,7 +203,19 @@ public class ServiceController implements Initializable {
         );
         deleteBtn.setOnAction(e -> deleteService(service));
 
-        actions.getChildren().addAll(selectBtn, deleteBtn);
+        // BOUTON PAIEMENT (NOUVEAU)
+        Button payerBtn = new Button("💳 Payer ce service");
+        payerBtn.setStyle(
+                "-fx-background-color: #4caf50;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 12 25;" +
+                        "-fx-background-radius: 25;" +
+                        "-fx-cursor: hand;" +
+                        "-fx-font-weight: bold;"
+        );
+        payerBtn.setOnAction(e -> payerService(service));
+
+        actions.getChildren().addAll(selectBtn, payerBtn, deleteBtn);
 
         card.getChildren().addAll(header, titleLabel, descLabel, separator, actions);
         return card;
@@ -249,6 +266,95 @@ public class ServiceController implements Initializable {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression: " + e.getMessage());
                 e.printStackTrace();
             }
+        }
+    }
+
+    // ==================== NOUVELLE MÉTHODE DE PAIEMENT ====================
+    private void payerService(Service service) {
+
+        // 1. Demander l'email du client
+        TextInputDialog emailDialog = new TextInputDialog("client@example.com");
+        emailDialog.setTitle("Paiement");
+        emailDialog.setHeaderText("Paiement du service: " + service.getNom_service());
+        emailDialog.setContentText("Votre email pour recevoir la facture:");
+
+        Optional<String> emailResult = emailDialog.showAndWait();
+        if (emailResult.isEmpty()) return;
+
+        String email = emailResult.get();
+
+        // 2. Demander le montant
+        TextInputDialog montantDialog = new TextInputDialog("100");
+        montantDialog.setTitle("Paiement");
+        montantDialog.setHeaderText("Montant à payer");
+        montantDialog.setContentText("Montant (DT):");
+
+        Optional<String> montantResult = montantDialog.showAndWait();
+        if (montantResult.isEmpty()) return;
+
+        double montant;
+        try {
+            montant = Double.parseDouble(montantResult.get());
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur", "Montant invalide");
+            return;
+        }
+
+        // 3. Choisir le moyen de paiement
+        List<String> moyens = Arrays.asList("Carte bancaire", "PayPal", "Virement");
+        ChoiceDialog<String> moyenDialog = new ChoiceDialog<>("Carte bancaire", moyens);
+        moyenDialog.setTitle("Paiement");
+        moyenDialog.setHeaderText("Moyen de paiement");
+        moyenDialog.setContentText("Choisissez:");
+
+        Optional<String> moyenResult = moyenDialog.showAndWait();
+        if (moyenResult.isEmpty()) return;
+
+        String moyen = moyenResult.get();
+
+        // 4. Traiter le paiement
+        PaiementAPI.Facture facture = paiementAPI.payer(
+                service.getNom_service(), montant, email, moyen
+        );
+
+        // 5. Générer la facture
+        String factureTexte = facture.toTexte();
+
+        // 6. Sauvegarder la facture en fichier (optionnel)
+        String cheminFichier = "facture_" + facture.getReference() + ".txt";
+        try {
+            java.nio.file.Files.write(
+                    java.nio.file.Paths.get(cheminFichier),
+                    factureTexte.getBytes()
+            );
+            System.out.println("📁 Facture sauvegardée: " + cheminFichier);
+        } catch (Exception e) {
+            System.out.println("❌ Erreur sauvegarde: " + e.getMessage());
+        }
+
+        // 7. ENVOYER L'EMAIL RÉEL
+        try {
+            emailAPI.envoyerFacture(email, factureTexte, facture.getReference());
+
+            // 8. Afficher la confirmation
+            String message = String.format(
+                    "✅ Paiement effectué avec succès !\n\n" +
+                            "Service: %s\n" +
+                            "Montant: %.2f DT\n" +
+                            "Moyen: %s\n" +
+                            "Référence: %s\n" +
+                            "Email: %s\n\n" +
+                            "La facture a été envoyée à votre adresse email.",
+                    service.getNom_service(), montant, moyen,
+                    facture.getReference(), email
+            );
+
+            showAlert(Alert.AlertType.INFORMATION, "Paiement réussi", message);
+
+        } catch (Exception e) {
+            showAlert(Alert.AlertType.ERROR, "Erreur",
+                    "Paiement effectué mais l'envoi de l'email a échoué: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

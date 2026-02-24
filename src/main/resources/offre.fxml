@@ -11,156 +11,90 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.OffreController"
             stylesheets="@style.css">
 
-    <!-- BARRE DE TITRE PERSONNALISÉE -->
+    <!-- BARRE DE TITRE UNIQUE -->
     <HBox style="-fx-background-color: #16325c; -fx-padding: 8 20; -fx-alignment: CENTER_RIGHT;" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" prefHeight="45">
         <Region HBox.hgrow="ALWAYS" />
         <Label text="AFTER Travel - Gestion des Offres" style="-fx-text-fill: #F5F5DC; -fx-font-size: 15px; -fx-font-weight: bold;" />
         <Region HBox.hgrow="ALWAYS" />
         <HBox spacing="8">
-            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
-            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold; -fx-cursor: hand;" />
+            <Button fx:id="minimizeButton" text="─" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+            <Button fx:id="maximizeButton" text="□" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
+            <Button fx:id="closeButton" text="✕" style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-cursor: hand;" />
         </HBox>
     </HBox>
 
     <BorderPane prefWidth="1300" prefHeight="750" AnchorPane.topAnchor="45" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" style="-fx-background-color: #F5F5DC;">
 
-        <!-- HEADER AVEC BANNIÈRE VOYAGE -->
+        <!-- HEADER -->
         <top>
-            <VBox>
-                <!-- Bannière décorative -->
-                <HBox style="-fx-background-color: linear-gradient(to right, #16325c, #1e4a7a); -fx-padding: 8 20; -fx-alignment: CENTER;" prefHeight="50">
-                    <Label text="✈️" style="-fx-font-size: 24px;" />
-                    <Label text="Explorez nos offres exceptionnelles" style="-fx-text-fill: #FFD700; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 0 10;" />
-                    <Label text="🌍" style="-fx-font-size: 24px;" />
-                </HBox>
-
-                <!-- Header principal -->
-                <HBox style="-fx-background-color: #16325c; -fx-padding: 15 25; -fx-alignment: CENTER_LEFT;" spacing="15">
-                    <Button text="← Retour au Dashboard"
-                            onAction="#handleDashboard"
-                            style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 10 20; -fx-background-radius: 25; -fx-font-weight: bold; -fx-cursor: hand;"
-                            prefWidth="200"/>
-                    <Label text="Gestion des Offres" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;"/>
-                    <Region HBox.hgrow="ALWAYS" />
-                    <Label text="🏷️" style="-fx-font-size: 40px;" />
-                </HBox>
-            </VBox>
+            <HBox style="-fx-background-color: #16325c; -fx-padding: 15 30; -fx-alignment: CENTER_LEFT;" spacing="20">
+                <Button text="← Retour au Tableau de Bord" onAction="#handleDashboard"
+                        style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 10 25; -fx-background-radius: 25; -fx-font-weight: bold; -fx-cursor: hand;" prefWidth="200"/>
+                <Label text="Gestion des Offres" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #F5F5DC;"/>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="🏷️" style="-fx-font-size: 40px;" />
+            </HBox>
         </top>
 
         <!-- CONTENU PRINCIPAL -->
         <center>
-            <HBox spacing="30" alignment="CENTER" style="-fx-padding: 25;">
+            <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
 
-                <!-- COLONNE GAUCHE : FORMULAIRE -->
-                <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 20; -fx-border-color: #16325c; -fx-border-radius: 20; -fx-border-width: 2; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" prefWidth="450" maxHeight="550">
-
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="✍️" style="-fx-font-size: 28px;" />
-                        <Label text="Ajouter / Modifier une Offre" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                <!-- FORMULAIRE -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10;" prefWidth="600">
+                    <Label text="Ajouter / Modifier une Offre" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                    <Separator />
+                    <TextField fx:id="TitreOffreField" promptText="Titre" />
+                    <TextField fx:id="PrixOffreField" promptText="Prix (DT)" />
+                    <TextField fx:id="DureeOffreField" promptText="Durée (jours)" />
+                    <ComboBox fx:id="serviceCombo" promptText="Service" />
+                    <HBox spacing="5">
+                        <Button text="Ajouter" onAction="#ajouterOffre" />
+                        <Button text="Modifier" onAction="#modifierOffre" />
+                        <Button text="Supprimer" onAction="#supprimerOffre" />
+                        <Button text="Annuler" onAction="#annuler" />
                     </HBox>
-
-                    <Separator style="-fx-background-color: #16325c;" />
-
-                    <VBox spacing="15" style="-fx-padding: 10 0;">
-
-                        <VBox spacing="5">
-                            <Label text="Titre de l'offre" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
-                            <TextField fx:id="TitreOffreField"
-                                       promptText="Ex: Séjour de rêve à Djerba"
-                                       style="-fx-padding: 12; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1; -fx-background-color: #F5F5DC;"/>
-                        </VBox>
-
-                        <HBox spacing="15">
-                            <VBox spacing="5" HBox.hgrow="ALWAYS">
-                                <Label text="Prix (DT)" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
-                                <TextField fx:id="PrixOffreField"
-                                           promptText="500"
-                                           style="-fx-padding: 12; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1; -fx-background-color: #F5F5DC;"/>
-                            </VBox>
-
-                            <VBox spacing="5" HBox.hgrow="ALWAYS">
-                                <Label text="Durée (jours)" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
-                                <TextField fx:id="DureeOffreField"
-                                           promptText="7"
-                                           style="-fx-padding: 12; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1; -fx-background-color: #F5F5DC;"/>
-                            </VBox>
-                        </HBox>
-
-                        <VBox spacing="5">
-                            <Label text="Service associé" style="-fx-font-weight: bold; -fx-text-fill: #16325c;"/>
-                            <ComboBox fx:id="serviceCombo"
-                                      promptText="Choisir un service"
-                                      style="-fx-padding: 8; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-border-width: 1; -fx-background-color: #F5F5DC;"/>
-                        </VBox>
-
-                        <Separator style="-fx-background-color: #16325c;" />
-
-                        <!-- Ligne 1: Boutons CRUD -->
-                        <HBox spacing="10" alignment="CENTER">
-                            <Button text="Ajouter"
-                                    onAction="#ajouterOffre"
-                                    style="-fx-background-color: #16325c; -fx-text-fill: #F5F5DC; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="100"/>
-                            <Button text="Modifier"
-                                    onAction="#modifierOffre"
-                                    style="-fx-background-color: #1e4a7a; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="100"/>
-                            <Button text="Supprimer"
-                                    onAction="#supprimerOffre"
-                                    style="-fx-background-color: #d32f2f; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="100"/>
-                            <Button text="Annuler"
-                                    onAction="#annuler"
-                                    style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="100"/>
-                        </HBox>
-
-                        <!-- Ligne 2: Boutons Météo -->
-                        <HBox spacing="15" alignment="CENTER">
-                            <Button text="🌦️ Suggérer offre météo"
-                                    onAction="#suggererOffreMeteo"
-                                    style="-fx-background-color: #00bcd4; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="200"/>
-                            <Button text="🌍 Voir la météo"
-                                    onAction="#afficherMeteo"
-                                    style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 12 20; -fx-background-radius: 25; -fx-cursor: hand; -fx-font-weight: bold;"
-                                    prefWidth="150"/>
-                        </HBox>
-                    </VBox>
                 </VBox>
 
-                <!-- COLONNE DROITE : LISTE DES OFFRES (AGRANDIE) -->
-                <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 20; -fx-border-color: #16325c; -fx-border-radius: 20; -fx-border-width: 2; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);" prefWidth="700" maxHeight="650">
+                <!-- RECHERCHE -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10;" prefWidth="900">
+                    <Label text="🔍 Rechercher une offre" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
 
-                    <HBox alignment="CENTER_LEFT" spacing="10">
-                        <Label text="📋" style="-fx-font-size: 28px;" />
-                        <Label text="Nos Offres Exceptionnelles" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                    <HBox spacing="10">
+                        <TextField fx:id="searchField" promptText="Titre, service..." HBox.hgrow="ALWAYS"
+                                   style="-fx-padding: 8; -fx-background-radius: 5; -fx-border-color: #16325c;"/>
+                        <Button text="Rechercher" onAction="#rechercherOffres"
+                                style="-fx-background-color: #16325c; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 5;"/>
+                        <Button text="Réinitialiser" onAction="#reinitialiserRecherche"
+                                style="-fx-background-color: #6b7280; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 5;"/>
                     </HBox>
 
-                    <Separator style="-fx-background-color: #16325c;" />
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Prix entre:" style="-fx-text-fill: #16325c;"/>
+                        <TextField fx:id="prixMinField" promptText="Min" prefWidth="60"
+                                   style="-fx-padding: 5; -fx-background-radius: 5; -fx-border-color: #16325c;"/>
+                        <Label text="-" />
+                        <TextField fx:id="prixMaxField" promptText="Max" prefWidth="60"
+                                   style="-fx-padding: 5; -fx-background-radius: 5; -fx-border-color: #16325c;"/>
+                        <Label fx:id="resultatsCountLabel" text="0 offre(s)" style="-fx-text-fill: #666; -fx-padding: 0 10;"/>
+                    </HBox>
+                </VBox>
 
-                    <ScrollPane fx:id="scrollPane" prefHeight="500" fitToWidth="true" style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: #16325c; -fx-border-radius: 10; -fx-padding: 5;">
-                        <VBox fx:id="offresVBox" spacing="20" style="-fx-padding: 15;">
-                            <!-- Les cartes seront ajoutées dynamiquement -->
-                        </VBox>
+                <!-- LISTE DES OFFRES -->
+                <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-border-color: #16325c; -fx-border-radius: 10;" prefWidth="900">
+                    <Label text="Liste des Offres" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+                    <Separator />
+                    <ScrollPane fx:id="scrollPane" prefHeight="300" fitToWidth="true">
+                        <VBox fx:id="offresVBox" spacing="5" />
                     </ScrollPane>
-
-                    <HBox alignment="CENTER">
-                        <Label text="✨ Cliquez sur 'Sélectionner' pour modifier une offre ✨"
-                               style="-fx-text-fill: #16325c; -fx-font-size: 14px; -fx-font-style: italic; -fx-background-color: #F5F5DC; -fx-padding: 8 15; -fx-background-radius: 20;"/>
-                    </HBox>
                 </VBox>
-            </HBox>
+            </VBox>
         </center>
     </BorderPane>
 </AnchorPane>
