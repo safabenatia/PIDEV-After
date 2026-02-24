@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="gui.CountryController">
+
+    <ComboBox fx:id="comboCountry" promptText="Select Country" prefWidth="300"/>
+
+    <Label fx:id="lblCapital" text="Capitale : "/>
+    <Label fx:id="lblRegion" text="Région : "/>
+    <Label fx:id="lblPopulation" text="Population : "/>
+
+
+</VBox>
