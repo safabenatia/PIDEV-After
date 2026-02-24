@@ -16,6 +16,7 @@ import models.Service;
 import services.ServiceService;
 import api.PaiementAPI;
 import api.EmailAPI;
+import api.PDFAPI;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,6 +51,7 @@ public class ServiceController implements Initializable {
     private ServiceService serviceService = new ServiceService();
     private PaiementAPI paiementAPI = new PaiementAPI();
     private EmailAPI emailAPI = new EmailAPI();
+    private PDFAPI pdfAPI = new PDFAPI();
     private Service serviceSelectionne = null;
     private Button selectedButton = null;
 
@@ -203,7 +205,7 @@ public class ServiceController implements Initializable {
         );
         deleteBtn.setOnAction(e -> deleteService(service));
 
-        // BOUTON PAIEMENT (NOUVEAU)
+        // BOUTON PAIEMENT
         Button payerBtn = new Button("💳 Payer ce service");
         payerBtn.setStyle(
                 "-fx-background-color: #4caf50;" +
@@ -269,7 +271,7 @@ public class ServiceController implements Initializable {
         }
     }
 
-    // ==================== NOUVELLE MÉTHODE DE PAIEMENT ====================
+    // ==================== MÉTHODE DE PAIEMENT AVEC PDF ====================
     private void payerService(Service service) {
 
         // 1. Demander l'email du client
@@ -317,44 +319,38 @@ public class ServiceController implements Initializable {
                 service.getNom_service(), montant, email, moyen
         );
 
-        // 5. Générer la facture
-        String factureTexte = facture.toTexte();
+        // 5. Générer le PDF de la facture
+        String cheminPDF = pdfAPI.genererFactureEtRetournerChemin(facture);
 
-        // 6. Sauvegarder la facture en fichier (optionnel)
-        String cheminFichier = "facture_" + facture.getReference() + ".txt";
-        try {
-            java.nio.file.Files.write(
-                    java.nio.file.Paths.get(cheminFichier),
-                    factureTexte.getBytes()
-            );
-            System.out.println("📁 Facture sauvegardée: " + cheminFichier);
-        } catch (Exception e) {
-            System.out.println("❌ Erreur sauvegarde: " + e.getMessage());
-        }
+        if (cheminPDF != null) {
+            // 6. ENVOYER L'EMAIL AVEC PDF EN PIÈCE JOINTE
+            try {
+                emailAPI.envoyerFacturePDF(email, facture, cheminPDF);
 
-        // 7. ENVOYER L'EMAIL RÉEL
-        try {
-            emailAPI.envoyerFacture(email, factureTexte, facture.getReference());
+                // 7. Afficher la confirmation
+                String message = String.format(
+                        "✅ Paiement effectué avec succès !\n\n" +
+                                "Service: %s\n" +
+                                "Montant: %.2f DT\n" +
+                                "Moyen: %s\n" +
+                                "Référence: %s\n" +
+                                "Email: %s\n\n" +
+                                "Le PDF de la facture a été envoyé en pièce jointe.\n" +
+                                "Fichier: %s",
+                        service.getNom_service(), montant, moyen,
+                        facture.getReference(), email, cheminPDF
+                );
 
-            // 8. Afficher la confirmation
-            String message = String.format(
-                    "✅ Paiement effectué avec succès !\n\n" +
-                            "Service: %s\n" +
-                            "Montant: %.2f DT\n" +
-                            "Moyen: %s\n" +
-                            "Référence: %s\n" +
-                            "Email: %s\n\n" +
-                            "La facture a été envoyée à votre adresse email.",
-                    service.getNom_service(), montant, moyen,
-                    facture.getReference(), email
-            );
+                showAlert(Alert.AlertType.INFORMATION, "Paiement réussi", message);
 
-            showAlert(Alert.AlertType.INFORMATION, "Paiement réussi", message);
-
-        } catch (Exception e) {
+            } catch (Exception e) {
+                showAlert(Alert.AlertType.ERROR, "Erreur",
+                        "Paiement effectué mais l'envoi de l'email a échoué: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } else {
             showAlert(Alert.AlertType.ERROR, "Erreur",
-                    "Paiement effectué mais l'envoi de l'email a échoué: " + e.getMessage());
-            e.printStackTrace();
+                    "Paiement effectué mais la génération du PDF a échoué.");
         }
     }
 

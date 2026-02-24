@@ -2,34 +2,31 @@ package api;
 
 import jakarta.mail.*;
 import jakarta.mail.internet.InternetAddress;
+import jakarta.mail.internet.MimeBodyPart;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMultipart;
+
+import java.io.File;
 import java.util.Properties;
 
 public class EmailAPI {
 
     // ===== TES VRAIES INFORMATIONS =====
     private static final String EXPEDITEUR = "safebenatiaa2020@gmail.com";
-    private static final String MOT_DE_PASSE = "zwal gkce gykj tuvb"; // ← Ton mot de passe d'application
+    private static final String MOT_DE_PASSE = "zwal gkce gykj tuvb";
     // ===================================
 
     private static final String HOTE_SMTP = "smtp.gmail.com";
     private static final int PORT_SMTP = 587;
 
-    public void envoyerFacture(String destinataire, String factureTexte, String reference) {
-        String sujet = "Votre facture AFTER Travel - " + reference;
-        String corpsHTML = "<html>" +
-                "<head><style>body { font-family: Arial; }</style></head>" +
-                "<body>" +
-                "<h2 style='color:#16325c;'>AFTER Travel</h2>" +
-                "<h3>Facture " + reference + "</h3>" +
-                "<pre style='background-color:#F5F5DC; padding:15px;'>" + factureTexte + "</pre>" +
-                "<p>Merci pour votre paiement !</p>" +
-                "</body></html>";
-
-        envoyerEmail(destinataire, sujet, corpsHTML, true);
-    }
-
-    private void envoyerEmail(String destinataire, String sujet, String corps, boolean estHTML) {
+    /**
+     * Envoie un email avec un PDF en pièce jointe
+     * @param destinataire Email du destinataire
+     * @param sujet Sujet de l'email
+     * @param corpsTexte Corps de l'email (texte)
+     * @param cheminPDF Chemin complet du fichier PDF à joindre
+     */
+    public void envoyerEmailAvecPDF(String destinataire, String sujet, String corpsTexte, String cheminPDF) {
 
         Properties props = new Properties();
         props.put("mail.smtp.host", HOTE_SMTP);
@@ -45,23 +42,50 @@ public class EmailAPI {
         });
 
         try {
+            // Créer le message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EXPEDITEUR));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire));
             message.setSubject(sujet);
 
-            if (estHTML) {
-                message.setContent(corps, "text/html; charset=utf-8");
-            } else {
-                message.setText(corps);
-            }
+            // Créer la partie texte du message
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(corpsTexte);
 
+            // Créer la pièce jointe (PDF)
+            MimeBodyPart attachmentPart = new MimeBodyPart();
+            attachmentPart.attachFile(new File(cheminPDF));
+
+            // Assembler le message (texte + pièce jointe)
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(textPart);
+            multipart.addBodyPart(attachmentPart);
+
+            message.setContent(multipart);
+
+            // Envoyer
             Transport.send(message);
-            System.out.println("✅ Email réel envoyé à " + destinataire);
 
-        } catch (MessagingException e) {
-            System.err.println("❌ Erreur email: " + e.getMessage());
+            System.out.println("✅ Email avec PDF envoyé à " + destinataire);
+
+        } catch (Exception e) {
+            System.err.println("❌ Erreur envoi email: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Version simplifiée pour envoyer une facture
+     */
+    public void envoyerFacturePDF(String destinataire, PaiementAPI.Facture facture, String cheminPDF) {
+        String sujet = "Votre facture AFTER Travel - " + facture.getReference();
+        String corps = "Bonjour,\n\n" +
+                "Veuillez trouver ci-joint votre facture pour le service : " + facture.getService() + "\n" +
+                "Montant : " + facture.getMontant() + " DT\n" +
+                "Référence : " + facture.getReference() + "\n\n" +
+                "Merci pour votre confiance !\n" +
+                "L'équipe AFTER Travel";
+
+        envoyerEmailAvecPDF(destinataire, sujet, corps, cheminPDF);
     }
 }
