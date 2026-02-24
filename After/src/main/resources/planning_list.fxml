@@ -45,6 +45,8 @@
                                -fx-background-color: #2D6A4F;
                                -fx-text-fill: white;
                                -fx-background-radius: 20;"/>
+                <Button text="Voir les pays"
+                        onAction="#openCountryPage"/>
                 <Button fx:id="backButton"
                         text="⬅ Retour aux Activités"
                         style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-background-radius: 20;"
