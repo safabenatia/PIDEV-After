@@ -96,7 +96,7 @@ public class LoginController {
             Session.setJwtToken(token);
 
             // Chargement du dashboard
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/Dashboard.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardAdmin.fxml"));
             Parent root = loader.load();
 
             Stage stage = (Stage) emailField.getScene().getWindow();
