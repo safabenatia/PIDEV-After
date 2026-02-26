@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.HelloController"
+            prefHeight="500.0" prefWidth="700.0"
+            style="-fx-background-color: #f4f4f4;">
+
+    <VBox alignment="CENTER" spacing="25.0"
+          AnchorPane.topAnchor="80.0"
+          AnchorPane.leftAnchor="150.0"
+          AnchorPane.rightAnchor="150.0">
+
+        <Label text="🎓 Application ESPRIT"
+               style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+
+        <Label text="Gestion des Personnes"
+               style="-fx-font-size: 16px; -fx-text-fill: #7f8c8d;"/>
+
+        <VBox spacing="15.0" style="-fx-padding: 20; -fx-background-color: white; -fx-background-radius: 10;">
+            <TextField fx:id="nomField" promptText="Nom"
+                       style="-fx-font-size: 14px; -fx-padding: 10;"/>
+
+            <TextField fx:id="prenomField" promptText="Prénom"
+                       style="-fx-font-size: 14px; -fx-padding: 10;"/>
+
+            <Button fx:id="ajouterButton" text="Ajouter une personne"
+                    style="-fx-font-size: 14px; -fx-background-color: #3498db; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+        </VBox>
+
+        <Label fx:id="messageLabel" text=""
+               style="-fx-font-size: 14px; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+
+    </VBox>
+
+</AnchorPane>

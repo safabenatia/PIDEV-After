@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DepenseControllerV2"
+            prefHeight="750.0" prefWidth="1200.0"
+            style="-fx-background-color: #F5F5DC;">
+
+    <VBox spacing="0" AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+
+        <!-- En-tête -->
+        <HBox style="-fx-background-color: #16325c; -fx-padding: 20;" alignment="CENTER_LEFT" spacing="20">
+            <Label text="✈ AFTER Travel" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="|" style="-fx-text-fill: white; -fx-font-size: 18px;"/>
+            <Label text="Gestion des Dépenses" style="-fx-font-size: 18px; -fx-text-fill: #FFD700; -fx-font-weight: bold;"/>
+            <HBox HBox.hgrow="ALWAYS"/>
+            <Label fx:id="totalLabel" text="Total: 0.00 DT"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+        </HBox>
+
+        <!-- Formulaire d'ajout -->
+        <VBox style="-fx-background-color: white; -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+              spacing="15">
+
+            <Label text="Nouvelle Dépense" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;"/>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Titre" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <TextField fx:id="titreField" promptText="Ex: Restaurant Midi"
+                               style="-fx-font-size: 13px; -fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" prefWidth="180">
+                    <Label text="Montant" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <TextField fx:id="montantField" promptText="0.00"
+                               style="-fx-font-size: 13px; -fx-padding: 10; -fx-background-radius: 8; -fx-border-color: #ccc; -fx-border-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" prefWidth="100">
+                    <Label text="De" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="deviseSourceCombo" prefWidth="100"
+                              style="-fx-font-size: 13px; -fx-background-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" prefWidth="100">
+                    <Label text="Vers" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="deviseCibleCombo" prefWidth="100"
+                              style="-fx-font-size: 13px; -fx-background-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" alignment="BOTTOM_LEFT" prefWidth="180">
+                    <Label text=" "/>
+                    <Label fx:id="conversionLabel" text=""
+                           style="-fx-font-size: 13px; -fx-text-fill: #4CAF50; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <VBox spacing="5" prefWidth="200">
+                    <Label text="Date" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <DatePicker fx:id="datePicker" prefWidth="200"
+                                style="-fx-font-size: 13px; -fx-background-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="Catégorie" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="categorieCombo" prefWidth="300"
+                              style="-fx-font-size: 13px; -fx-background-radius: 8;"/>
+                </VBox>
+                <VBox spacing="5" prefWidth="220">
+                    <Label text="Trier par" style="-fx-font-size: 13px; -fx-text-fill: #16325c; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="triCombo" prefWidth="220"
+                              style="-fx-font-size: 13px; -fx-background-radius: 8;"/>
+                </VBox>
+            </HBox>
+
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Button fx:id="ajouterBtn" text="➕ Ajouter la dépense"
+                        style="-fx-background-color: #FFD700; -fx-text-fill: #16325c; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                <Button fx:id="verifierBudgetBtn" text="✅ Vérifier Budget"
+                        style="-fx-background-color: #16325c; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 18; -fx-background-radius: 8; -fx-cursor: hand;"/>
+                <MenuButton text="📊 Rapports"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 18; -fx-background-radius: 8; -fx-cursor: hand;">
+                    <items>
+                        <MenuItem fx:id="rapportTexteItem" text="Rapport texte"/>
+                        <MenuItem fx:id="rapportPDFItem" text="Rapport PDF"/>
+                    </items>
+                </MenuButton>
+                <Button fx:id="camembertBtn" text="🥧 Camembert"
+                        style="-fx-background-color: #E91E63; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 18; -fx-background-radius: 8; -fx-cursor: hand;"/>
+            </HBox>
+
+        </VBox>
+
+        <!-- Conteneur des dépenses (scrollable) -->
+        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                    style="-fx-background-color: #F5F5DC; -fx-background: #F5F5DC;">
+            <VBox fx:id="depensesContainer" spacing="10" style="-fx-padding: 20;">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10"/>
+                </padding>
+            </VBox>
+        </ScrollPane>
+
+    </VBox>
+
+</AnchorPane>
