@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="gui.HolidayController"
+      prefWidth="500"
+      prefHeight="400">
+
+    <ComboBox fx:id="comboCountryCode"
+              promptText="Select Country Code (TN, FR, DZ...)"
+              prefWidth="250"/>
+
+    <ListView fx:id="listHolidays"
+              prefWidth="400"
+              prefHeight="300"/>
+
+</VBox>
