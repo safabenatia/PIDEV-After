@@ -23,7 +23,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.StatsController"
+            fx:controller="controllers.AdminStatsController"
             stylesheets="@style.css">
 
     <!-- BARRE DE TITRE -->
@@ -60,6 +60,8 @@
                         style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 8 20; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;"/>
                 <Label text="Analyses détaillées des services" style="-fx-text-fill: #FFD700; -fx-font-size: 16px; -fx-font-style: italic;"/>
                 <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="refreshButton" text="🔄 Actualiser" onAction="#refreshData"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;"/>
                 <Button fx:id="exportExcelButton" text="📊 Exporter Excel" onAction="#exporterExcel"
                         style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold;"/>
             </HBox>
@@ -73,38 +75,54 @@
                     <!-- LIGNE 1 : KPIs -->
                     <GridPane hgap="20" vgap="20">
                         <columnConstraints>
-                            <ColumnConstraints percentWidth="25" />
-                            <ColumnConstraints percentWidth="25" />
-                            <ColumnConstraints percentWidth="25" />
-                            <ColumnConstraints percentWidth="25" />
+                            <ColumnConstraints percentWidth="16.6" />
+                            <ColumnConstraints percentWidth="16.6" />
+                            <ColumnConstraints percentWidth="16.6" />
+                            <ColumnConstraints percentWidth="16.6" />
+                            <ColumnConstraints percentWidth="16.6" />
+                            <ColumnConstraints percentWidth="17" />
                         </columnConstraints>
 
                         <!-- Carte 1 -->
-                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5" GridPane.columnIndex="0">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
                             <Label text="🏨" style="-fx-font-size: 30px;" />
                             <Label text="Services" style="-fx-font-weight: bold;" />
                             <Label fx:id="totalServicesLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                         </VBox>
 
                         <!-- Carte 2 -->
-                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5" GridPane.columnIndex="1">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
                             <Label text="🏷️" style="-fx-font-size: 30px;" />
                             <Label text="Offres" style="-fx-font-weight: bold;" />
                             <Label fx:id="totalOffresLabel" text="0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                         </VBox>
 
                         <!-- Carte 3 -->
-                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5" GridPane.columnIndex="2">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
                             <Label text="💰" style="-fx-font-size: 30px;" />
                             <Label text="Prix moyen" style="-fx-font-weight: bold;" />
-                            <Label fx:id="prixMoyenLabel" text="0 DT" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                            <Label fx:id="prixMoyenLabel" text="0 DT" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                         </VBox>
 
                         <!-- Carte 4 -->
-                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5" GridPane.columnIndex="3">
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
                             <Label text="⭐" style="-fx-font-size: 30px;" />
                             <Label text="Top service" style="-fx-font-weight: bold;" />
-                            <Label fx:id="topServiceLabel" text="-" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                            <Label fx:id="servicePopulaireLabel" text="-" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                        </VBox>
+
+                        <!-- Carte 5 -->
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
+                            <Label text="💎" style="-fx-font-size: 30px;" />
+                            <Label text="Offre + chère" style="-fx-font-weight: bold;" />
+                            <Label fx:id="offrePlusChereLabel" text="-" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
+                        </VBox>
+
+                        <!-- Carte 6 -->
+                        <VBox style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10; -fx-border-color: #16325c;" alignment="CENTER" spacing="5">
+                            <Label text="🪙" style="-fx-font-size: 30px;" />
+                            <Label text="Offre - chère" style="-fx-font-weight: bold;" />
+                            <Label fx:id="offreMoinsChereLabel" text="-" style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #16325c;" />
                         </VBox>
                     </GridPane>
 
@@ -131,10 +149,7 @@
 
                         <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" GridPane.columnIndex="0">
                             <Label text="Offres par service" style="-fx-font-weight: bold; -fx-text-fill: #16325c;" />
-                            <BarChart fx:id="offresParServiceChart" prefHeight="250" prefWidth="500">
-                                <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
-                                <yAxis><NumberAxis side="LEFT"/></yAxis>
-                            </BarChart>
+                            <BarChart fx:id="offresParServiceChart" prefHeight="250" prefWidth="500" />
                         </VBox>
 
                         <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;" GridPane.columnIndex="1">
@@ -146,10 +161,7 @@
                     <!-- LIGNE 4 : LINE CHART -->
                     <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 15; -fx-border-color: #16325c;">
                         <Label text="Distribution des prix des offres" style="-fx-font-weight: bold; -fx-text-fill: #16325c;" />
-                        <LineChart fx:id="prixOffresChart" prefHeight="200" prefWidth="1000">
-                            <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
-                            <yAxis><NumberAxis side="LEFT"/></yAxis>
-                        </LineChart>
+                        <LineChart fx:id="prixOffresChart" prefHeight="200" prefWidth="1000" />
                     </VBox>
                 </VBox>
             </ScrollPane>

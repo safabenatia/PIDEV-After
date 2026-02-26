@@ -29,13 +29,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class StatsController implements Initializable {
+public class AdminStatsController implements Initializable {
 
-    // ==================== LABELS KPIs ====================
+    // ==================== KPIs ====================
     @FXML private Label totalServicesLabel;
     @FXML private Label totalOffresLabel;
     @FXML private Label prixMoyenLabel;
-    @FXML private Label topServiceLabel;
+    @FXML private Label servicePopulaireLabel;
+    @FXML private Label offrePlusChereLabel;
+    @FXML private Label offreMoinsChereLabel;
 
     // ==================== GRAPHIQUES ====================
     @FXML private BarChart<String, Number> offresParServiceChart;
@@ -64,7 +66,7 @@ public class StatsController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("🔄 Initialisation de StatsController...");
+        System.out.println("🔄 Initialisation du dashboard admin...");
         statsAPI = new StatsAPI();
         setupWindowButtons();
         chargerDonnees();
@@ -90,10 +92,24 @@ public class StatsController implements Initializable {
 
     private void chargerDonnees() {
         try {
+            // KPIs principaux
             totalServicesLabel.setText(String.valueOf(statsAPI.getTotalServices()));
             totalOffresLabel.setText(String.valueOf(statsAPI.getTotalOffres()));
             prixMoyenLabel.setText(String.format("%.2f DT", statsAPI.getPrixMoyenOffres()));
-            topServiceLabel.setText(statsAPI.getServiceLePlusPopulaire());
+
+            // Service le plus populaire
+            servicePopulaireLabel.setText(statsAPI.getServiceLePlusPopulaire());
+
+            // Offre la plus chère et la moins chère
+            Offre plusChere = statsAPI.getOffreLaPlusChere();
+            Offre moinsChere = statsAPI.getOffreLaMoinsChere();
+
+            if (plusChere != null) {
+                offrePlusChereLabel.setText(plusChere.getTitre() + " (" + plusChere.getPrix() + " DT)");
+            }
+            if (moinsChere != null) {
+                offreMoinsChereLabel.setText(moinsChere.getTitre() + " (" + moinsChere.getPrix() + " DT)");
+            }
 
             System.out.println("✅ Données chargées: " + statsAPI.getTotalServices() +
                     " services, " + statsAPI.getTotalOffres() + " offres");
@@ -159,7 +175,6 @@ public class StatsController implements Initializable {
         prixOffresChart.getData().add(lineSeries);
     }
 
-    // ==================== EXPORT EXCEL ====================
     @FXML
     private void exporterExcel() {
         try {
@@ -237,14 +252,13 @@ public class StatsController implements Initializable {
     @FXML
     private void handleDashboard() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/dashboard_admin.fxml"));
             Stage stage = (Stage) totalServicesLabel.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("AFTER Travel - Dashboard");
+            stage.setTitle("AFTER Travel - Dashboard Admin");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir le dashboard");
         }
     }
 
