@@ -6,8 +6,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.DashboardController"
-            stylesheets="@dashboard.css"
+            fx:controller="controllers.DashboardAdminController"
+            stylesheets="@dashboardAdmin.css"
             style="-fx-background-color: #F5F5DC;">
 
     <!-- Sidebar gauche -->

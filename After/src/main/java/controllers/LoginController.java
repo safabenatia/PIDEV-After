@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 import models.Admin;
 import models.Users;
 import services.ServiceUsers;
-import utils.JwtUtil;      // ← importe ta classe JwtUtil
-import utils.Session;      // ← la classe Session que je t'ai donnée
+import utils.JwtUtil;
+import utils.Session;
 import java.io.IOException;
 
 public class LoginController {
@@ -66,11 +66,10 @@ public class LoginController {
     @FXML
     private void handleLogin() {
         String email = emailField.getText().trim();
-        String password = currentPasswordInput.getText().trim();  // .trim() aussi ici
+        String password = currentPasswordInput.getText().trim();
 
-        // Reset du message d'erreur au début
         errorLabel.setText("");
-        errorLabel.setStyle("-fx-text-fill: red;");  // couleur par défaut erreur
+        errorLabel.setStyle("-fx-text-fill: red;");
 
         if (email.isEmpty() || password.isEmpty()) {
             errorLabel.setText("Veuillez remplir tous les champs");
@@ -80,7 +79,6 @@ public class LoginController {
         try {
             Users loggedUser = service.login(email, password);
 
-            // Si on arrive ici → login OK + compte VERIFIED
             System.out.println("Login réussi ! Utilisateur : " + loggedUser.getEmail() +
                     " | ID = " + loggedUser.getId() +
                     " | Rôle = " + (loggedUser instanceof Admin ? "ADMIN" : "VOYAGEUR") +
@@ -91,17 +89,26 @@ public class LoginController {
 
             System.out.println("JWT généré : " + token.substring(0, Math.min(60, token.length())) + "...");
 
-            // Stockage de la session
             Session.setCurrentUser(loggedUser);
             Session.setJwtToken(token);
 
-            // Chargement du dashboard
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardAdmin.fxml"));
-            Parent root = loader.load();
+            // ← ONLY CHANGE: added /views/ to the path
+            String fxmlPath;
+            String title;
 
+            if (loggedUser instanceof Admin) {
+                fxmlPath = "/DashboardAdmin.fxml";
+                title = "After Travel - Administration";
+            } else {
+                fxmlPath = "/views/DashboardVoyageur.fxml";
+                title = "After Travel - Espace Voyageur";
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root, 1200, 800));
-            stage.setTitle("After Travel - Dashboard");
+            stage.setTitle(title);
 
         } catch (RuntimeException ex) {
             if (ex.getMessage() != null && ex.getMessage().contains("non vérifié")) {
@@ -119,17 +126,18 @@ public class LoginController {
                 showSimpleError("Erreur", ex.getMessage());
             }
         } catch (Exception ex) {
-            showSimpleError("Échec de connexion", "Email ou mot de passe incorrect");
+            ex.printStackTrace();
+            showSimpleError("Échec de connexion", ex.getClass().getName() + ": " + ex.getMessage());
         }
     }
-// Méthode helper (ajoute-la dans la classe)
-        private void showSimpleError(String title, String message) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-        }
+
+    private void showSimpleError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @FXML
     private void goToSignUp() {
@@ -139,8 +147,9 @@ public class LoginController {
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(new Scene(root, 600, 700));
             stage.setTitle("After Travel - Inscription");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            showSimpleError("Échec de connexion", ex.getMessage() != null ? ex.getMessage() : ex.getClass().getName());
         }
     }
 }

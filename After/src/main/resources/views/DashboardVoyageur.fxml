@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DashboardVoyageurController"
+            stylesheets="@/dashboardAdmin.css"
+            style="-fx-background-color: #F5F5DC;">
+
+    <!-- Sidebar gauche — même structure que admin -->
+    <left>
+        <VBox styleClass="sidebar" spacing="20">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
+            <VBox spacing="12">
+                <Label text="Mon Profil"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showProfil"
+                       style="-fx-cursor: hand;"/>
+                <Label text="Voyages &amp; Destinations"
+                       styleClass="sidebar-btn"
+                       style="-fx-cursor: hand; -fx-opacity: 0.45;"
+                       fx:id="voyagesBtn"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
+
+    <!-- Contenu principal -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background: transparent; -fx-background-color: transparent;"
+                    VBox.vgrow="ALWAYS">
+            <VBox spacing="28" style="-fx-padding: 32;">
+
+                <!-- Header -->
+                <VBox spacing="8" styleClass="main-header">
+                    <Label fx:id="welcomeLabel" text="Bienvenue" styleClass="page-title"/>
+                    <Label text="Espace voyageur" style="-fx-font-size: 14px; -fx-text-fill: #6b7280;"/>
+                </VBox>
+
+                <!-- Stats cards — même style que admin -->
+                <HBox spacing="24" alignment="CENTER_LEFT">
+
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="220">
+                        <Label text="Email" styleClass="stats-label"/>
+                        <Label fx:id="emailStatLabel" text="-" styleClass="stats-value"
+                               style="-fx-font-size: 13px;"/>
+                    </VBox>
+
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="220">
+                        <Label text="Téléphone" styleClass="stats-label"/>
+                        <Label fx:id="phoneStatLabel" text="-" styleClass="stats-value"
+                               style="-fx-font-size: 15px;"/>
+                    </VBox>
+
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="220">
+                        <Label text="Voyages &amp; Destinations" styleClass="stats-label"/>
+                        <Label text="Bientôt disponible" styleClass="stats-value"
+                               style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- Séparateur -->
+                <Separator/>
+
+                <!-- Section Mon Profil -->
+                <VBox fx:id="profilSection" spacing="20">
+
+                    <Label text="Mon Profil" styleClass="page-title"
+                           style="-fx-font-size: 18px;"/>
+
+                    <!-- Card profil — reprend le style user-card du admin -->
+                    <HBox spacing="32" styleClass="user-card"
+                          style="-fx-padding: 28; -fx-max-width: 700;">
+
+                        <!-- Photo + upload -->
+                        <VBox spacing="10" alignment="CENTER">
+                            <ImageView fx:id="photoPreview"
+                                       fitWidth="90" fitHeight="90"
+                                       preserveRatio="true"
+                                       styleClass="avatar-circle"/>
+                            <Button text="Changer photo"
+                                    styleClass="btn-small"
+                                    onAction="#handleChoosePhoto"
+                                    style="-fx-font-size: 11px;"/>
+                            <Label fx:id="photoFileName" text=""
+                                   style="-fx-font-size: 10px; -fx-text-fill: #9ca3af;"/>
+                        </VBox>
+
+                        <!-- Champs -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                            <HBox spacing="16">
+                                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                    <Label text="Nom" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                                    <TextField fx:id="nomField" promptText="Nom"
+                                               styleClass="search-box"/>
+                                </VBox>
+                                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                                    <Label text="Prénom" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                                    <TextField fx:id="prenomField" promptText="Prénom"
+                                               styleClass="search-box"/>
+                                </VBox>
+                            </HBox>
+
+                            <VBox spacing="4">
+                                <Label text="Email" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                                <TextField fx:id="emailField" promptText="Email"
+                                           styleClass="search-box"/>
+                            </VBox>
+
+                            <VBox spacing="4">
+                                <Label text="Téléphone" style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                                <TextField fx:id="telephoneField" promptText="Téléphone"
+                                           styleClass="search-box"/>
+                            </VBox>
+
+                            <VBox spacing="4">
+                                <Label text="Nouveau mot de passe (laisser vide pour ne pas changer)"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #6b7280;"/>
+                                <HBox spacing="8">
+                                    <PasswordField fx:id="passwordField"
+                                                   promptText="Nouveau mot de passe"
+                                                   styleClass="search-box"
+                                                   HBox.hgrow="ALWAYS"/>
+                                    <ToggleButton fx:id="toggleEye" text="👁"
+                                                  styleClass="btn-small"/>
+                                </HBox>
+                            </VBox>
+
+                            <!-- Feedback label -->
+                            <Label fx:id="feedbackLabel" text=""
+                                   style="-fx-font-size: 12px; -fx-text-fill: #16a34a;"/>
+
+                            <!-- Bouton save -->
+                            <HBox alignment="CENTER_RIGHT">
+                                <Button text="Enregistrer les modifications"
+                                        styleClass="btn-primary"
+                                        onAction="#handleSaveProfil"/>
+                            </HBox>
+
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Placeholder voyages -->
+                <VBox fx:id="voyagesPlaceholder" spacing="12" alignment="CENTER"
+                      style="-fx-padding: 40 0 0 0;">
+                    <Label text="🗺" style="-fx-font-size: 48px;"/>
+                    <Label text="Voyages &amp; Destinations — bientôt disponible"
+                           style="-fx-font-size: 15px; -fx-text-fill: #9ca3af;"/>
+                    <Label text="Cette section sera disponible après l'intégration du module voyage."
+                           style="-fx-font-size: 12px; -fx-text-fill: #d1d5db;"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

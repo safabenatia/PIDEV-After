@@ -9,8 +9,10 @@ import java.util.Date;
 public class JwtUtil {
 
     // Clé secrète (garde-la dans un fichier .env ou properties en production !)
-    private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private static final long EXPIRATION_TIME = 60000; // 24h
+    private static final String SECRET = "mySuperSecretKeyThatIsAtLeast32CharactersLong!";
+    private static final Key SECRET_KEY =
+            Keys.hmacShaKeyFor(SECRET.getBytes());
+    private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24; // 24h
 
     public static String generateToken(String email, String role, int userId) {
         return Jwts.builder()

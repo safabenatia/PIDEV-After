@@ -56,7 +56,7 @@ import utils.JwtUtil;
 import utils.Session;
 
 
-public class DashboardController {
+public class DashboardAdminController {
 
     @FXML private FlowPane usersFlowPane;
     @FXML private TextField searchField;
@@ -69,10 +69,10 @@ public class DashboardController {
 
     @FXML
     public void initialize() {
-        if (Session.getJwtToken() == null || !JwtUtil.validateToken(Session.getJwtToken())) {
+       /*if (Session.getJwtToken() == null || !JwtUtil.validateToken(Session.getJwtToken())) {
             handleLogout();
             return;
-        }
+        }*/
         try {
             List<Users> usersFromDb = service.getAll();
             System.out.println("Utilisateurs chargés depuis la BDD : " + usersFromDb.size());

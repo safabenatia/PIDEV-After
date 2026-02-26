@@ -37,7 +37,7 @@ public class UserDialogController {
 
     private TextInputControl currentPasswordInput;
     private Users currentUser;
-    private DashboardController parent;
+    private DashboardAdminController  parent;
     private final ServiceUsers service = new ServiceUsers();
     private final EmailService emailService = new EmailService();
 
@@ -117,7 +117,7 @@ public class UserDialogController {
         }
     }
 
-    public void setParent(DashboardController parent) {
+    public void setParent(DashboardAdminController  parent) {
         this.parent = parent;
     }
 
