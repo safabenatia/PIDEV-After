@@ -108,6 +108,21 @@ public class DashboardVoyageurController {
             currentPasswordInput = passField;
         }
     }
+    @FXML
+    private void showServicesOffres() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Services & Offres");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger le module services.", Alert.AlertType.ERROR);
+        }
+    }
 
     @FXML
     private void handleChoosePhoto() {

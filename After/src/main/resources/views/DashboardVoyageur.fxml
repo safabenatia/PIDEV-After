@@ -29,6 +29,11 @@
                        onMouseClicked="#showVoyages"
                        style="-fx-cursor: hand;"
                        fx:id="voyagesBtn"/>
+                <Label text="Services &amp; Offres"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showServicesOffres"
+                       style="-fx-cursor: hand;"
+                       fx:id="servicesBtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
