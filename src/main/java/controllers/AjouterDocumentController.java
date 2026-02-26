@@ -10,12 +10,7 @@ import javafx.stage.Stage;
 import models.Document;
 import models.CategorieDocument;
 
-import services.serviceDocument;
-import services.serviceCategorieDocument;
-import services.MailService;
-import services.GoogleCalendarService;
-import services.OcrService;
-import services.DocumentClassifier;
+import services.*;
 
 import java.io.File;
 import java.sql.Date;
@@ -28,6 +23,9 @@ public class AjouterDocumentController {
     @FXML private DatePicker dpAjout;
     @FXML private DatePicker dpExpiration;
 
+    private final CloudinaryService cloudinaryService = new CloudinaryService();
+    private File selectedFile; // ← fichier sélectionné
+
     private final serviceDocument docService = new serviceDocument();
     private final serviceCategorieDocument catService = new serviceCategorieDocument();
     private final MailService mailService = new MailService();
@@ -36,7 +34,6 @@ public class AjouterDocumentController {
 
     @FXML
     public void initialize() {
-
         dpAjout.setValue(LocalDate.now());
 
         dpAjout.setDayCellFactory(picker -> new DateCell() {
@@ -65,20 +62,25 @@ public class AjouterDocumentController {
     private void choisirFichier() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir un document");
-        File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null) txtChemin.setText(file.getAbsolutePath());
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Documents", "*.pdf", "*.jpg", "*.png", "*.jpeg")
+        );
+        selectedFile = fileChooser.showOpenDialog(new Stage());
+        if (selectedFile != null) {
+            txtChemin.setText(selectedFile.getName()); // afficher nom fichier
+        }
     }
 
     @FXML
     private void ajouterDocument() {
 
         if (txtNom.getText().isEmpty()
-                || txtChemin.getText().isEmpty()
+                || selectedFile == null
                 || dpAjout.getValue() == null) {
 
             showAlert(Alert.AlertType.ERROR,
                     "Erreur",
-                    "Veuillez remplir tous les champs obligatoires");
+                    "Veuillez remplir tous les champs et choisir un fichier");
             return;
         }
 
@@ -87,17 +89,24 @@ public class AjouterDocumentController {
             protected Void call() throws Exception {
 
                 try {
-                    // ===== OCR =====
-                    String texteOCR = ocrService.extractTextFromFile(txtChemin.getText());
+                    // ===== UPLOAD CLOUDINARY =====
+                    String cloudinaryUrl = cloudinaryService.uploadFile(selectedFile);
+
+                    if (cloudinaryUrl == null) {
+                        throw new RuntimeException("Erreur upload Cloudinary");
+                    }
+
+                    // ===== OCR (sur le fichier local avant upload) =====
+                    String texteOCR = ocrService.extractTextFromFile(selectedFile.getAbsolutePath());
 
                     if (texteOCR == null || texteOCR.isEmpty()) {
                         throw new RuntimeException("OCR vide");
                     }
 
-                    // ===== détection catégorie =====
+                    // ===== DETECTION CATEGORIE =====
                     String nomCategorie = classifier.detectCategory(texteOCR);
 
-                    // ===== récupération ou création catégorie =====
+                    // ===== RECUPERATION OU CREATION CATEGORIE =====
                     CategorieDocument categorie = catService.getAll().stream()
                             .filter(c -> c.getLibelle().equalsIgnoreCase(nomCategorie))
                             .findFirst()
@@ -109,18 +118,17 @@ public class AjouterDocumentController {
                         categorie.setDescription("Auto détectée par OCR");
                         catService.add(categorie);
 
-                        // récupérer avec ID
                         categorie = catService.getAll().stream()
                                 .filter(c -> c.getLibelle().equalsIgnoreCase(nomCategorie))
                                 .findFirst()
                                 .orElse(categorie);
                     }
 
-                    // ===== création document =====
+                    // ===== CREATION DOCUMENT avec URL Cloudinary =====
                     Document document = new Document(
                             0,
                             txtNom.getText(),
-                            txtChemin.getText(),
+                            cloudinaryUrl, // ← URL Cloudinary au lieu du chemin local
                             Date.valueOf(dpAjout.getValue()),
                             dpExpiration.getValue() != null
                                     ? Date.valueOf(dpExpiration.getValue())
@@ -130,14 +138,15 @@ public class AjouterDocumentController {
 
                     docService.add(document);
 
-                    // ===== email =====
+                    // ===== EMAIL =====
                     mailService.sendMail(
                             "mahdi.bribech12@gmail.com",
                             "Nouveau document ajouté ✈",
-                            "Le document \"" + txtNom.getText() + "\" a été ajouté automatiquement."
+                            "Le document \"" + txtNom.getText() + "\" a été ajouté.\n" +
+                                    "🔗 Lien: " + cloudinaryUrl
                     );
 
-                    // ===== rappel calendrier =====
+                    // ===== RAPPEL CALENDRIER =====
                     if (dpExpiration.getValue() != null) {
                         GoogleCalendarService.ajouterRappelExpiration(
                                 txtNom.getText(),
@@ -157,14 +166,16 @@ public class AjouterDocumentController {
         task.setOnSucceeded(e -> {
             showAlert(Alert.AlertType.INFORMATION,
                     "Succès",
-                    "Document ajouté ✔\nCatégorie détectée automatiquement 🤖");
+                    "Document ajouté ✔\n" +
+                            "Catégorie détectée automatiquement 🤖\n" +
+                            "Fichier stocké sur Cloudinary ☁️");
             clearFields();
         });
 
         task.setOnFailed(e -> {
             showAlert(Alert.AlertType.ERROR,
-                    "Erreur OCR",
-                    "Impossible d'analyser le document");
+                    "Erreur",
+                    "Impossible d'ajouter le document : " + task.getException().getMessage());
         });
 
         new Thread(task).start();
@@ -173,6 +184,7 @@ public class AjouterDocumentController {
     private void clearFields() {
         txtNom.clear();
         txtChemin.clear();
+        selectedFile = null;
         dpAjout.setValue(LocalDate.now());
         dpExpiration.setValue(null);
     }
