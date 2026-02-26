@@ -339,7 +339,27 @@ public class ActiviteListController {
             return null;
         }
     }
+<<<<<<< Updated upstream
 
+=======
+    @FXML
+    private void openHolidayPage() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/holiday.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Jours Fériés");
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> Stashed changes
 
 }
 

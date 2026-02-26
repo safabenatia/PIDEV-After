@@ -36,7 +36,13 @@
                                style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 13px;"/>
                     </VBox>
                 </HBox>
+<<<<<<< Updated upstream
 
+=======
+                <Button text="Voir Jours Fériés"
+                        onAction="#openHolidayPage"
+                        prefWidth="200"/>
+>>>>>>> Stashed changes
                 <Button text="🗓️ Planning"
                         onAction="#handlePlanning"
                         prefHeight="40" prefWidth="170"
