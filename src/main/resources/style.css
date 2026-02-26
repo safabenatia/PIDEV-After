@@ -1,0 +1,239 @@
+/* ==================== NAVBAR (inchangée) ==================== */
+.header-bar {
+    -fx-background-color: #183a7a; /* bleu foncé */
+    -fx-padding: 15 30 15 30;
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.header-button {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-padding: 8 15;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.header-button:hover {
+    -fx-background-color: #f2f2f2;
+}
+
+/* ==================== ROOT / FENÊTRE ==================== */
+.root {
+    -fx-background-color: #f5f5f5; /* fond gris clair neutre */
+    -fx-font-family: "Segoe UI";
+}
+
+/* ==================== CONTENT AREA ==================== */
+.content-area {
+    -fx-padding: 20;
+    -fx-spacing: 20;
+    -fx-background-color: #f5f5f5;
+}
+
+/* ==================== DOCUMENT CARD ==================== */
+.document-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-pref-width: 600;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0.3, 0, 4);
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 12;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.document-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0.4, 0, 6);
+    -fx-translate-y: -2;
+}
+
+/* ==================== TITLES AND LABELS ==================== */
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #183a7a; /* couleur bleu foncé */
+}
+
+.category {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888888;
+}
+
+/* ==================== CARD BUTTONS ==================== */
+.card-btn {
+    -fx-background-color: #183a7a;
+    -fx-text-fill: white;
+    -fx-padding: 6 14;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.card-btn:hover {
+    -fx-background-color: #244c99;
+}
+
+.document-card > .hbox {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+/* ==================== SEARCH FIELD ==================== */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-padding: 8 15;
+    -fx-pref-width: 250;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 20;
+}
+
+/* ==================== FORMULAIRES (AJOUT / MODIFIER DOCUMENT) ==================== */
+.text-field, .combo-box, .date-picker {
+    -fx-background-radius: 12;
+    -fx-padding: 8 12;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 12;
+    -fx-focus-color: #183a7a;
+    -fx-faint-focus-color: rgba(24, 58, 122, 0.2);
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+.file-field {
+    -fx-background-radius: 12;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 12;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
+    -fx-background-color: white;
+}
+
+/* ==================== BOUTONS FORMULAIRE ==================== */
+.primary-button {
+    -fx-background-color: #183a7a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 8 15;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-transition: all 0.3s ease-in-out;
+}
+
+.primary-button:hover {
+    -fx-background-color: #244c99;
+}
+
+/* ==================== HBOX / VBOX CONTAINERS ==================== */
+.hbox, .vbox {
+    -fx-spacing: 15;
+}
+
+/* ==================== ALERT / MESSAGE ==================== */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* ==================== COMBOBOX EDITABLE ==================== */
+.combo-box .arrow-button {
+    -fx-background-color: #183a7a;
+}
+
+.combo-box .arrow-button:hover {
+    -fx-background-color: #244c99;
+}
+
+.combo-box .list-cell {
+    -fx-padding: 6 12;
+}
+
+/* ==================== DATE PICKER ==================== */
+.date-picker {
+    -fx-background-color: white;
+}
+.card-btn {
+    -fx-background-color: #183a7a;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 3 8;
+}
+.card-btn:hover {
+    -fx-background-color: #244c99;
+}
+/* Container principal */
+.containerDocuments {
+    -fx-padding: 20;
+    -fx-background-color: #f4f6f8;
+    -fx-spacing: 0;
+}
+
+/* Header tableau */
+.containerDocuments HBox:first-child {
+    -fx-background-color: #183a7a;
+    -fx-padding: 10;
+    -fx-border-radius: 8 8 0 0;
+}
+
+.containerDocuments HBox:first-child Label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+/* Lignes */
+.containerDocuments HBox {
+    -fx-background-color: #ffffff;
+    -fx-padding: 8;
+    -fx-border-color: #ddd;
+    -fx-border-width: 0 0 1 0;
+    -fx-alignment: center-left;
+}
+
+/* Ligne hover */
+.containerDocuments HBox:hover {
+    -fx-background-color: #e0ebff;
+}
+
+/* Lignes alternées */
+.containerDocuments HBox:nth-child(even):not(:first-child) {
+    -fx-background-color: #f9fbfd;
+}
+
+/* Labels colonnes */
+.containerDocuments HBox Label {
+    -fx-font-size: 12px;
+    -fx-padding: 0 5 0 5;
+    -fx-text-overrun: ellipsis;
+}
+
+/* Boutons actions */
+.card-btn {
+    -fx-background-color: #183a7a;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 3 10;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.card-btn:hover {
+    -fx-background-color: #244c99;
+}
+
+/* Tooltip pour les chemins longs */
+.label-chemin {
+    -fx-ellipsis-string: "...";
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<VBox spacing="15" alignment="TOP_CENTER"
+      xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.CategorieDocumentController"
+      stylesheets="@style.css"
+      prefWidth="650" prefHeight="450">
+
+    <Label text="Gestion des Catégories de Document"
+           styleClass="title-label"/>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Recherche:"/>
+        <TextField fx:id="txtSearch" promptText="Rechercher..."
+                   styleClass="search-field"/>
+    </HBox>
+
+    <TableView fx:id="tableCategorie" prefHeight="220" prefWidth="600">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+            <TableColumn fx:id="colLibelle" text="Libellé" prefWidth="220"/>
+            <TableColumn fx:id="colDescription" text="Description" prefWidth="320"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="20">
+        <VBox spacing="5">
+            <Label text="Libellé"/>
+            <TextField fx:id="txtLibelle" promptText="Libellé"/>
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Description"/>
+            <TextField fx:id="txtDescription" promptText="Description"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="15" alignment="CENTER">
+
+        <Button onAction="#ajouterCategorie" styleClass="btn-add">
+            <graphic>
+                <FontIcon iconLiteral="fas-plus" iconSize="16"/>
+            </graphic>
+            Ajouter
+        </Button>
+
+        <Button onAction="#modifierCategorie" styleClass="btn-edit">
+            <graphic>
+                <FontIcon iconLiteral="fas-edit" iconSize="16"/>
+            </graphic>
+            Modifier
+        </Button>
+
+        <Button onAction="#supprimerCategorie" styleClass="btn-delete">
+            <graphic>
+                <FontIcon iconLiteral="fas-trash" iconSize="16"/>
+            </graphic>
+            Supprimer
+        </Button>
+
+    </HBox>
+
+</VBox>

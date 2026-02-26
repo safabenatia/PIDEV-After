@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.DocumentsParCategorieController"
+            stylesheets="@style.css">
+
+    <top>
+        <HBox styleClass="header-bar">
+            <Label fx:id="lblTitre" styleClass="header-title"/>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true">
+            <VBox fx:id="containerDocs" spacing="15" styleClass="content-area"/>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.ModifierDocumentController"
+      stylesheets="@style.css"
+      spacing="15"
+      alignment="TOP_CENTER"
+      style="-fx-padding: 30;">
+
+    <Label text="Modifier un Document" styleClass="title-label"/>
+
+    <TextField fx:id="txtNom"
+               promptText="Nom du document"
+               styleClass="text-field"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtChemin"
+                   promptText="Chemin du fichier"
+                   editable="false"
+                   styleClass="file-field"/>
+
+        <Button text="Parcourir"
+                onAction="#choisirFichier"
+                styleClass="primary-button"/>
+    </HBox>
+
+    <DatePicker fx:id="dpAjout"
+                promptText="Date d'ajout"
+                styleClass="date-picker"/>
+
+    <DatePicker fx:id="dpExpiration"
+                promptText="Date d'expiration"
+                styleClass="date-picker"/>
+
+    <ComboBox fx:id="cbCategorie"
+              promptText="Catégorie"
+              styleClass="combo-box"/>
+
+    <Button text="Enregistrer"
+            onAction="#modifierDocument"
+            styleClass="primary-button"
+            prefWidth="160"/>
+</VBox>
