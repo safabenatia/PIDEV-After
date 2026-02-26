@@ -1,5 +1,7 @@
 package models;
 
+import java.time.LocalDate;  // ✅ IMPORT AJOUTÉ
+
 public class Offre {
 
     private int id_offre;
@@ -7,8 +9,10 @@ public class Offre {
     private double prix;
     private int duree;
     private int serviceId;
+    private LocalDate dateCreation;  // ✅ NOUVEAU CHAMP
 
     public Offre() {
+        this.dateCreation = LocalDate.now();  // ✅ Date par défaut
     }
 
     // constructeur sans id (pour ajout)
@@ -17,6 +21,7 @@ public class Offre {
         this.prix = prix;
         this.duree = duree;
         this.serviceId = serviceId;
+        this.dateCreation = LocalDate.now();  // ✅ Date du jour
     }
 
     // constructeur complet (pour lecture DB)
@@ -26,8 +31,20 @@ public class Offre {
         this.prix = prix;
         this.duree = duree;
         this.serviceId = serviceId;
+        this.dateCreation = LocalDate.now();  // ✅ Date par défaut
     }
 
+    // ✅ NOUVEAU constructeur avec date (pour lecture DB avec date)
+    public Offre(int id_offre, String titre, double prix, int duree, int serviceId, LocalDate dateCreation) {
+        this.id_offre = id_offre;
+        this.titre = titre;
+        this.prix = prix;
+        this.duree = duree;
+        this.serviceId = serviceId;
+        this.dateCreation = dateCreation;
+    }
+
+    // Getters et Setters existants
     public int getId_offre() {
         return id_offre;
     }
@@ -66,5 +83,14 @@ public class Offre {
 
     public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
+    }
+
+    // ✅ NOUVEAUX GETTER ET SETTER
+    public LocalDate getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(LocalDate dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }

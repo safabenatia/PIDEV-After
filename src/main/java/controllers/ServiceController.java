@@ -21,6 +21,7 @@ import api.PDFAPI;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -48,6 +49,15 @@ public class ServiceController implements Initializable {
     @FXML
     private Button closeButton;
 
+    // ==================== RECHERCHE ====================
+    @FXML
+    private TextField searchField;
+
+    @FXML
+    private Label resultatsCountLabel;
+
+    private List<Service> tousLesServices;
+
     private ServiceService serviceService = new ServiceService();
     private PaiementAPI paiementAPI = new PaiementAPI();
     private EmailAPI emailAPI = new EmailAPI();
@@ -66,6 +76,9 @@ public class ServiceController implements Initializable {
 
         // Charger les données
         refreshList();
+
+        // Initialiser la recherche
+        initRecherche();
     }
 
     private void setupWindowButtons() {
@@ -85,16 +98,71 @@ public class ServiceController implements Initializable {
     }
 
     private void refreshList() {
+        tousLesServices = serviceService.getAll();
+        afficherResultatsRecherche(tousLesServices);
+    }
+
+    // ==================== MÉTHODES DE RECHERCHE ====================
+    private void initRecherche() {
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+                rechercherServices();
+            });
+        }
+    }
+
+    @FXML
+    private void rechercherServices() {
+        if (tousLesServices == null) return;
+
+        String recherche = searchField != null ? searchField.getText().toLowerCase().trim() : "";
+
+        List<Service> resultats = new ArrayList<>();
+
+        for (Service s : tousLesServices) {
+            boolean correspond = false;
+
+            if (recherche.isEmpty()) {
+                correspond = true;
+            } else {
+                String nom = s.getNom_service().toLowerCase();
+                String desc = s.getDescription().toLowerCase();
+                String cat = s.getCategorie().toLowerCase();
+
+                correspond = nom.contains(recherche) ||
+                        desc.contains(recherche) ||
+                        cat.contains(recherche);
+            }
+
+            if (correspond) {
+                resultats.add(s);
+            }
+        }
+
+        afficherResultatsRecherche(resultats);
+    }
+
+    @FXML
+    private void reinitialiserRecherche() {
+        if (searchField != null) {
+            searchField.clear();
+        }
+        afficherResultatsRecherche(tousLesServices);
+    }
+
+    private void afficherResultatsRecherche(List<Service> resultats) {
+        if (resultatsCountLabel != null) {
+            resultatsCountLabel.setText(resultats.size() + " service(s) trouvé(s)");
+        }
+
         servicesVBox.getChildren().clear();
 
-        List<Service> services = serviceService.getAll();
-
-        if (services.isEmpty()) {
-            Label emptyLabel = new Label("Aucun service disponible");
+        if (resultats.isEmpty()) {
+            Label emptyLabel = new Label("Aucun service trouvé");
             emptyLabel.setStyle("-fx-text-fill: #16325c; -fx-font-size: 16px; -fx-padding: 20;");
             servicesVBox.getChildren().add(emptyLabel);
         } else {
-            for (Service service : services) {
+            for (Service service : resultats) {
                 VBox serviceCard = createServiceCard(service);
                 servicesVBox.getChildren().add(serviceCard);
             }

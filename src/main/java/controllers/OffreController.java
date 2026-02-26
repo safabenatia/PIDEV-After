@@ -21,6 +21,8 @@ import api.QRCodeView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -182,9 +184,54 @@ public class OffreController implements Initializable {
         }
     }
 
+    // ==================== CHARGEMENT DES OFFRES AVEC RÉDUCTION ====================
     private void chargerOffres() {
-        toutesLesOffres = offreService.getAll();
+        toutesLesOffres = appliquerReductionAutomatique(offreService.getAll());
         afficherResultats(toutesLesOffres);
+    }
+
+    /**
+     * Applique une réduction de 20% aux offres de plus de 7 jours
+     */
+    private List<Offre> appliquerReductionAutomatique(List<Offre> offres) {
+        LocalDate aujourdhui = LocalDate.now();
+        List<Offre> offresModifiees = new ArrayList<>();
+
+        for (Offre o : offres) {
+            // Créer une copie de l'offre pour ne pas modifier l'originale en BD
+            Offre offreModifiee = new Offre(
+                    o.getId_offre(),
+                    o.getTitre(),
+                    o.getPrix(),
+                    o.getDuree(),
+                    o.getServiceId()
+            );
+
+            // Vérifier si l'offre a une date de création
+            if (o.getDateCreation() != null) {
+                long joursDepuis = ChronoUnit.DAYS.between(o.getDateCreation(), aujourdhui);
+
+                if (joursDepuis > 7) {
+                    double prixOriginal = o.getPrix();
+                    double prixReduit = prixOriginal * 0.8; // -20%
+                    offreModifiee.setPrix(prixReduit);
+
+                    // Marquer l'offre comme réduite pour l'affichage
+                    offreModifiee.setTitre(o.getTitre() + " 🔥 -20%");
+
+                    System.out.println("🏷️ Réduction appliquée: " + o.getTitre() +
+                            " (" + joursDepuis + " jours) → " + prixReduit + " DT");
+                } else {
+                    offreModifiee.setTitre(o.getTitre());
+                }
+            } else {
+                offreModifiee.setTitre(o.getTitre());
+            }
+
+            offresModifiees.add(offreModifiee);
+        }
+
+        return offresModifiees;
     }
 
     private void afficherMessageAucuneOffre() {
@@ -232,15 +279,29 @@ public class OffreController implements Initializable {
         HBox header = new HBox();
         header.setStyle("-fx-alignment: CENTER_LEFT; -fx-spacing: 10;");
 
-        Label categoryBadge = new Label("⭐ OFFRE SPÉCIALE");
-        categoryBadge.setStyle(
-                "-fx-background-color: #FFD700;" +
-                        "-fx-text-fill: #16325c;" +
-                        "-fx-padding: 5 15;" +
-                        "-fx-background-radius: 20;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-font-weight: bold;"
-        );
+        // Badge spécial si réduction
+        Label categoryBadge;
+        if (offre.getTitre().contains("🔥")) {
+            categoryBadge = new Label("🔥 PROMO -20%");
+            categoryBadge.setStyle(
+                    "-fx-background-color: #FF4444;" +
+                            "-fx-text-fill: white;" +
+                            "-fx-padding: 5 15;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-font-size: 12px;" +
+                            "-fx-font-weight: bold;"
+            );
+        } else {
+            categoryBadge = new Label("⭐ OFFRE SPÉCIALE");
+            categoryBadge.setStyle(
+                    "-fx-background-color: #FFD700;" +
+                            "-fx-text-fill: #16325c;" +
+                            "-fx-padding: 5 15;" +
+                            "-fx-background-radius: 20;" +
+                            "-fx-font-size: 12px;" +
+                            "-fx-font-weight: bold;"
+            );
+        }
 
         Label prixLabel = new Label(String.format("%.0f DT", offre.getPrix()));
         prixLabel.setStyle(
@@ -375,7 +436,7 @@ public class OffreController implements Initializable {
                         "-fx-font-weight: bold;"
         );
 
-        TitreOffreField.setText(offre.getTitre());
+        TitreOffreField.setText(offre.getTitre().replace(" 🔥 -20%", ""));
         PrixOffreField.setText(String.valueOf(offre.getPrix()));
         DureeOffreField.setText(String.valueOf(offre.getDuree()));
 
@@ -601,7 +662,7 @@ public class OffreController implements Initializable {
         if (prixMinField != null) prixMinField.clear();
         if (prixMaxField != null) prixMaxField.clear();
 
-        toutesLesOffres = offreService.getAll();
+        toutesLesOffres = appliquerReductionAutomatique(offreService.getAll());
         afficherResultats(toutesLesOffres);
     }
 
@@ -617,9 +678,12 @@ public class OffreController implements Initializable {
                     serviceCombo.getValue().getId_service()
             );
 
+            // Ajouter la date de création
+            offre.setDateCreation(LocalDate.now());
+
             offreService.add(offre);
-            toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
-            chargerOffres();
+            toutesLesOffres = appliquerReductionAutomatique(offreService.getAll());  // Mettre à jour la liste
+            afficherResultats(toutesLesOffres);
             annuler();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre ajoutée avec succès!");
         } catch (Exception e) {
@@ -644,8 +708,8 @@ public class OffreController implements Initializable {
             offreSelectionne.setServiceId(serviceCombo.getValue().getId_service());
 
             offreService.update(offreSelectionne);
-            toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
-            chargerOffres();
+            toutesLesOffres = appliquerReductionAutomatique(offreService.getAll());  // Mettre à jour la liste
+            afficherResultats(toutesLesOffres);
             annuler();
             showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre modifiée avec succès!");
         } catch (Exception e) {
@@ -666,8 +730,8 @@ public class OffreController implements Initializable {
                 if (offreSelectionne != null && offreSelectionne.getId_offre() == offre.getId_offre()) {
                     annuler();
                 }
-                toutesLesOffres = offreService.getAll();  // Mettre à jour la liste
-                chargerOffres();
+                toutesLesOffres = appliquerReductionAutomatique(offreService.getAll());  // Mettre à jour la liste
+                afficherResultats(toutesLesOffres);
                 showAlert(Alert.AlertType.INFORMATION, "Succès", "Offre supprimée avec succès!");
             } catch (Exception e) {
                 showAlert(Alert.AlertType.ERROR, "Erreur", "Erreur lors de la suppression: " + e.getMessage());
