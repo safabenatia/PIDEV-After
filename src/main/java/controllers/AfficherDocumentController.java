@@ -9,11 +9,15 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import models.Document;
 import services.serviceDocument;
+import java.awt.Desktop;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import javafx.stage.FileChooser;
+import java.io.File;
+import services.PdfService;
+import models.Document;
 public class AfficherDocumentController {
 
     @FXML private VBox containerDocuments;
@@ -21,6 +25,7 @@ public class AfficherDocumentController {
 
     private final serviceDocument service = new serviceDocument();
     private List<Document> documents;
+    private Document docSelectionne;
 
     @FXML
     public void initialize() {
@@ -116,14 +121,25 @@ public class AfficherDocumentController {
                 -fx-background-radius:25;
                 -fx-padding:6 18;
             """);
+            // ===== ACTIONS =====
 
+
+            Button btnPdf = new Button("📄 Télécharger PDF");
+            btnPdf.setStyle("""
+                -fx-background-color:#2a9d8f;
+                -fx-text-fill:white;
+                -fx-background-radius:25;
+                -fx-padding:6 18;
+            """);
+
+            btnPdf.setOnAction(e -> telechargerPDF(doc));
             btnMod.setOnAction(e -> modifierDocument(doc));
             btnSup.setOnAction(e -> {
                 service.delete(doc);
                 loadDocuments();
             });
 
-            actions.getChildren().addAll(btnMod, btnSup);
+            actions.getChildren().addAll(btnPdf,btnMod, btnSup);
 
             card.getChildren().addAll(header, lblAjout, lblExp, actions);
 
@@ -173,6 +189,41 @@ public class AfficherDocumentController {
         }
 
         afficherCartes(docs);
+    }
+    @FXML
+    private void exporterTousDocuments() {
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Exporter tous les documents");
+        chooser.setInitialFileName("documents_AFTER.pdf");
+
+        File file = chooser.showSaveDialog(containerDocuments.getScene().getWindow());
+
+        if (file != null) {
+            new PdfService().exporterListeDocumentsPDF(documents, file.getAbsolutePath());
+            partagerPDF(file);
+        }
+    }
+    @FXML
+    private void telechargerPDF(Document doc) {
+
+        FileChooser chooser = new FileChooser();
+        chooser.setTitle("Télécharger PDF");
+        chooser.setInitialFileName("document_" + doc.getIdDocument() + ".pdf");
+
+        File file = chooser.showSaveDialog(containerDocuments.getScene().getWindow());
+
+        if (file != null) {
+            new PdfService().exporterDocumentPDF(doc, file.getAbsolutePath());
+            partagerPDF(file); // ✅ ouverture automatique
+        }
+    }
+    private void partagerPDF(File file) {
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

@@ -34,6 +34,49 @@ public class serviceCategorieDocument implements service<CategorieDocument> {
             System.out.println(e.getMessage());
         }
     }
+    public CategorieDocument findByLibelle(String libelle) {
+
+        String sql = "SELECT * FROM categorie_document WHERE libelle = ?";
+
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+
+            ps.setString(1, libelle);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                CategorieDocument cat = new CategorieDocument();
+                cat.setIdCategorie(rs.getInt("id_categorie"));
+                cat.setLibelle(rs.getString("libelle"));
+                cat.setDescription(rs.getString("description"));
+                return cat;
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public CategorieDocument getOrCreateByLibelle(String libelle) {
+
+        // vérifier si existe déjà
+        CategorieDocument cat = findByLibelle(libelle);
+
+        if (cat != null) {
+            return cat;
+        }
+
+        // sinon créer
+        CategorieDocument newCat = new CategorieDocument();
+        newCat.setLibelle(libelle);
+        newCat.setDescription("Créée automatiquement");
+
+        add(newCat);
+
+        // récupérer la catégorie créée avec ID
+        return findByLibelle(libelle);
+    }
 
     // ================== GET ALL ==================
     @Override
@@ -136,5 +179,69 @@ public class serviceCategorieDocument implements service<CategorieDocument> {
         }
         return false;
     }
+
+    // ================== GET ALL NAMES ==================
+    public List<String> getAllNames() {
+
+        List<String> list = new ArrayList<>();
+
+        for (CategorieDocument cat : getAll()) {
+            list.add(cat.getLibelle());
+        }
+
+        return list;
+    }
+    // ================== AJOUTER SI INEXISTANTE ==================
+    public void ajouterSiInexistante(String libelle) {
+
+        if (libelle == null || libelle.trim().isEmpty()) return;
+
+        if (!existsByLibelle(libelle)) {
+            CategorieDocument cat = new CategorieDocument();
+            cat.setLibelle(libelle);
+            cat.setDescription("Ajoutée depuis dashboard");
+            add(cat);
+        }
+    }
+
+    // ================== MODIFIER PAR LIBELLE ==================
+    public void modifierNom(String ancienLibelle, String nouveauLibelle) {
+
+        if (ancienLibelle == null || nouveauLibelle == null) return;
+
+        CategorieDocument cat = findByLibelle(ancienLibelle);
+        if (cat == null) return;
+
+        cat.setLibelle(nouveauLibelle);
+        update(cat);
+    }
+
+    // ================== SUPPRIMER PAR LIBELLE (SAFE) ==================
+    public boolean supprimerParLibelle(String libelle) {
+
+        CategorieDocument cat = findByLibelle(libelle);
+
+        if (cat == null) return false;
+
+        if (isUsed(cat.getIdCategorie())) {
+            System.out.println("Impossible : catégorie utilisée");
+            return false;
+        }
+
+        delete(cat);
+        return true;
+    }
+    public void supprimerDocumentsExpires() {
+
+        String sql = "DELETE FROM document WHERE date_expiration < CURDATE()";
+
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
 }

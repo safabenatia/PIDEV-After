@@ -161,4 +161,13 @@ public class serviceDocument implements service<Document> {
             ps.executeUpdate();
         }
     }
+
+    public void supprimerDocumentsExpires() {
+        String sql = "DELETE FROM document WHERE date_expiration < CURDATE()";
+        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

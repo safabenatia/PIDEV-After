@@ -8,10 +8,11 @@
       fx:controller="controllers.AjouterDocumentController"
       spacing="18"
       alignment="TOP_CENTER"
-      style="-fx-padding: 35; -fx-background-color: white;">
+      stylesheets="@style-ajout-document.css"
+      styleClass="form-card">
 
     <Label text="Ajouter un document de voyage"
-           style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+           styleClass="label-title" />
 
     <TextField fx:id="txtNom"
                promptText="Type de document (Passeport, Visa, Assurance...)"
@@ -24,6 +25,7 @@
                    prefWidth="240"/>
         <Button text="📎"
                 onAction="#choisirFichier"
+                styleClass="btn-secondary"
                 prefWidth="70"/>
     </HBox>
 
@@ -35,14 +37,13 @@
                 promptText="Date d'expiration"
                 prefWidth="320"/>
 
-    <ComboBox fx:id="cbCategorie"
-              promptText="Catégorie du document"
-              editable="true"
-              prefWidth="320"/>
+    <!-- info UX pour ton OCR automatique -->
+    <Label text="La catégorie est détectée automatiquement par analyse du document"
+           style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px;"/>
 
     <Button text="Ajouter le document"
             onAction="#ajouterDocument"
-            style="-fx-background-color: #2E86DE; -fx-text-fill: white; -fx-font-size: 14px;"
-            prefWidth="200"/>
+            styleClass="btn-primary"
+            prefWidth="220"/>
 
 </VBox>

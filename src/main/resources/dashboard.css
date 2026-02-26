@@ -1,0 +1,11 @@
+.root {
+    -fx-background-color: #f1f5f9;
+    -fx-font-family: "Segoe UI";
+}
+
+.chart {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08),15,0,0,4);
+}
