@@ -13,7 +13,8 @@ import javafx.scene.layout.*;
 import models.voyage;
 import models.destination;
 import services.*;
-
+import services.StatisticsService;
+import controllers.StatisticsController;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +41,8 @@ public class MainViewController {
     private PdfExportService pdfExportService = new PdfExportService();
     private FavoritesService favoritesService = new FavoritesService();
     private TranslateService translateService = new TranslateService();
+    private StatisticsService statisticsService = new StatisticsService();
+
     @FXML
     public void initialize() {
         searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -168,6 +171,30 @@ public class MainViewController {
             mainContent.getChildren().setAll(node);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    @FXML
+    public void showStatistics() {
+        currentView = "statistics";
+        crudBox.getChildren().clear();
+
+        try {
+            // Use the services already working in MainViewController
+            // Pass data directly — no new DB connections created
+            List<voyage>      allVoyages      = serviceVoyage.getAll();
+            List<destination> allDestinations = serviceDestination.getAll();
+
+            StatisticsController statsCtrl =
+                    new StatisticsController(allVoyages, allDestinations);
+
+            VBox dashboard = statsCtrl.buildDashboard();
+            mainContent.getChildren().setAll(dashboard);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Label err = new Label("Erreur: " + e.getMessage());
+            err.setStyle("-fx-text-fill:red; -fx-font-size:13px;");
+            mainContent.getChildren().setAll(err);
         }
     }
     @FXML
@@ -396,13 +423,11 @@ public class MainViewController {
 
         box.getChildren().addAll(titreLabel, descLabel, translateBtn, dateLabel, prixLabel, conversionLabel, placesLabel);
 
-        // fetch conversion in background
         new Thread(() -> {
-            double eur = exchangeRateService.convertToEUR(v.getPrix());
-            double usd = exchangeRateService.convertToUSD(v.getPrix());
+            double[] rates = exchangeRateService.convertToEURandUSD(v.getPrix());
             javafx.application.Platform.runLater(() -> {
-                if (eur != 0 && usd != 0) {
-                    conversionLabel.setText("  " + eur + " EUR  |  " + usd + " USD");
+                if (rates[0] != 0 && rates[1] != 0) {
+                    conversionLabel.setText("  " + rates[0] + " EUR  |  " + rates[1] + " USD");
                 } else {
                     conversionLabel.setText("  conversion indisponible");
                 }
@@ -621,11 +646,10 @@ public class MainViewController {
         convLabel.setStyle("-fx-font-size:12px; -fx-text-fill:#888;");
 
         new Thread(() -> {
-            double eur = exchangeRateService.convertToEUR(v.getPrix());
-            double usd = exchangeRateService.convertToUSD(v.getPrix());
+            double[] rates = exchangeRateService.convertToEURandUSD(v.getPrix());
             javafx.application.Platform.runLater(() -> {
-                if (eur != 0 && usd != 0) {
-                    convLabel.setText("Conversion: " + eur + " EUR  |  " + usd + " USD");
+                if (rates[0] != 0 && rates[1] != 0) {
+                    convLabel.setText("Conversion: " + rates[0] + " EUR  |  " + rates[1] + " USD");
                 } else {
                     convLabel.setText("Conversion: indisponible");
                 }
