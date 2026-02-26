@@ -107,7 +107,8 @@ public class LoginController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
             Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(new Scene(root, 1200, 800));
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
             stage.setTitle(title);
 
         } catch (RuntimeException ex) {

@@ -4,7 +4,7 @@ import interfaces.Services;
 import models.Admin;
 import models.Users;
 import models.Voyageur;
-import utils.MyDataBase;
+import utils.Mydatabase;
 import utils.PasswordUtil;
 
 import java.sql.*;
@@ -16,7 +16,7 @@ public class ServiceUsers implements Services<Users> {
     private Connection cnx;
 
     public ServiceUsers() {
-        this.cnx = MyDataBase.getInstance().getCnx();
+        this.cnx = Mydatabase.getInstance().getCnx();
     }
 
     @Override

@@ -12,7 +12,7 @@
             stylesheets="@/dashboardAdmin.css"
             style="-fx-background-color: #F5F5DC;">
 
-    <!-- Sidebar gauche — même structure que admin -->
+    <!-- Sidebar gauche -->
     <left>
         <VBox styleClass="sidebar" spacing="20">
             <padding>
@@ -26,7 +26,8 @@
                        style="-fx-cursor: hand;"/>
                 <Label text="Voyages &amp; Destinations"
                        styleClass="sidebar-btn"
-                       style="-fx-cursor: hand; -fx-opacity: 0.45;"
+                       onMouseClicked="#showVoyages"
+                       style="-fx-cursor: hand;"
                        fx:id="voyagesBtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
@@ -60,12 +61,6 @@
                         <Label text="Téléphone" styleClass="stats-label"/>
                         <Label fx:id="phoneStatLabel" text="-" styleClass="stats-value"
                                style="-fx-font-size: 15px;"/>
-                    </VBox>
-
-                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="220">
-                        <Label text="Voyages &amp; Destinations" styleClass="stats-label"/>
-                        <Label text="Bientôt disponible" styleClass="stats-value"
-                               style="-fx-font-size: 12px; -fx-text-fill: #9ca3af;"/>
                     </VBox>
 
                 </HBox>
@@ -151,16 +146,6 @@
 
                         </VBox>
                     </HBox>
-                </VBox>
-
-                <!-- Placeholder voyages -->
-                <VBox fx:id="voyagesPlaceholder" spacing="12" alignment="CENTER"
-                      style="-fx-padding: 40 0 0 0;">
-                    <Label text="🗺" style="-fx-font-size: 48px;"/>
-                    <Label text="Voyages &amp; Destinations — bientôt disponible"
-                           style="-fx-font-size: 15px; -fx-text-fill: #9ca3af;"/>
-                    <Label text="Cette section sera disponible après l'intégration du module voyage."
-                           style="-fx-font-size: 12px; -fx-text-fill: #d1d5db;"/>
                 </VBox>
 
             </VBox>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DeleteVoyageController">
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background:#F5F5DC; -fx-background-color:#F5F5DC;">
+        <content>
+        <VBox alignment="CENTER" spacing="15" style="-fx-background-color:#F5F5DC; -fx-padding:50;">
+         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
+            </image>
+         </ImageView>
+
+            <Label style="-fx-font-size:20px; -fx-font-weight:bold;" text="Supprimer Voyage" textFill="#16325c" />
+
+            <TextField fx:id="idField" promptText="ID Voyage à supprimer" />
+
+            <HBox spacing="20">
+                <Button onAction="#deleteVoyage" style="-fx-background-color: #16325c;" text="Supprimer" textFill="WHITE" />
+                <Button onAction="#goBack" style="-fx-background-color: #16325c;" text="Annuler" textFill="WHITE" />
+            </HBox>
+
+        </VBox>
+        </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

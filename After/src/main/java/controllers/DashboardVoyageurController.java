@@ -196,7 +196,20 @@ public class DashboardVoyageurController {
         feedbackLabel.setText("✓ Profil mis à jour avec succès !");
         feedbackLabel.setStyle("-fx-font-size: 12px; -fx-text-fill: #16a34a;");
     }
-
+    @FXML
+    private void showVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent voyageView = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(voyageView, stage.getWidth(), stage.getHeight()));
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger le module voyage.", Alert.AlertType.ERROR);
+        }
+    }
     // Sidebar navigation — only profil for now
     @FXML
     private void showProfil() {
