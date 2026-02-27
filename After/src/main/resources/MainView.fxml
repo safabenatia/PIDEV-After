@@ -3,8 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainViewController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.MainViewController"
+            stylesheets="@/dashboardAdmin.css"
+            style="-fx-background-color: #F5F5DC;">
 
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color:#16325c; -fx-padding:15;">
@@ -24,31 +28,34 @@
         </HBox>
     </top>
 
-    <!-- Sidebar on the OUTER BorderPane — starts right below the navbar, no gap -->
     <left>
-        <VBox spacing="20"
-              style="-fx-background-color:#1e3a5f; -fx-padding: 32 16 32 16; -fx-min-width: 200;">
-            <Label text="After Travel"
-                   style="-fx-text-fill:white; -fx-font-size:20px; -fx-font-weight:bold;"/>
+        <VBox styleClass="sidebar" spacing="20" style="-fx-background-color: #1e3a5f;">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
             <VBox spacing="12">
                 <Label text="Mon Profil"
-                       style="-fx-text-fill:white; -fx-font-size:14px; -fx-cursor:hand;"
-                       onMouseClicked="#handleRetourProfil"/>
-                <Label text="Voyages &amp; Destinations"
-                       style="-fx-text-fill:white; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleRetourProfil"
+                       style="-fx-cursor: hand;"/>
+                <Label text="🗺️ Voyages &amp; Destinations"
+                       style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                <Label text="🏨 Services &amp; Offres"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleServicesOffres"
+                       style="-fx-cursor: hand;"
+                       fx:id="servicesBtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
-            <Button text="Déconnexion"
-                    style="-fx-background-color:#e74c3c; -fx-text-fill:white; -fx-font-weight:bold; -fx-cursor:hand; -fx-padding: 8 16;"
-                    onAction="#handleLogout"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
         </VBox>
     </left>
 
     <center>
         <BorderPane style="-fx-background-color:#F5F5DC;">
             <top>
-                <HBox fx:id="crudBox" alignment="CENTER_RIGHT" spacing="15" style="-fx-padding:15;">
-                </HBox>
+                <HBox fx:id="crudBox" alignment="CENTER_RIGHT" spacing="15" style="-fx-padding:15;"/>
             </top>
             <center>
                 <ScrollPane fitToWidth="true"

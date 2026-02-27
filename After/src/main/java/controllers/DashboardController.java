@@ -74,6 +74,25 @@ public class DashboardController implements Initializable {
     }
 
 
+
+    /**
+     * Configure les boutons de la barre de titre
+     */
+    @FXML
+    private void handleVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) dateLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Voyages & Destinations");
+        }
+    }
     @FXML
     private void handleRetourProfil() {
         try {
@@ -88,7 +107,6 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void handleLogout() {
         try {
@@ -103,24 +121,6 @@ public class DashboardController implements Initializable {
             e.printStackTrace();
         }
     }
-    /**
-     * Configure les boutons de la barre de titre
-     */
-    @FXML
-    private void handleRetour() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) dateLabel.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.setMaximized(false);
-            stage.setMaximized(true);
-            stage.setTitle("After Travel - Espace Voyageur");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void setupWindowButtons() {
         // Bouton MINIMISER
         if (minimizeButton != null) {
@@ -201,7 +201,8 @@ public class DashboardController implements Initializable {
 
             Parent root = FXMLLoader.load(resourceUrl);
             Stage stage = (Stage) totalServices.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Gestion des Services");
             stage.show();
 
@@ -231,7 +232,8 @@ public class DashboardController implements Initializable {
 
             Parent root = FXMLLoader.load(resourceUrl);
             Stage stage = (Stage) totalOffres.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Gestion des Offres");
             stage.show();
 
@@ -251,7 +253,8 @@ public class DashboardController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/stats.fxml"));
             Stage stage = (Stage) totalServices.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Statistiques");
             stage.show();
         } catch (IOException e) {

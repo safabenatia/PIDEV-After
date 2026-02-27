@@ -25,6 +25,11 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Arrays;
 import java.util.ResourceBundle;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
 
 public class ServiceController implements Initializable {
 
@@ -110,7 +115,56 @@ public class ServiceController implements Initializable {
             });
         }
     }
+    @FXML
+    private void handleRetourProfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Espace Voyageur");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
 
+    @FXML
+    private void handleVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void handleStats() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/stats.fxml"));
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("AFTER Travel - Statistiques");
+            stage.show();
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void handleLogout() {
+        try {
+            utils.Session.clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setTitle("After Travel - Connexion");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
     @FXML
     private void rechercherServices() {
         if (tousLesServices == null) return;
@@ -485,7 +539,8 @@ public class ServiceController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Dashboard");
             stage.show();
         } catch (IOException e) {

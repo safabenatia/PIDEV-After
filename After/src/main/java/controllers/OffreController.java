@@ -126,6 +126,56 @@ public class OffreController implements Initializable {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void handleRetourProfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) TitreOffreField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Espace Voyageur");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void handleVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) TitreOffreField.getScene().getWindow();
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void handleStats() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/stats.fxml"));
+            Stage stage = (Stage) TitreOffreField.getScene().getWindow();
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("AFTER Travel - Statistiques");
+            stage.show();
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void handleLogout() {
+        try {
+            utils.Session.clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) TitreOffreField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setTitle("After Travel - Connexion");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
 
     private void configureComboBox() {
         serviceCombo.setCellFactory(lv -> new ListCell<Service>() {
@@ -773,7 +823,8 @@ public class OffreController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
             Stage stage = (Stage) TitreOffreField.getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Dashboard");
             stage.show();
         } catch (IOException e) {

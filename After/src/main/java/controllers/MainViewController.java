@@ -203,6 +203,20 @@ public class MainViewController {
         }
     }
     @FXML
+    private void handleServicesOffres() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) mainContent.getScene().getWindow();
+            stage.setScene(new Scene(root));   // ← THIS LINE WAS MISSING
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Services & Offres");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     private void handleRetourProfil() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
