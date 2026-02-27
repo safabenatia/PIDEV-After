@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Objects;
-
 public class Paiement {
 
     private int id;
@@ -9,77 +7,124 @@ public class Paiement {
     private double montant;
     private String methode;
     private int idReservation;
+    private String statut;
+    private java.time.LocalDateTime datePaiement;
+    private String devise;
 
-    // Constructeur INSERT
+    public Paiement() {
+    }
+
+    // Constructeur complet (SELECT)
+    public Paiement(int id, String reference, double montant, String methode, int idReservation, String statut,
+            java.time.LocalDateTime datePaiement, String devise) {
+        this.id = id;
+        this.reference = reference;
+        this.montant = montant;
+        this.methode = methode;
+        this.idReservation = idReservation;
+        this.statut = statut;
+        this.datePaiement = datePaiement;
+        this.devise = devise;
+    }
+
+    // Constructeur (INSERT)
+    public Paiement(String reference, double montant, String methode, int idReservation, String statut,
+            java.time.LocalDateTime datePaiement, String devise) {
+        this.reference = reference;
+        this.montant = montant;
+        this.methode = methode;
+        this.idReservation = idReservation;
+        this.statut = statut;
+        this.datePaiement = datePaiement;
+        this.devise = devise;
+    }
+
+    // Constructeur partiel (pour compatibilité)
     public Paiement(String reference, double montant, String methode, int idReservation) {
         this.reference = reference;
         this.montant = montant;
         this.methode = methode;
         this.idReservation = idReservation;
+        this.statut = "en attente";
+        this.datePaiement = java.time.LocalDateTime.now();
+        this.devise = "TND";
     }
 
-
-    public Paiement() {
-
+    // Getters and Setters
+    public int getId() {
+        return id;
     }
-
-
-    // Constructeur SELECT
-    public Paiement(int id, String reference, double montant, String methode, int idReservation) {
-        this.id = id;
-        this.reference = reference;
-        this.montant = montant;
-        this.methode = methode;
-        this.idReservation = idReservation;
-    }
-
-    // Getters
-    public int getId() { return id; }
-    public String getReference() { return reference; }
-    public double getMontant() { return montant; }
-    public String getMethode() { return methode; }
-    public int getIdReservation() { return idReservation; }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getReference() {
+        return reference;
     }
 
     public void setReference(String reference) {
         this.reference = reference;
     }
 
+    public double getMontant() {
+        return montant;
+    }
+
     public void setMontant(double montant) {
         this.montant = montant;
+    }
+
+    public String getMethode() {
+        return methode;
     }
 
     public void setMethode(String methode) {
         this.methode = methode;
     }
 
+    public int getIdReservation() {
+        return idReservation;
+    }
+
     public void setIdReservation(int idReservation) {
         this.idReservation = idReservation;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Paiement paiement = (Paiement) o;
-        return id == paiement.id && Double.compare(montant, paiement.montant) == 0 && idReservation == paiement.idReservation && Objects.equals(reference, paiement.reference) && Objects.equals(methode, paiement.methode);
+    public String getStatut() {
+        return statut;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, reference, montant, methode, idReservation);
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public java.time.LocalDateTime getDatePaiement() {
+        return datePaiement;
+    }
+
+    public void setDatePaiement(java.time.LocalDateTime datePaiement) {
+        this.datePaiement = datePaiement;
+    }
+
+    public String getDevise() {
+        return devise;
+    }
+
+    public void setDevise(String devise) {
+        this.devise = devise;
     }
 
     @Override
     public String toString() {
         return "Paiement{" +
                 "id=" + id +
-                ", reference='" + reference + '\'' +
-                ", montant=" + montant +
+                ", ref='" + reference + '\'' +
+                ", montant=" + montant + " " + devise +
                 ", methode='" + methode + '\'' +
-                ", idReservation=" + idReservation +
+                ", res=" + idReservation +
+                ", statut='" + statut + '\'' +
+                ", date=" + datePaiement +
                 '}';
     }
 }

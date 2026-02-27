@@ -4,7 +4,6 @@ import model.Reservation;
 import utils.MyDatabase;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +14,19 @@ public class ReservationService implements IService<Reservation> {
     /* ======================= AJOUTER ======================= */
     @Override
     public void ajouter(Reservation r) {
-
-        String sql = "INSERT INTO reservation (date_reservation, statut, nb_personnes) VALUES (?, ?, ?)";
-
+        String sql = "INSERT INTO reservation (id_voyage, id_utilisateur, date_reservation, statut, nb_personnes, prix_total, type, lieu, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
-
-            ps.setDate(1, Date.valueOf(r.getDateReservation()));
-            ps.setString(2, r.getStatut());
-            ps.setInt(3, r.getNbPersonnes());
-
+            ps.setInt(1, r.getIdVoyage());
+            ps.setInt(2, r.getIdUtilisateur());
+            ps.setDate(3, Date.valueOf(r.getDateReservation()));
+            ps.setString(4, r.getStatut());
+            ps.setInt(5, r.getNbPersonnes());
+            ps.setDouble(6, r.getPrixTotal());
+            ps.setString(7, r.getType());
+            ps.setString(8, r.getLieu());
+            ps.setString(9, r.getDescription());
             ps.executeUpdate();
-            System.out.println("✅ Réservation ajoutée avec succès");
-
+            System.out.println("✅ Réservation ajoutée !");
         } catch (SQLException e) {
             System.out.println("❌ Erreur ajout : " + e.getMessage());
         }
@@ -35,48 +35,46 @@ public class ReservationService implements IService<Reservation> {
     /* ======================= AFFICHER ======================= */
     @Override
     public List<Reservation> afficher() {
-
         List<Reservation> list = new ArrayList<>();
         String sql = "SELECT * FROM reservation";
-
         try (Statement st = cnx.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
+                ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-
-                Reservation r = new Reservation(
+                list.add(new Reservation(
                         rs.getInt("id"),
+                        rs.getInt("id_voyage"),
+                        rs.getInt("id_utilisateur"),
                         rs.getDate("date_reservation").toLocalDate(),
                         rs.getString("statut"),
-                        rs.getInt("nb_personnes")
-                );
-
-                list.add(r);
+                        rs.getInt("nb_personnes"),
+                        rs.getDouble("prix_total"),
+                        rs.getString("type"),
+                        rs.getString("lieu"),
+                        rs.getString("description")));
             }
-
         } catch (SQLException e) {
             System.out.println("❌ Erreur affichage : " + e.getMessage());
         }
-
         return list;
     }
 
     /* ======================= MODIFIER ======================= */
     @Override
     public void modifier(Reservation r) {
-
-        String sql = "UPDATE reservation SET date_reservation=?, statut=?, nb_personnes=? WHERE id=?";
-
+        String sql = "UPDATE reservation SET id_voyage=?, id_utilisateur=?, date_reservation=?, statut=?, nb_personnes=?, prix_total=?, type=?, lieu=?, description=? WHERE id=?";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
-
-            ps.setDate(1, Date.valueOf(r.getDateReservation()));
-            ps.setString(2, r.getStatut());
-            ps.setInt(3, r.getNbPersonnes());
-            ps.setInt(4, r.getId());
-
+            ps.setInt(1, r.getIdVoyage());
+            ps.setInt(2, r.getIdUtilisateur());
+            ps.setDate(3, Date.valueOf(r.getDateReservation()));
+            ps.setString(4, r.getStatut());
+            ps.setInt(5, r.getNbPersonnes());
+            ps.setDouble(6, r.getPrixTotal());
+            ps.setString(7, r.getType());
+            ps.setString(8, r.getLieu());
+            ps.setString(9, r.getDescription());
+            ps.setInt(10, r.getId());
             ps.executeUpdate();
-            System.out.println("✅ Réservation modifiée avec succès");
-
+            System.out.println("✅ Réservation modifiée !");
         } catch (SQLException e) {
             System.out.println("❌ Erreur modification : " + e.getMessage());
         }
