@@ -1,8 +1,13 @@
+/* ========== BASE ========== */
 .root {
     -fx-background-color: #F5F5DC;
 }
 
-/* Pour les boutons de la barre de titre */
+.main-bg {
+    -fx-background-color: linear-gradient(to bottom right, #eef2f7, #f8f9fc);
+}
+
+/* ========== WINDOW BUTTONS ========== */
 .window-button {
     -fx-background-color: transparent;
     -fx-text-fill: #F5F5DC;
@@ -19,7 +24,54 @@
     -fx-background-color: #d32f2f;
 }
 
-/* Styles pour les cartes */
+/* ========== HEADER ========== */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #141E30, #243B55);
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.theme-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+/* ========== BUTTONS ========== */
+.button-primary {
+    -fx-background-color: #16325c;
+    -fx-text-fill: #F5F5DC;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1e3a6b;
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #4CAF50, #2ECC71);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20;
+}
+
+/* ========== SEARCH ========== */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 20;
+}
+
+/* ========== STAT CARDS ========== */
 .stat-card {
     -fx-background-color: white;
     -fx-background-radius: 10;
@@ -37,21 +89,24 @@
     -fx-scale-y: 1.02;
 }
 
-/* Styles pour les boutons */
-.button-primary {
-    -fx-background-color: #16325c;
-    -fx-text-fill: #F5F5DC;
-    -fx-padding: 10 20;
-    -fx-background-radius: 5;
-    -fx-cursor: hand;
-    -fx-font-weight: bold;
+.stats-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15;
 }
 
-.button-primary:hover {
-    -fx-background-color: #1e3a6b;
+/* ========== CARDS ========== */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);
 }
 
-/* Styles pour les textes */
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 25, 0, 0, 8);
+}
+
+/* ========== TEXT ========== */
 .title-label {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
@@ -68,4 +123,9 @@
     -fx-font-size: 32px;
     -fx-font-weight: bold;
     -fx-text-fill: #16325c;
+}
+
+/* ========== DARK MODE ========== */
+.dark-mode {
+    -fx-background-color: #1e1e2f;
 }
