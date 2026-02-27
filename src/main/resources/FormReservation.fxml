@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.FormReservationController"
+            style="-fx-background-color: #FEFAF6;">
+
+    <ScrollPane fitToWidth="true"
+               style="-fx-background: transparent; -fx-background-color: transparent; -fx-padding: 0; -fx-border-width: 0;">
+        <VBox spacing="0" alignment="CENTER" maxWidth="460"
+              style="-fx-background-color: white;
+                     -fx-background-radius: 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 30, 0, 0, 15);
+                     -fx-border-color: #A7927722;
+                     -fx-border-radius: 20;">
+
+            <!-- HEADER -->
+            <VBox alignment="CENTER" spacing="8"
+                  style="-fx-background-color: #005082;
+                         -fx-background-radius: 18 18 0 0;
+                         -fx-padding: 30 40 25 40;">
+                <Label text="🗓" style="-fx-font-size: 36px;"/>
+                <Label fx:id="lblTitre" text="Réserver votre voyage"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Veuillez remplir les détails ci-dessous"
+                       style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.75);"/>
+            </VBox>
+
+            <!-- FORM BODY -->
+            <VBox spacing="18" style="-fx-padding: 35 45 35 45;">
+
+                <HBox spacing="20">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Voyage ID" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="tfIdVoyage" promptText="Numéro" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Client ID" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="tfIdUser" promptText="Numéro" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="6">
+                    <Label text="Date du voyage" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <DatePicker fx:id="dpDate" maxWidth="Infinity" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+                </VBox>
+
+                <HBox spacing="20">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Nb Personnes" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="tfNbPersonnes" promptText="ex: 2" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;"/>
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Prix Total (TND)" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="tfPrixTotal" promptText="0.00" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="20">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Type" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <ComboBox fx:id="cbType" maxWidth="Infinity" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Lieu" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                        <TextField fx:id="tfLieu" promptText="Destination" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10; -fx-padding: 10;"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="6">
+                    <Label text="Description" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <TextArea fx:id="taDescription" prefHeight="90" wrapText="true" promptText="Détails du voyage..."
+                              style="-fx-control-inner-background: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+                </VBox>
+
+                <!-- Statut: visible only when editing (set in controller) -->
+                <VBox fx:id="statutBox" spacing="6" visible="false" managed="false">
+                    <Label text="Statut" style="-fx-text-fill: #005082; -fx-font-size: 13px; -fx-font-weight: bold;"/>
+                    <ComboBox fx:id="cbStatut" maxWidth="Infinity" style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 10; -fx-background-radius: 10;"/>
+                </VBox>
+
+                <HBox spacing="15" style="-fx-padding: 15 0 0 0;">
+                    <Button text="Annuler" onAction="#annuler" HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                            style="-fx-background-color: transparent; -fx-text-fill: #A79277;
+                                   -fx-border-color: #A79277; -fx-border-radius: 12; -fx-padding: 12; -fx-cursor: hand;"/>
+                    <Button text="Enregistrer" onAction="#enregistrer" HBox.hgrow="ALWAYS" maxWidth="Infinity"
+                            style="-fx-background-color: #0081C9; -fx-text-fill: white; -fx-font-weight: bold;
+                                   -fx-background-radius: 12; -fx-padding: 12; -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+
+    <!-- TOAST OVERLAY -->
+    <StackPane fx:id="notifOverlay" alignment="BOTTOM_CENTER"
+               mouseTransparent="true" style="-fx-padding: 0 0 24 0;"/>
+</StackPane>
