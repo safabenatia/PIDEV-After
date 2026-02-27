@@ -2,7 +2,7 @@ package services;
 
 import interfaces.Services;
 import models.Offre;
-import utils.Mydatabase;
+import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ public class OffreService implements Services<Offre> {
     private Connection cnx;
 
     public OffreService() {
-        cnx = Mydatabase.getInstance().getCnx();
+        cnx = MyDataBase.getInstance().getCnx();
     }
 
     @Override

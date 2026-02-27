@@ -2,7 +2,7 @@ package services;
 
 import interfaces.Services;
 import models.voyage;
-import utils.Mydatabase;
+import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class ServiceVoyage implements Services <voyage>{
     private Connection cnx;
     public ServiceVoyage() {
-        this.cnx = Mydatabase.getInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
     @Override
     public void add(voyage voyage) {

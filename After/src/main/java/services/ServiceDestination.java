@@ -2,7 +2,7 @@ package services;
 
 import interfaces.Services;
 import models.destination;
-import utils.Mydatabase;
+import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 public class ServiceDestination implements Services<destination> {
     private Connection cnx;
     public ServiceDestination() {
-        this.cnx= Mydatabase.getInstance().getCnx();
+        this.cnx= MyDataBase.getInstance().getCnx();
     }
     @Override
     public void add(destination destination) {

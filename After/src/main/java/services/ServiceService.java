@@ -2,7 +2,7 @@ package services;
 
 import interfaces.Services;
 import models.Service;
-import utils.Mydatabase;
+import utils.MyDataBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +17,7 @@ public class ServiceService implements Services<Service> {
     private Connection cnx;
 
     public ServiceService() {
-        this.cnx = Mydatabase.getInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     @Override
