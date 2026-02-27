@@ -9,7 +9,7 @@ import java.util.Properties;
 public class MailService {
 
     private final String username = "mahdi.bribech12@gmail.com";
-    private final String password = "nctm rnll ewfr xnor"; // 🔴 Mets ton App Password
+    private final String password = ""; // 🔴 Mets ton App Password
 
     public void sendMail(String to, String subject, String messageText) {
 
