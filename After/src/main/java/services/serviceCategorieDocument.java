@@ -1,6 +1,6 @@
 package services;
 
-import interfaces.service;
+import interfaces.Services;
 import javafx.beans.property.Property;
 import models.CategorieDocument;
 import utils.MyDataBase;
@@ -9,12 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class serviceCategorieDocument implements service<CategorieDocument> {
+public class serviceCategorieDocument implements Services<CategorieDocument> {
 
     private Connection cnx;
 
     public serviceCategorieDocument() {
-        this.cnx = MyDataBase.getMyInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     // ================== ADD ==================

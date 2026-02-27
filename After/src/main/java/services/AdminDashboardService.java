@@ -10,7 +10,7 @@ import models.Document;
 import models.CategorieDocument;
 public class AdminDashboardService {
 
-    Connection cnx = MyDataBase.getMyInstance().getCnx();
+    Connection cnx = MyDataBase.getInstance().getCnx();
 
     // 🏆 Most Active User
     public String getMostActiveUser() {

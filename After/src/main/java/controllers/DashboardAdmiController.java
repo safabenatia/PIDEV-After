@@ -17,7 +17,7 @@ import services.serviceDocument;
 
 import java.util.Map;
 
-public class DashboardAdminController {
+public class DashboardAdmiController {
 
     // ===== STATS CARDS =====
     @FXML private HBox statsCard;

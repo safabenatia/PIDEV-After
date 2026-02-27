@@ -51,6 +51,11 @@
                        onMouseClicked="#handleActivitePlanning"
                        style="-fx-cursor: hand;"
                        fx:id="activitebtn"/>
+                <Label text="📝 Documents"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleDocument"
+                       style="-fx-cursor: hand;"
+                       fx:id="documentbtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

@@ -139,6 +139,22 @@ public class DashboardVoyageurController {
             showAlert("Erreur", "Impossible de charger le module activite.", Alert.AlertType.ERROR);
         }
     }
+
+    @FXML
+    private void showDocument() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Document ");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger le module Document .", Alert.AlertType.ERROR);
+        }
+    }
     @FXML
     private void handleChoosePhoto() {
         FileChooser fileChooser = new FileChooser();

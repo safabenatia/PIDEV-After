@@ -5,42 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2c0ff69e-ddd6-46a1-b0af-12d3fdc320b4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/EmailAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/MeteoAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/PDFAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/PaiementAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/QRCodeAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/QRCodeView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/StatsAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/api/TestMeteo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminStatsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/OffreController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServiceController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/StatsController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/Services.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Offre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/models/Service.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/OffreService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/test/MainFX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tn/esprit/MainFX.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utils/MyDataBase.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/admin_stats.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dashboard.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/offre.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/service.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/stats.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/OffreTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/models/ServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/services/OffreServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/services/ServiceServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/utils/MyDataBaseTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/After/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/After/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +53,7 @@
     "git-widget-placeholder": "integration-des-modules",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/omach/OneDrive/Desktop/github project/PIDEV-After/pom.xml",
+    "last_opened_file_path": "C:/Users/omach/OneDrive/Desktop/github project/PIDEV-After",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -183,6 +149,7 @@
       <workItem from="1772118636700" duration="3000" />
       <workItem from="1772118656856" duration="855000" />
       <workItem from="1772119531787" duration="641000" />
+      <workItem from="1772194459857" duration="477000" />
     </task>
     <servers />
   </component>

@@ -18,10 +18,10 @@ public class GestionDocumentController {
 
         try {
 
-            if (getCurrentUser().getRole().equalsIgnoreCase("admin")) {
+            if (Session.getCurrentUser().getTypeUtilisateur().equalsIgnoreCase("admin")) {
 
                 Parent root = FXMLLoader.load(
-                        getClass().getResource("/DashboardAdmin.fxml")
+                        getClass().getResource("/DashboardAdmi.fxml")
                 );
 
                 mainPane.getChildren().setAll(root);

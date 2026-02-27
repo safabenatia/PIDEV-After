@@ -3,9 +3,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 
+<?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx/20"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.AfficherDocumentController"
+            stylesheets="@/dashboardAdmin.css"
             style="-fx-background-color:#f5f5e8;">
 
     <!-- ================= NAVBAR ================= -->
@@ -39,7 +41,39 @@
                            -fx-font-weight:bold; -fx-cursor:hand;"/>
         </HBox>
     </top>
+    <left>
+        <VBox styleClass="sidebar" spacing="20" style="-fx-background-color: #1e3a5f; ">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
+            <VBox spacing="12">
+                <Label text="Mon Profil"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleRetourProfil"
+                       style="-fx-cursor: hand;"/>
+                <Label text="🗺️ Voyages &amp; Destinations"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleVoyages"
+                       style="-fx-cursor: hand;"
+                       fx:id="activitebtn"/>
+                <Label text="🏨 Services &amp; Offres"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showser"
+                       style="-fx-cursor: hand;"
+                       fx:id="servicesBtn"/>
 
+                <Label text="🏄 Activite "
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showact"
+                       style="-fx-cursor: hand;"
+                       fx:id="actbtn"/>
+                <Label text="📝 Document " style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
     <!-- ================= CONTENT ================= -->
     <center>
         <ScrollPane fitToWidth="true"

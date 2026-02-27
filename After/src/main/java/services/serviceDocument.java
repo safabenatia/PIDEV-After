@@ -1,6 +1,6 @@
 package services;
 
-import interfaces.service;
+import interfaces.Services;
 import models.CategorieDocument;
 import models.Document;
 import utils.MyDataBase;
@@ -9,12 +9,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class serviceDocument implements service<Document> {
+public class serviceDocument implements Services<Document> {
 
     private Connection cnx;
 
     public serviceDocument() {
-        this.cnx = MyDataBase.getMyInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     @Override

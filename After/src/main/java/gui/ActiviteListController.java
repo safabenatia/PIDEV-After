@@ -166,6 +166,21 @@ public class ActiviteListController {
             showAlert("Erreur", "Impossible d'ouvrir Activtie & Planning");
         }
     }
+    @FXML
+    private void showDoc() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) activiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Documents");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Documents");
+        }
+    }
     // ================= Card =================
     private VBox createActiviteCard(Activite activite) {
         VBox card = new VBox(8); // espacement vertical un peu plus serré
