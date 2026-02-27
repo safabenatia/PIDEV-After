@@ -217,6 +217,20 @@ public class MainViewController {
         }
     }
     @FXML
+    private void handleActivitePlanning() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/activite_list.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) mainContent.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Activite & Planning");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     private void handleRetourProfil() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));

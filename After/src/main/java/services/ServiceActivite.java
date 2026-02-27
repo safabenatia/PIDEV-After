@@ -52,7 +52,34 @@ public class ServiceActivite implements Services<Activite> {
         }
         return list;
     }
+    public Activite getById(int id) {
+        Activite activite = null;
 
+        String query = "SELECT * FROM activite WHERE id_activite = ?";
+
+        try {
+            PreparedStatement ps = cnx.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                activite = new Activite(
+                        rs.getInt("id_activite"),     // fix column name
+                        rs.getString("nom"),
+                        rs.getString("description"),  // description second
+                        rs.getString("categorie"),
+                        rs.getString("lieu"),
+                        rs.getDouble("prix")          // prix last
+                );
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return activite;
+    }
     @Override
     public void delete(Activite a) {
         String sql = "DELETE FROM activite WHERE id_activite = ?";
@@ -80,28 +107,6 @@ public class ServiceActivite implements Services<Activite> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public Activite getById(int id) {
-        String sql = "SELECT * FROM activite WHERE id_activite = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Activite(
-                        rs.getInt("id_activite"),
-                        rs.getString("nom"),
-                        rs.getString("description"),
-                        rs.getString("categorie"),
-                        rs.getString("lieu"),
-                        rs.getDouble("prix")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM `activite`";

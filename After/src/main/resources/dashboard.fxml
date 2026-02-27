@@ -51,6 +51,10 @@
                        style="-fx-cursor: hand;"/>
                 <Label text="🏨 Services &amp; Offres"
                        style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                <Label text="🏄 Activite &amp; Planning"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showactivite"
+                       style="-fx-cursor: hand;"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

@@ -7,5 +7,4 @@ public interface Services<T> {
     List<T> getAll();
     void delete(T t);
     void update(T t);
-    T getById(int id);
 }

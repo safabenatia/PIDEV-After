@@ -125,6 +125,21 @@ public class DashboardVoyageurController {
     }
 
     @FXML
+    private void showActivitePlaning() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/activite_list.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Activite & Planing");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger le module activite.", Alert.AlertType.ERROR);
+        }
+    }
+    @FXML
     private void handleChoosePhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une photo de profil");

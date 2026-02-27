@@ -36,13 +36,13 @@
                                style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 13px;"/>
                     </VBox>
                 </HBox>
-<<<<<<< Updated upstream
 
-=======
+
+
                 <Button text="Voir Jours Fériés"
                         onAction="#openHolidayPage"
                         prefWidth="200"/>
->>>>>>> Stashed changes
+
                 <Button text="🗓️ Planning"
                         onAction="#handlePlanning"
                         prefHeight="40" prefWidth="170"
@@ -99,7 +99,33 @@
         </VBox>
     </top>
 
-
+    <left>
+        <VBox styleClass="sidebar" spacing="20" style="-fx-background-color: #1e3a5f; ">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
+            <VBox spacing="12">
+                <Label text="Mon Profil"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleRetourProfil"
+                       style="-fx-cursor: hand;"/>
+                <Label text="🗺️ Voyages &amp; Destinations"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleVoyages"
+                       style="-fx-cursor: hand;"
+                       fx:id="activitebtn"/>
+                <Label text="🏨 Services &amp; Offres"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showactivite"
+                       style="-fx-cursor: hand;"
+                       fx:id="servicesBtn"/>
+                <Label text="🏄 Activite &amp; Planning" style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
     <center>
         <ScrollPane fitToWidth="true"
                     style="-fx-background-color: transparent;">

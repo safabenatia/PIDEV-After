@@ -94,6 +94,21 @@ public class DashboardController implements Initializable {
         }
     }
     @FXML
+    private void showactivite() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/activite_list.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) dateLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Activite & Planning");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Activtie & Planning");
+        }
+    }
+    @FXML
     private void handleRetourProfil() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));

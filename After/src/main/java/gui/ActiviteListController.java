@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import models.Activite;
 import services.ServiceActivite;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,7 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import services.*;
-
+import utils.Session;
 
 
 import java.net.HttpURLConnection;
@@ -107,7 +108,64 @@ public class ActiviteListController {
         lblTotalActivites.setText(String.valueOf(activiteList.size()));
         lblLastUpdate.setText("Aujourd'hui");
     }
-
+    @FXML
+    private void handleRetourProfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) activiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Espace Voyageur");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleLogout() {
+        try {
+            Session.clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) activiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setTitle("After Travel - Connexion");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) activiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Voyages & Destinations");
+        }
+    }
+    @FXML
+    private void showactivite() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) activiteContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Activite & Planning");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Activtie & Planning");
+        }
+    }
     // ================= Card =================
     private VBox createActiviteCard(Activite activite) {
         VBox card = new VBox(8); // espacement vertical un peu plus serré
@@ -339,9 +397,9 @@ public class ActiviteListController {
             return null;
         }
     }
-<<<<<<< Updated upstream
 
-=======
+
+
     @FXML
     private void openHolidayPage() {
 
@@ -359,7 +417,7 @@ public class ActiviteListController {
             e.printStackTrace();
         }
     }
->>>>>>> Stashed changes
+
 
 }
 

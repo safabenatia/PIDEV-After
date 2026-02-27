@@ -90,27 +90,7 @@ public class ServicePlanning implements Services<Planning> {
         }
 
     }
-    @Override
-    public Planning getById(int id) {
-        String sql = "SELECT * FROM planning WHERE id_planning = ?";
-        try (PreparedStatement ps = cnx.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Planning(
-                        rs.getInt("id_planning"),
-                        rs.getInt("id_user"),
-                        rs.getInt("id_activite"),
-                        rs.getDate("date_activite").toLocalDate(),
-                        rs.getTime("heure_debut").toLocalTime(),
-                        rs.getInt("duree")
-                );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null; // si non trouvé
-    }
+
     public void deleteAll() throws SQLException {
         String sql = "DELETE FROM `planning`";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
