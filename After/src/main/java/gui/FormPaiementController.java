@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
@@ -9,10 +9,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import model.Paiement;
-import services.PaiementService;
-import services.ReservationService;
-import services.StripeService;
-import services.PdfService;
+import services.*;
+//import services.StripeService;
 import model.Reservation;
 
 
@@ -40,7 +38,7 @@ public class FormPaiementController {
     private final PaiementService service = new PaiementService();
     private final ReservationService resService = new ReservationService();
     private final StripeService stripeService = new StripeService();
-    private final PdfService pdfService = new PdfService();
+    private final PdfServiceReservation pdfService = new PdfServiceReservation();  // ✅
 
     private Paiement paiementEdit = null;
     private Runnable onSaved;
@@ -134,7 +132,7 @@ public class FormPaiementController {
         }
 
         if (!ok) {
-            showToast("Corrigez les champs en rouge.", NotificationUtil.Type.ERROR);
+            showToast("Corrigez les champs en rouge.", gui.NotificationUtil.Type.ERROR);
             return;
         }
 
@@ -159,7 +157,7 @@ public class FormPaiementController {
             // --- STRIPE & PDF LOGIC ---
             String methode = cbMethode.getValue();
             final int targetIdRes = idRes;
-            Reservation res = resService.afficher().stream()
+            Reservation res = resService.getAll().stream()
                     .filter(r -> r.getId() == targetIdRes).findFirst().orElse(null);
 
             if (res != null) {
@@ -180,7 +178,7 @@ public class FormPaiementController {
                     // Form and list refresh happen when success URL is detected in WebView
                     return;
                 } else {
-                    showToast("Paiement enregistré et reçu généré !", NotificationUtil.Type.SUCCESS);
+                    showToast("Paiement enregistré et reçu généré !", gui.NotificationUtil.Type.SUCCESS);
                 }
             }
 
@@ -192,7 +190,7 @@ public class FormPaiementController {
             pause.play();
         } catch (Exception e) {
             e.printStackTrace();
-            showToast("Erreur: " + e.getMessage(), NotificationUtil.Type.ERROR);
+            showToast("Erreur: " + e.getMessage(), gui.NotificationUtil.Type.ERROR);
         }
     }
 
@@ -237,7 +235,7 @@ public class FormPaiementController {
                             p.setStatut("payé");
                             service.modifier(p);
                             res.setStatut("confirmée");
-                            resService.modifier(res);
+                            resService.update(res);
                             engine.loadContent(
                                 "<!DOCTYPE html><html><body style='font-family:sans-serif;text-align:center;padding:40px;'>" +
                                 "<h1 style='color:#27ae60;'>✓ Paiement réussi !</h1>" +
@@ -262,9 +260,9 @@ public class FormPaiementController {
         stripeStage.show();
     }
 
-    private void showToast(String msg, NotificationUtil.Type type) {
+    private void showToast(String msg, gui.NotificationUtil.Type type) {
         if (notifOverlay != null)
-            NotificationUtil.show(notifOverlay, msg, type);
+            gui.NotificationUtil.show(notifOverlay, msg, type);
     }
 
     private static final String BASE = "-fx-background-color: #FEFAF6;" +

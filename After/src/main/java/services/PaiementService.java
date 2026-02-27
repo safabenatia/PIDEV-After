@@ -1,7 +1,7 @@
 package services;
 
 import model.Paiement;
-import utils.MyDatabase;
+import utils.MyDataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ public class PaiementService {
     private Connection cnx;
 
     public PaiementService() {
-        cnx = MyDatabase.getInstance().getCnx();
+        cnx = MyDataBase.getInstance().getCnx();
     }
 
     // ================== AJOUTER ==================

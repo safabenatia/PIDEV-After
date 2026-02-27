@@ -6,7 +6,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 import model.Reservation;
 
-public class MailService {
+public class MailServiceReservation {
 
     private final String username = "asma.antri@esprit.tn";
     private final String password = "pvxzttrkhypjxovc"; // Gmail App Password provided by user

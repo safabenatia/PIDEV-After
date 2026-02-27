@@ -1,19 +1,19 @@
 package services;
 
 import model.Reservation;
-import utils.MyDatabase;
-
+import utils.MyDataBase;
+import interfaces.Services;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReservationService implements IService<Reservation> {
+public class ReservationService implements Services<Reservation> {
 
-    Connection cnx = MyDatabase.getInstance().getCnx();
+    Connection cnx = MyDataBase.getInstance().getCnx();
 
     /* ======================= AJOUTER ======================= */
     @Override
-    public void ajouter(Reservation r) {
+    public void add(Reservation r) {
         String sql = "INSERT INTO reservation (id_voyage, id_utilisateur, date_reservation, statut, nb_personnes, prix_total, type, lieu, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
             ps.setInt(1, r.getIdVoyage());
@@ -34,11 +34,11 @@ public class ReservationService implements IService<Reservation> {
 
     /* ======================= AFFICHER ======================= */
     @Override
-    public List<Reservation> afficher() {
+    public List<Reservation> getAll() {
         List<Reservation> list = new ArrayList<>();
         String sql = "SELECT * FROM reservation";
         try (Statement st = cnx.createStatement();
-                ResultSet rs = st.executeQuery(sql)) {
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
                 list.add(new Reservation(
                         rs.getInt("id"),
@@ -60,7 +60,7 @@ public class ReservationService implements IService<Reservation> {
 
     /* ======================= MODIFIER ======================= */
     @Override
-    public void modifier(Reservation r) {
+    public void update(Reservation r) {
         String sql = "UPDATE reservation SET id_voyage=?, id_utilisateur=?, date_reservation=?, statut=?, nb_personnes=?, prix_total=?, type=?, lieu=?, description=? WHERE id=?";
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
             ps.setInt(1, r.getIdVoyage());
@@ -82,17 +82,12 @@ public class ReservationService implements IService<Reservation> {
 
     /* ======================= SUPPRIMER ======================= */
     @Override
-    public void supprimer(int id) {
-
+    public void delete(Reservation r) {
         String sql = "DELETE FROM reservation WHERE id=?";
-
         try (PreparedStatement ps = cnx.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
+            ps.setInt(1, r.getId());
             ps.executeUpdate();
-
             System.out.println("✅ Réservation supprimée avec succès");
-
         } catch (SQLException e) {
             System.out.println("❌ Erreur suppression : " + e.getMessage());
         }

@@ -1,5 +1,7 @@
 package GUI;
 
+import gui.FormReservationController;
+import gui.NotificationUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -102,7 +104,7 @@ public class AdminReservationController {
                 });
                 btnDel.setOnAction(e -> {
                     Reservation r = getTableView().getItems().get(getIndex());
-                    service.supprimer(r.getId());
+                    service.delete(r);
                     AdminReservationController.this.showToast("Réservation #" + r.getId() + " supprimée.",
                             NotificationUtil.Type.SUCCESS);
                     charger();
@@ -144,7 +146,7 @@ public class AdminReservationController {
 
     @FXML
     public void charger() {
-        data.setAll(service.afficher());
+        data.setAll(service.getAll());
         tableReservations.setItems(data);
         lblCount.setText(data.size() + " réservation(s) au total");
     }
@@ -218,9 +220,9 @@ public class AdminReservationController {
         }
     }
 
-    private void showToast(String msg, NotificationUtil.Type type) {
+    private void showToast(String msg, gui.NotificationUtil.Type type) {
         if (notifOverlay != null)
-            NotificationUtil.show(notifOverlay, msg, type);
+            gui.NotificationUtil.show(notifOverlay, msg, type);
     }
 
     private String badgeStyle(String s) {

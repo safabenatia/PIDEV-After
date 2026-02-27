@@ -1,5 +1,8 @@
 package GUI;
 
+import gui.FormPaiementController;
+import gui.FormReservationController;
+import gui.NotificationUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -92,7 +95,7 @@ public class UserReservationController {
     }
 
     private void charger() {
-        allReservations = service.afficher();
+        allReservations = service.getAll();
         rebuildGrid(allReservations);
     }
 
@@ -172,7 +175,7 @@ public class UserReservationController {
 
         btnEdit.setOnAction(e -> ouvrirEdition(r));
         btnDel.setOnAction(e -> {
-            service.supprimer(r.getId());
+            service.delete(r);
             showToast("Réservation supprimée.", NotificationUtil.Type.SUCCESS);
             charger();
         });
@@ -281,7 +284,7 @@ public class UserReservationController {
 
     private void showToast(String msg, NotificationUtil.Type type) {
         if (notifOverlay != null)
-            NotificationUtil.show(notifOverlay, msg, type);
+            gui.NotificationUtil.show(notifOverlay, msg, type);
     }
 
     private String badgeStyle(String s) {

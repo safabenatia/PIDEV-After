@@ -1,5 +1,7 @@
 package GUI;
 
+import gui.FormPaiementController;
+import gui.NotificationUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -215,7 +217,7 @@ public class AdminPaiementController {
         }
     }
 
-    private void showToast(String msg, NotificationUtil.Type type) {
+    private void showToast(String msg, gui.NotificationUtil.Type type) {
         if (notifOverlay != null)
             NotificationUtil.show(notifOverlay, msg, type);
     }

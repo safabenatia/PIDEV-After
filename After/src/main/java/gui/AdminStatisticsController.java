@@ -42,7 +42,7 @@ public class AdminStatisticsController {
     }
 
     private void loadPieChart() {
-        List<Reservation> list = resService.afficher();
+        List<Reservation> list = resService.getAll() ;
         Map<String, Long> counts = list.stream()
                 .collect(
                         Collectors.groupingBy(r -> r.getType() == null ? "Autre" : r.getType(), Collectors.counting()));
@@ -68,7 +68,7 @@ public class AdminStatisticsController {
     }
 
     private void loadLineChart() {
-        List<Reservation> list = resService.afficher();
+        List<Reservation> list = resService.getAll() ;
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Cumul Réservations");
 
@@ -88,7 +88,7 @@ public class AdminStatisticsController {
     }
 
     private void updateGeneralStats() {
-        List<Reservation> resList = resService.afficher();
+        List<Reservation> resList = resService.getAll() ;
         List<Paiement> payList = payService.afficher();
 
         double totalRev = payList.stream().mapToDouble(Paiement::getMontant).sum();

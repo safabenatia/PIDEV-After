@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -36,7 +36,7 @@ public class FormReservationController {
     private VBox statutBox;
 
     private final ReservationService service = new ReservationService();
-    private final services.MailService mailService = new services.MailService();
+    private final services.MailServiceReservation mailService = new services.MailServiceReservation();
     private Reservation reservationEdit = null;
     private Runnable onSaved;
 
@@ -153,7 +153,7 @@ public class FormReservationController {
                 Reservation newRes = new Reservation(idV, idU, dpDate.getValue(), statutStr, nb, prix,
                         typeStr,
                         lieuStr, descStr);
-                service.ajouter(newRes);
+                service.add(newRes);
                 // Send confirmation email (don't fail reservation if email fails)
                 boolean emailSent = mailService.sendConfirmationEmail("asmaantri032@gmail.com", newRes);
                 if (!emailSent) {
@@ -174,7 +174,7 @@ public class FormReservationController {
                 reservationEdit.setType(typeStr);
                 reservationEdit.setLieu(lieuStr);
                 reservationEdit.setDescription(descStr);
-                service.modifier(reservationEdit);
+                service.update(reservationEdit);
             }
             if (onSaved != null)
                 onSaved.run();

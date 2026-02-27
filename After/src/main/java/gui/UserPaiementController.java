@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,10 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Paiement;
-import services.PaiementService;
-import services.StripeService;
-import services.ReservationService;
-import services.PdfService;
+import services.*;
 import model.Reservation;
 
 import java.awt.*;
@@ -37,7 +34,7 @@ public class UserPaiementController {
     private final PaiementService service = new PaiementService();
     private final StripeService stripeService = new StripeService();
     private final ReservationService resService = new ReservationService();
-    private final PdfService pdfService = new PdfService();
+    private final PdfServiceReservation pdfService = new PdfServiceReservation();  // ✅
 
     @FXML
     public void initialize() {
@@ -129,7 +126,7 @@ public class UserPaiementController {
         btnPdf.setOnAction(e -> imprimerRecu(p));
         btnDel.setOnAction(e -> {
             service.supprimer(p.getId());
-            showToast("Paiement supprimé.", NotificationUtil.Type.SUCCESS);
+            showToast("Paiement supprimé.", gui.NotificationUtil.Type.SUCCESS);
             charger();
         });
         btns.getChildren().addAll(btnPdf, btnEdit, btnDel);
@@ -141,7 +138,7 @@ public class UserPaiementController {
 
     private void imprimerRecu(Paiement p) {
         try {
-            Reservation res = resService.afficher().stream()
+            Reservation res = resService.getAll().stream()
                     .filter(r -> r.getId() == p.getIdReservation())
                     .findFirst().orElse(null);
             if (res != null) {
@@ -149,14 +146,14 @@ public class UserPaiementController {
                 File file = new File(path);
                 if (file.exists() && Desktop.isDesktopSupported()) {
                     Desktop.getDesktop().open(file);
-                    showToast("Reçu ouvert !", NotificationUtil.Type.SUCCESS);
+                    showToast("Reçu ouvert !", gui.NotificationUtil.Type.SUCCESS);
                 }
             } else {
-                showToast("Réservation introuvable pour ce reçu.", NotificationUtil.Type.ERROR);
+                showToast("Réservation introuvable pour ce reçu.", gui.NotificationUtil.Type.ERROR);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            showToast("Erreur PDF: " + e.getMessage(), NotificationUtil.Type.ERROR);
+            showToast("Erreur PDF: " + e.getMessage(), gui.NotificationUtil.Type.ERROR);
         }
     }
 
@@ -222,12 +219,12 @@ public class UserPaiementController {
                 service.modifier(p);
 
                 // Also update reservation status if possible
-                Reservation res = new ReservationService().afficher().stream()
+                Reservation res = new ReservationService().getAll().stream()
                         .filter(r -> r.getId() == p.getIdReservation())
                         .findFirst().orElse(null);
                 if (res != null) {
                     res.setStatut("confirmée");
-                    new ReservationService().modifier(res);
+                    new ReservationService().update(res);
                 }
 
                 showToast("Paiement validé avec succès !", NotificationUtil.Type.SUCCESS);

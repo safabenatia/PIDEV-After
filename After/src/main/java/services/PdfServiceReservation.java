@@ -18,7 +18,7 @@ import model.Reservation;
 import services.QrCodeService;
 import java.io.File;
 
-public class PdfService {
+public class PdfServiceReservation {
 
         private final QrCodeService qrService = new QrCodeService();
 
