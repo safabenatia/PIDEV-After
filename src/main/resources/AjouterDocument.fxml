@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.AjouterDocumentController"
+      spacing="18"
+      alignment="TOP_CENTER"
+      stylesheets="@style-ajout-document.css"
+      styleClass="form-card">
+
+    <Label text="Ajouter un document de voyage"
+           styleClass="label-title"/>
+
+    <TextField fx:id="txtNom"
+               promptText="Type de document (Passeport, Visa, Assurance...)"
+               prefWidth="320"/>
+
+    <HBox spacing="10">
+        <TextField fx:id="txtChemin"
+                   promptText="Fichier sélectionné..."
+                   editable="false"
+                   prefWidth="240"/>
+        <Button text="📎 Choisir"
+                onAction="#choisirFichier"
+                styleClass="btn-secondary"
+                prefWidth="90"/>
+    </HBox>
+
+    <DatePicker fx:id="dpAjout"
+                promptText="Date d'ajout"
+                prefWidth="320"/>
+
+    <DatePicker fx:id="dpExpiration"
+                promptText="Date d'expiration"
+                prefWidth="320"/>
+
+    <!-- Info OCR -->
+    <Label text="🤖 La catégorie est détectée automatiquement par analyse du document"
+           style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+
+    <!-- Info Cloudinary -->
+    <Label text="☁️ Le fichier sera stocké automatiquement sur le cloud"
+           style="-fx-text-fill:#7f8c8d; -fx-font-size:11px;"/>
+
+    <!-- Label progression (caché par défaut) -->
+    <Label fx:id="lblStatus"
+           text=""
+           style="-fx-text-fill:#2563eb; -fx-font-size:12px; -fx-font-weight:bold;"/>
+
+    <!-- Progress indicator (caché par défaut) -->
+    <ProgressIndicator fx:id="progressIndicator"
+                       prefWidth="40" prefHeight="40"
+                       visible="false"/>
+
+    <Button fx:id="btnAjouter"
+            text="➕ Ajouter le document"
+            onAction="#ajouterDocument"
+            styleClass="btn-primary"
+            prefWidth="220"/>
+
+</VBox>

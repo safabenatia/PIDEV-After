@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AfficherDocumentController"
+            style="-fx-background-color:#f5f5e8;">
+
+    <!-- ================= NAVBAR ================= -->
+    <top>
+        <HBox spacing="20"
+              alignment="CENTER_LEFT"
+              style="-fx-background-color:#183a7a; -fx-padding:15 30;">
+
+            <Label text="✈ AFTER Travel"
+                   style="-fx-text-fill:white; -fx-font-size:20px; -fx-font-weight:bold;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <TextField fx:id="txtSearch"
+                       promptText="🔍 Rechercher document..."
+                       style="-fx-background-radius:20; -fx-padding:8 15;
+                              -fx-pref-width:250; -fx-background-color:white;
+                              -fx-border-color:transparent;"/>
+
+            <Button text="📂 Catégories"
+                    onAction="#ouvrirCategories"
+                    style="-fx-background-color:transparent; -fx-text-fill:white;
+                           -fx-border-color:white; -fx-border-radius:20;
+                           -fx-background-radius:20; -fx-padding:8 16;
+                           -fx-font-weight:bold; -fx-cursor:hand;"/>
+
+            <Button text="➕ Ajouter"
+                    onAction="#ouvrirAjout"
+                    style="-fx-background-color:white; -fx-text-fill:#183a7a;
+                           -fx-background-radius:20; -fx-padding:8 16;
+                           -fx-font-weight:bold; -fx-cursor:hand;"/>
+        </HBox>
+    </top>
+
+    <!-- ================= CONTENT ================= -->
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color:#f5f5e8; -fx-background:#f5f5e8;">
+            <VBox fx:id="containerDocuments"
+                  spacing="20"
+                  alignment="TOP_CENTER"
+                  style="-fx-padding:30; -fx-background-color:#f5f5e8;"/>
+        </ScrollPane>
+    </center>
+
+    <!-- ================= FOOTER ================= -->
+    <bottom>
+        <HBox alignment="CENTER"
+              style="-fx-background-color:#183a7a; -fx-padding:12;">
+            <Label text="© 2026 AFTER Travel - Gestion Documents Voyage"
+                   style="-fx-text-fill:white; -fx-font-size:13;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

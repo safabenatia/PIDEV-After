@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<VBox spacing="10" alignment="CENTER"
+      styleClass="document-card"
+      xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.CategorieCardController">
+
+    <Label text="📂" style="-fx-font-size: 40px;"/>
+    <Label fx:id="lblNom"/>
+</VBox>
