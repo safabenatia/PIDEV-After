@@ -47,6 +47,9 @@ public class MainViewController {
     private FavoritesService favoritesService = new FavoritesService();
     private TranslateService translateService = new TranslateService();
     private StatisticsService statisticsService = new StatisticsService();
+    private PublicHolidayService publicHolidayService = new PublicHolidayService();
+    private WeatherService weatherService = new WeatherService();
+    private TouristAttractionService touristAttractionService = new TouristAttractionService();
 
     @FXML
     public void initialize() {
@@ -843,10 +846,56 @@ public class MainViewController {
             });
         }).start();
 
+
         content.getChildren().addAll(
                 paysLabel, sep, villeLabel, continentLabel,
                 flagView, capitalLabel, currencyLabel, languageLabel
         );
+        Label weatherLabel = new Label("Météo: chargement...");
+        weatherLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+        content.getChildren().add(weatherLabel);
+
+        new Thread(() -> {
+            String weather = weatherService.getWeatherSummary(d.getVille());
+            javafx.application.Platform.runLater(() -> {
+                weatherLabel.setText("🌤 " + weather);
+            });
+        }).start();
+
+
+
+        Label holidayLabel = new Label("Prochain jour férié: chargement...");
+        holidayLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+        content.getChildren().add(holidayLabel);
+
+        new Thread(() -> {
+            org.json.JSONObject next = publicHolidayService.getNextHoliday(d.getPays().substring(0,2));
+            javafx.application.Platform.runLater(() -> {
+                if (next != null) {
+                    holidayLabel.setText("🎉 Prochain férié: "
+                            + next.getString("date")
+                            + " - "
+                            + next.getString("name"));
+                } else {
+                    holidayLabel.setText("🎉 Aucun jour férié trouvé");
+                }
+            });
+        }).start();
+
+        Label attractionLabel = new Label("Attractions: chargement...");
+        attractionLabel.setStyle("-fx-font-size:13px; -fx-text-fill:#555;");
+        content.getChildren().add(attractionLabel);
+
+        new Thread(() -> {
+            List<String> attractions = touristAttractionService.getAttractions(d.getVille(), 5000, 3);
+            javafx.application.Platform.runLater(() -> {
+                if (attractions.isEmpty()) {
+                    attractionLabel.setText("Aucune attraction trouvée");
+                } else {
+                    attractionLabel.setText("🏛 Attractions: " + String.join(", ", attractions));
+                }
+            });
+        }).start();
 
         dialog.getDialogPane().setContent(content);
         dialog.getDialogPane().setStyle("-fx-background-color:white;");
