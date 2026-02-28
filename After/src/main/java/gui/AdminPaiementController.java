@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import gui.FormPaiementController;
 import gui.NotificationUtil;

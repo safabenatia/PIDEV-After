@@ -130,6 +130,21 @@ public class AfficherDocumentController {
             showAlert("Erreur", "Impossible d'ouvrir Documents");
         }
     }
+    @FXML
+    private void showres() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) containerDocuments.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Reservations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Reservations");
+        }
+    }
 
     void afficherCartes(List<Document> docs) {
 

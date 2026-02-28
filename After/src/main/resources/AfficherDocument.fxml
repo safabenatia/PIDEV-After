@@ -69,6 +69,11 @@
                        style="-fx-cursor: hand;"
                        fx:id="actbtn"/>
                 <Label text="📝 Document " style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                <Label text="🎟️ Reservation "
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showres"
+                       style="-fx-cursor: hand;"
+                       fx:id="resbtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

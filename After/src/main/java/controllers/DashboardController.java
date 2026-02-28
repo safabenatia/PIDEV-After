@@ -103,6 +103,21 @@ public class DashboardController implements Initializable {
         }
     }
     @FXML
+    private void showReservation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) dateLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Reservations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Reservations");
+        }
+    }
+    @FXML
     private void handleRetourProfil() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));

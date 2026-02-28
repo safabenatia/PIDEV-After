@@ -156,6 +156,21 @@ public class DashboardVoyageurController {
         }
     }
     @FXML
+    private void showReservation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) welcomeLabel.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Reservation ");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible de charger le module Reservation .", Alert.AlertType.ERROR);
+        }
+    }
+    @FXML
     private void handleChoosePhoto() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choisir une photo de profil");

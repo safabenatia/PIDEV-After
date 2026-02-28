@@ -3,113 +3,172 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<StackPane xmlns="http://javafx.com/javafx/17"
+<BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="GUI.UserReservationController"
+            fx:controller="gui.UserReservationController"
+            stylesheets="@/dashboardAdmin.css"
             style="-fx-background-color: #FEFAF6;">
 
-    <VBox spacing="0">
-
-        <!-- NAVY HEADER -->
-        <HBox alignment="CENTER_LEFT" spacing="20"
-              style="-fx-background-color: #005082;
-                     -fx-padding: 20 40 20 40;
-                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);">
-            <Label text="✈️" style="-fx-font-size: 28px;"/>
-            <VBox>
-                <Label text="AFTER Travel"
-                       style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
-                <Label text="Plateforme de Gestion de Voyages"
-                       style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11px;"/>
+    <!-- SIDEBAR -->
+    <left>
+        <VBox styleClass="sidebar" spacing="20" style="-fx-background-color: #1e3a5f;">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
+            <VBox spacing="12">
+                <Label text="Mon Profil"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleRetourProfil"
+                       style="-fx-cursor: hand;"/>
+                <Label text="🗺️ Voyages &amp; Destinations"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleVoyages"
+                       style="-fx-cursor: hand;"
+                       fx:id="activitebtn"/>
+                <Label text="🏨 Services &amp; Offres"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showser"
+                       style="-fx-cursor: hand;"
+                       fx:id="servicesBtn"/>
+                <Label text="🏄 Activite"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showact"
+                       style="-fx-cursor: hand;"
+                       fx:id="actbtn"/>
+                <Label text="📝 Document"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showdoc"
+                       style="-fx-cursor: hand;"
+                       fx:id="doctbn"/>
+                <Label text="🎟️ Reservation"
+                       style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
             </VBox>
-            <Region HBox.hgrow="ALWAYS"/>
-            <HBox spacing="10" alignment="CENTER">
-                <Button text="＋  Réserver"
-                        onAction="#ouvrirFormulaire"
-                        style="-fx-background-color: #0081C9; -fx-text-fill: white; -fx-font-weight: bold;
-                               -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 25 10 25;"/>
-                <Button text="Mes Paiements"
-                        onAction="#ouvrirPaiements"
-                        style="-fx-background-color: transparent; -fx-text-fill: white; 
-                               -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 20;
-                               -fx-cursor: hand; -fx-padding: 10 20 10 20;"/>
-                <Button text="🔧 Admin"
-                        onAction="#ouvrirAdmin"
-                        style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white;
-                               -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 15 10 15;"/>
-            </HBox>
-        </HBox>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
+        </VBox>
+    </left>
 
-        <!-- CONTENT AREA -->
-        <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
-                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-width: 0;">
-            <VBox spacing="30" style="-fx-padding: 40 60 40 60;">
+    <!-- MAIN CONTENT -->
+    <center>
+        <StackPane>
 
-                <!-- Summary Cards Row -->
-                <HBox spacing="20">
-                    <VBox fx:id="cardStatTotal" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
-                          style="-fx-background-color: white; -fx-background-radius: 15;
-                                 -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
-                                 -fx-border-color: #A7927722; -fx-border-radius: 15;">
-                        <Label fx:id="lblTotal" text="0"
-                               style="-fx-text-fill: #005082; -fx-font-size: 36px; -fx-font-weight: bold;"/>
-                        <Label text="Total Réservations"
-                               style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+            <VBox spacing="0">
+
+                <!-- NAVY HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="20"
+                      style="-fx-background-color: #005082;
+                             -fx-padding: 20 40 20 40;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);">
+                    <Label text="✈️" style="-fx-font-size: 28px;"/>
+                    <VBox>
+                        <Label text="AFTER Travel"
+                               style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                        <Label text="Plateforme de Gestion de Voyages"
+                               style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11px;"/>
                     </VBox>
-                    <VBox fx:id="cardStatConf" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
-                          style="-fx-background-color: white; -fx-background-radius: 15;
-                                 -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
-                                 -fx-border-color: #A7927722; -fx-border-radius: 15;">
-                        <Label fx:id="lblConfirmees" text="0"
-                               style="-fx-text-fill: #27ae60; -fx-font-size: 36px; -fx-font-weight: bold;"/>
-                        <Label text="Confirmées"
-                               style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
-                    </VBox>
-                    <VBox fx:id="cardStatAtt" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
-                          style="-fx-background-color: white; -fx-background-radius: 15;
-                                 -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
-                                 -fx-border-color: #A7927722; -fx-border-radius: 15;">
-                        <Label fx:id="lblAttente" text="0"
-                               style="-fx-text-fill: #d35400; -fx-font-size: 36px; -fx-font-weight: bold;"/>
-                        <Label text="En Attente"
-                               style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
-                    </VBox>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="＋  Réserver"
+                                onAction="#ouvrirFormulaire"
+                                style="-fx-background-color: #0081C9; -fx-text-fill: white; -fx-font-weight: bold;
+                                       -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 25 10 25;"/>
+                        <Button text="Mes Paiements"
+                                onAction="#ouvrirPaiements"
+                                style="-fx-background-color: transparent; -fx-text-fill: white;
+                                       -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 20;
+                                       -fx-cursor: hand; -fx-padding: 10 20 10 20;"/>
+                        <Button text="🔧 Admin"
+                                onAction="#ouvrirAdmin"
+                                style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white;
+                                       -fx-background-radius: 20; -fx-cursor: hand; -fx-padding: 10 15 10 15;"/>
+                    </HBox>
                 </HBox>
 
-                <Separator style="-fx-opacity: 0.3;"/>
-                
-                <!-- Filter Row -->
-                <HBox spacing="15" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 15 25; -fx-background-radius: 12; -fx-border-color: #A7927722; -fx-border-radius: 12;">
-                    <VBox spacing="5">
-                        <Label text="Recherche" style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
-                        <TextField fx:id="tfUserSearch" promptText="Lieu, type..." prefWidth="200" 
-                                   style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744; -fx-border-radius: 8; -fx-background-radius: 8;"/>
-                    </VBox>
-                    <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <Label text="Date Début" style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
-                        <DatePicker fx:id="dpStart" promptText="Du..." maxWidth="Infinity"
-                                    style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744;"/>
-                    </VBox>
-                    <VBox spacing="5" HBox.hgrow="ALWAYS">
-                        <Label text="Date Fin" style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
-                        <DatePicker fx:id="dpEnd" promptText="Au..." maxWidth="Infinity"
-                                    style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744;"/>
-                    </VBox>
-                    <Button text="Réinitialiser" onAction="#resetFilters"
-                            style="-fx-background-color: #A79277; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 15;"/>
-                </HBox>
+                <!-- CONTENT AREA -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-width: 0;">
+                    <VBox spacing="30" style="-fx-padding: 40 60 40 60;">
 
-                <!-- Cards Grid Section -->
-                <VBox spacing="15">
-                    <Label text="Vos Réservations"
-                           style="-fx-text-fill: #005082; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-                    <FlowPane fx:id="cardsContainer" hgap="25" vgap="25"
-                              prefWrapLength="1000"/>
-                </VBox>
+                        <!-- Summary Cards Row -->
+                        <HBox spacing="20">
+                            <VBox fx:id="cardStatTotal" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
+                                  style="-fx-background-color: white; -fx-background-radius: 15;
+                                         -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
+                                         -fx-border-color: #A7927722; -fx-border-radius: 15;">
+                                <Label fx:id="lblTotal" text="0"
+                                       style="-fx-text-fill: #005082; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                                <Label text="Total Réservations"
+                                       style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                            </VBox>
+                            <VBox fx:id="cardStatConf" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
+                                  style="-fx-background-color: white; -fx-background-radius: 15;
+                                         -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
+                                         -fx-border-color: #A7927722; -fx-border-radius: 15;">
+                                <Label fx:id="lblConfirmees" text="0"
+                                       style="-fx-text-fill: #27ae60; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                                <Label text="Confirmées"
+                                       style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                            </VBox>
+                            <VBox fx:id="cardStatAtt" alignment="CENTER" spacing="5" HBox.hgrow="ALWAYS"
+                                  style="-fx-background-color: white; -fx-background-radius: 15;
+                                         -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 8);
+                                         -fx-border-color: #A7927722; -fx-border-radius: 15;">
+                                <Label fx:id="lblAttente" text="0"
+                                       style="-fx-text-fill: #d35400; -fx-font-size: 36px; -fx-font-weight: bold;"/>
+                                <Label text="En Attente"
+                                       style="-fx-text-fill: #A79277; -fx-font-size: 13px; -fx-font-weight: 500;"/>
+                            </VBox>
+                        </HBox>
+
+                        <Separator style="-fx-opacity: 0.3;"/>
+
+                        <!-- Filter Row -->
+                        <HBox spacing="15" alignment="CENTER_LEFT"
+                              style="-fx-background-color: white; -fx-padding: 15 25; -fx-background-radius: 12;
+                                     -fx-border-color: #A7927722; -fx-border-radius: 12;">
+                            <VBox spacing="5">
+                                <Label text="Recherche"
+                                       style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                                <TextField fx:id="tfUserSearch" promptText="Lieu, type..." prefWidth="200"
+                                           style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744;
+                                                  -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                            </VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Date Début"
+                                       style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                                <DatePicker fx:id="dpStart" promptText="Du..." maxWidth="Infinity"
+                                            style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744;"/>
+                            </VBox>
+                            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                <Label text="Date Fin"
+                                       style="-fx-text-fill: #005082; -fx-font-size: 11px; -fx-font-weight: bold;"/>
+                                <DatePicker fx:id="dpEnd" promptText="Au..." maxWidth="Infinity"
+                                            style="-fx-background-color: #FEFAF6; -fx-border-color: #A7927744;"/>
+                            </VBox>
+                            <Button text="Réinitialiser" onAction="#resetFilters"
+                                    style="-fx-background-color: #A79277; -fx-text-fill: white; -fx-font-weight: bold;
+                                           -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 8 15;"/>
+                        </HBox>
+
+                        <!-- Cards Grid Section -->
+                        <VBox spacing="15">
+                            <Label text="Vos Réservations"
+                                   style="-fx-text-fill: #005082; -fx-font-size: 20px; -fx-font-weight: bold;"/>
+                            <FlowPane fx:id="cardsContainer" hgap="25" vgap="25"
+                                      prefWrapLength="1000"/>
+                        </VBox>
+
+                    </VBox>
+                </ScrollPane>
+
             </VBox>
-        </ScrollPane>
-    </VBox>
 
-    <StackPane fx:id="notifOverlay" alignment="BOTTOM_CENTER"
-               mouseTransparent="true" style="-fx-padding: 0 0 30 0;"/>
-</StackPane>
+            <!-- Notification overlay floats on top -->
+            <StackPane fx:id="notifOverlay" alignment="BOTTOM_CENTER"
+                       mouseTransparent="true" style="-fx-padding: 0 0 30 0;"/>
+
+        </StackPane>
+    </center>
+
+</BorderPane>
