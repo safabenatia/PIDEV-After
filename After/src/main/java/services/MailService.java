@@ -1,9 +1,8 @@
 package services;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailService {
@@ -15,7 +14,6 @@ public class MailService {
 
         Properties props = new Properties();
 
-        // 🔥 Configuration SSL CORRECTE
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "465");
         props.put("mail.smtp.auth", "true");

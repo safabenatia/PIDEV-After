@@ -94,6 +94,7 @@
             <artifactId>logback-classic</artifactId>
             <version>1.5.12</version>
         </dependency>
+
         <!-- IKONLI (gestionDocument) -->
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
@@ -134,6 +135,7 @@
             <artifactId>cloudinary-http44</artifactId>
             <version>1.36.0</version>
         </dependency>
+
         <!-- JWT (user module) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -152,6 +154,7 @@
             <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
+
         <!-- JFreeChart (gestionDepense) -->
         <dependency>
             <groupId>org.jfree</groupId>
@@ -165,11 +168,17 @@
             <artifactId>javafx-media</artifactId>
             <version>21</version>
         </dependency>
-        <!-- Mail (user module) -->
+
+        <!-- ✅ UNIFIED MAIL (all modules use javax.mail) -->
         <dependency>
-            <groupId>org.eclipse.angus</groupId>
-            <artifactId>jakarta.mail</artifactId>
-            <version>2.0.1</version>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
         </dependency>
 
         <!-- OkHttp (voyage module) -->
@@ -199,6 +208,7 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+
         <!-- Stripe SDK (Gestion_Reservation) -->
         <dependency>
             <groupId>com.stripe</groupId>
@@ -212,7 +222,7 @@
             <artifactId>kernel</artifactId>
             <version>8.0.5</version>
         </dependency>
- 
+
         <!-- iText forms (Gestion_Reservation) -->
         <dependency>
             <groupId>com.itextpdf</groupId>
@@ -220,17 +230,6 @@
             <version>8.0.5</version>
         </dependency>
 
-        <!-- JavaMail javax (Gestion_Reservation) -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
-        </dependency>
         <!-- QR Code (service/offre module) -->
         <dependency>
             <groupId>com.google.zxing</groupId>

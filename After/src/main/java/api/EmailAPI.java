@@ -1,31 +1,22 @@
 package api;
 
-import jakarta.mail.*;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeBodyPart;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import java.io.File;
 import java.util.Properties;
 
 public class EmailAPI {
 
-    // ===== TES VRAIES INFORMATIONS =====
     private static final String EXPEDITEUR = "safebenatiaa2020@gmail.com";
     private static final String MOT_DE_PASSE = "zwal gkce gykj tuvb";
-    // ===================================
 
     private static final String HOTE_SMTP = "smtp.gmail.com";
     private static final int PORT_SMTP = 587;
 
-    /**
-     * Envoie un email avec un PDF en pièce jointe
-     * @param destinataire Email du destinataire
-     * @param sujet Sujet de l'email
-     * @param corpsTexte Corps de l'email (texte)
-     * @param cheminPDF Chemin complet du fichier PDF à joindre
-     */
     public void envoyerEmailAvecPDF(String destinataire, String sujet, String corpsTexte, String cheminPDF) {
 
         Properties props = new Properties();
@@ -33,6 +24,9 @@ public class EmailAPI {
         props.put("mail.smtp.port", PORT_SMTP);
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.required", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
+        props.put("mail.smtp.ssl.trust", HOTE_SMTP);
 
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
@@ -42,28 +36,23 @@ public class EmailAPI {
         });
 
         try {
-            // Créer le message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(EXPEDITEUR));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinataire));
             message.setSubject(sujet);
 
-            // Créer la partie texte du message
             MimeBodyPart textPart = new MimeBodyPart();
             textPart.setText(corpsTexte);
 
-            // Créer la pièce jointe (PDF)
             MimeBodyPart attachmentPart = new MimeBodyPart();
             attachmentPart.attachFile(new File(cheminPDF));
 
-            // Assembler le message (texte + pièce jointe)
             Multipart multipart = new MimeMultipart();
             multipart.addBodyPart(textPart);
             multipart.addBodyPart(attachmentPart);
 
             message.setContent(multipart);
 
-            // Envoyer
             Transport.send(message);
 
             System.out.println("✅ Email avec PDF envoyé à " + destinataire);
@@ -74,9 +63,6 @@ public class EmailAPI {
         }
     }
 
-    /**
-     * Version simplifiée pour envoyer une facture
-     */
     public void envoyerFacturePDF(String destinataire, PaiementAPI.Facture facture, String cheminPDF) {
         String sujet = "Votre facture AFTER Travel - " + facture.getReference();
         String corps = "Bonjour,\n\n" +
