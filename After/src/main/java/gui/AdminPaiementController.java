@@ -57,7 +57,35 @@ public class AdminPaiementController {
         setupSearch();
         charger();
     }
+    @FXML
+    private void showReservations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminReservationView.fxml"));
+            Parent root = loader.load();
+            StackPane parent = (StackPane) tablePaiements.getScene().lookup("#contentArea");
+            if (parent != null) parent.getChildren().setAll(root);
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
 
+    @FXML
+    private void showPaiements() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPaiementView.fxml"));
+            Parent root = loader.load();
+            StackPane parent = (StackPane) tablePaiements.getScene().lookup("#contentArea");
+            if (parent != null) parent.getChildren().setAll(root);
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
+
+    @FXML
+    private void showStats() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminStatisticsView.fxml"));
+            Parent root = loader.load();
+            StackPane parent = (StackPane) tablePaiements.getScene().lookup("#contentArea");
+            if (parent != null) parent.getChildren().setAll(root);
+        } catch (Exception ex) { ex.printStackTrace(); }
+    }
     private void setupColumns() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colRef.setCellValueFactory(new PropertyValueFactory<>("reference"));

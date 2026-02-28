@@ -1,46 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<HBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="GUI.AdminStatisticsController"
-      style="-fx-background-color: #FEFAF6;" prefWidth="1200" prefHeight="720">
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.AdminStatisticsController"
+      spacing="0"
+      style="-fx-background-color: #FEFAF6;">
 
-    <!-- SIDEBAR (Reused Style) -->
-    <VBox spacing="15" prefWidth="240"
-          style="-fx-background-color: #005082; -fx-padding: 30 20 30 20;">
-        <Label text="AFTER Admin" style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;"/>
-        <Separator style="-fx-opacity: 0.2;"/>
-        <Button text="🏠 Dashboard" disable="true"
-                style="-fx-background-color: rgba(255,255,255,0.1); -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 12 20; -fx-background-radius: 8;"/>
-        <Button text="📅 Réservations" onAction="#retourReservations"
-                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 12 20; -fx-cursor: hand;"/>
-        <Button text="💳 Paiements" onAction="#retourPaiements"
-                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-padding: 12 20; -fx-cursor: hand;"/>
-        <Region VBox.vgrow="ALWAYS"/>
-        <Button text="🚪 Déconnexion"
-                style="-fx-background-color: #A79277; -fx-text-fill: white; -fx-background-radius: 8; -fx-padding: 10;"/>
-    </VBox>
+    <!-- TOP NAV BAR -->
+    <HBox spacing="0" alignment="CENTER_LEFT"
+          style="-fx-background-color: #005082; -fx-padding: 0;">
+
+        <Button text="🗓 Réservations" onAction="#showReservations"
+                style="-fx-background-color: transparent; -fx-text-fill: white;
+                       -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+
+        <Button text="💳 Paiements" onAction="#showPaiements"
+                style="-fx-background-color: transparent; -fx-text-fill: white;
+                       -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+
+        <Button text="📊 Statistiques" onAction="#showStats"
+                style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white;
+                       -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+    </HBox>
 
     <!-- CONTENT -->
-    <VBox spacing="25" HBox.hgrow="ALWAYS" style="-fx-padding: 35 45 35 45;">
-        
+    <VBox spacing="25" VBox.vgrow="ALWAYS" style="-fx-padding: 35 45 35 45;">
+
         <HBox alignment="CENTER_LEFT">
             <VBox>
-                <Label text="Tableau de Bord Statistiques" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #005082;"/>
-                <Label text="Aperçu analytique des activités de voyage" style="-fx-text-fill: #A79277; -fx-font-size: 13px;"/>
+                <Label text="Tableau de Bord Statistiques"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #005082;"/>
+                <Label text="Aperçu analytique des activités de voyage"
+                       style="-fx-text-fill: #A79277; -fx-font-size: 13px;"/>
             </VBox>
             <Region HBox.hgrow="ALWAYS"/>
             <HBox spacing="20">
-                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-padding: 10 25; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);">
-                    <Label fx:id="lblTotalRes" text="0" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0081C9;"/>
+                <VBox alignment="CENTER"
+                      style="-fx-background-color: white; -fx-padding: 10 25; -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+                    <Label fx:id="lblTotalRes" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #0081C9;"/>
                     <Label text="Réservations" style="-fx-font-size: 11px; -fx-text-fill: #A79277;"/>
                 </VBox>
-                <VBox alignment="CENTER" style="-fx-background-color: white; -fx-padding: 10 25; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);">
-                    <Label fx:id="lblTotalRev" text="0 TND" style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
+                <VBox alignment="CENTER"
+                      style="-fx-background-color: white; -fx-padding: 10 25; -fx-background-radius: 12;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 5);">
+                    <Label fx:id="lblTotalRev" text="0 TND"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #27ae60;"/>
                     <Label text="Revenu Total" style="-fx-font-size: 11px; -fx-text-fill: #A79277;"/>
                 </VBox>
             </HBox>
@@ -48,14 +61,20 @@
 
         <HBox spacing="25" VBox.vgrow="ALWAYS">
             <!-- Pie Chart -->
-            <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
-                <Label text="Répartition par Type" style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
+            <VBox spacing="10" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
+                <Label text="Répartition par Type"
+                       style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
                 <PieChart fx:id="pieResByType" VBox.vgrow="ALWAYS" legendSide="BOTTOM"/>
             </VBox>
 
             <!-- Line Chart -->
-            <VBox spacing="10" HBox.hgrow="ALWAYS" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
-                <Label text="Croissance des Réservations" style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
+            <VBox spacing="10" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
+                <Label text="Croissance des Réservations"
+                       style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
                 <LineChart fx:id="lineGrowth" VBox.vgrow="ALWAYS">
                     <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
                     <yAxis><NumberAxis side="LEFT"/></yAxis>
@@ -63,14 +82,16 @@
             </VBox>
         </HBox>
 
-        <!-- Bar Chart (Full Width) -->
-        <VBox spacing="10" prefHeight="280" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
-            <Label text="Revenus Mensuels (Simulation)" style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
+        <!-- Bar Chart -->
+        <VBox spacing="10" prefHeight="280"
+              style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 15;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
+            <Label text="Revenus Mensuels (Simulation)"
+                   style="-fx-font-weight: bold; -fx-text-fill: #005082;"/>
             <BarChart fx:id="barRevenue" legendVisible="false">
                 <xAxis><CategoryAxis side="BOTTOM"/></xAxis>
                 <yAxis><NumberAxis side="LEFT"/></yAxis>
             </BarChart>
         </VBox>
-
     </VBox>
-</HBox>
+</VBox>

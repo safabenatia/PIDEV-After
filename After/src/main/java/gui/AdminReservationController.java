@@ -124,7 +124,36 @@ public class AdminReservationController {
                         "-fx-text-fill: #e6edf3;" +
                         "-fx-border-color: transparent;");
     }
+    @FXML
+    private void showReservations() {
+        // already here, just reload
+        charger();
+    }
 
+    @FXML
+    private void showPaiements() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminPaiementView.fxml"));
+            Parent root = loader.load();
+            // replace content in parent StackPane
+            StackPane parent = (StackPane) tableReservations.getScene().lookup("#contentArea");
+            if (parent != null) parent.getChildren().setAll(root);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void showStats() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminStatisticsView.fxml"));
+            Parent root = loader.load();
+            StackPane parent = (StackPane) tableReservations.getScene().lookup("#contentArea");
+            if (parent != null) parent.getChildren().setAll(root);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     private void setupSearch() {
         tfSearch.textProperty().addListener((obs, o, n) -> {
             String q = n == null ? "" : n.toLowerCase().trim();

@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
@@ -54,7 +55,9 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Cell;
 import utils.JwtUtil;
 import utils.Session;
-
+import controllers.StatisticsController;
+import models.voyage;
+import models.destination;
 
 public class DashboardAdminController {
 
@@ -63,7 +66,8 @@ public class DashboardAdminController {
     @FXML private ComboBox<String> typeFilterCombo;   // ← ComboBox pour type (pas Role)
     @FXML private Label totalUsersLabel;
     @FXML private Button btnLogout;
-
+    @FXML private StackPane contentArea;
+    @FXML private VBox usersPanel;
     private final ServiceUsers service = new ServiceUsers();
     private ObservableList<Users> allUsers = FXCollections.observableArrayList();
 
@@ -98,7 +102,16 @@ public class DashboardAdminController {
 
         searchField.textProperty().addListener((obs, old, newVal) -> filterAndRefresh());
     }
-
+    @FXML
+    private void handleReservations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminReservationView.fxml"));
+            Parent reservationsView = loader.load();
+            contentArea.getChildren().setAll(reservationsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void updateStats() {
         totalUsersLabel.setText(String.valueOf(allUsers.size()));
     }
@@ -138,7 +151,32 @@ public class DashboardAdminController {
             filtered.forEach(u -> usersFlowPane.getChildren().add(createUserCard(u)));
         }
     }
+    @FXML
+    private void handleShowUsers() {
+        contentArea.getChildren().setAll(usersPanel);
+    }
 
+    @FXML
+    private void handleVoyages() {
+        try {
+            services.ServiceVoyage serviceVoyage = new services.ServiceVoyage();
+            services.ServiceDestination serviceDestination = new services.ServiceDestination();
+
+            List<models.voyage> allVoyages = serviceVoyage.getAll();
+            List<models.destination> allDestinations = serviceDestination.getAll();
+
+            StatisticsController statsCtrl = new StatisticsController(allVoyages, allDestinations);
+            VBox dashboard = statsCtrl.buildDashboard();
+
+            contentArea.getChildren().setAll(dashboard);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Label err = new Label("Erreur: " + e.getMessage());
+            err.setStyle("-fx-text-fill:red; -fx-font-size:13px;");
+            contentArea.getChildren().setAll(err);
+        }
+    }
     private void refreshCards() {
         filterAndRefresh();
     }
