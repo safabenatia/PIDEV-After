@@ -43,6 +43,11 @@
                        fx:id="doctbn"/>
                 <Label text="🎟️ Reservation"
                        style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                <Label text="💸 Depenses"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showDepense"
+                       style="-fx-cursor: hand;"
+                       fx:id="Depensebtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

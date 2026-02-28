@@ -49,6 +49,11 @@
                        onMouseClicked="#showReservation"
                        style="-fx-cursor: hand;"
                        fx:id="Resbtn"/>
+                <Label text="Depense"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showdepense"
+                       style="-fx-cursor: hand;"
+                       fx:id="depensebtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

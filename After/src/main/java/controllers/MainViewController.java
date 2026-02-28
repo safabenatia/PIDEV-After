@@ -245,6 +245,20 @@ public class MainViewController {
         }
     }
     @FXML
+    private void handledepense() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion_depenses_v2.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) mainContent.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Depenses");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
     private void handleReservation() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));

@@ -179,6 +179,21 @@ public class UserReservationController {
             showAlert("Erreur", "Impossible d'ouvrir Documents");
         }
     }
+    @FXML
+    private void showDepense() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion_depenses_v2.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) cardsContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Depenses");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Depenses");
+        }
+    }
 
     @FXML
     private void resetFilters() {

@@ -3,7 +3,9 @@ package controllers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -22,11 +24,13 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
+import utils.Session;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -55,7 +59,7 @@ public class DepenseControllerV2 {
 
     private service.serviceDeppense depenseService;
     private CategorieService categorieService;
-    private service.ConvertisseurDeviseService convertisseurService;
+    private services.ConvertisseurDeviseService convertisseurService;
     private RapportService rapportService;
     private ObservableList<depense> depensesList;
     private ObservableList<Categorie> categoriesList;
@@ -67,7 +71,7 @@ public class DepenseControllerV2 {
     public void initialize() {
         depenseService = new service.serviceDeppense();
         categorieService = new CategorieService();
-        convertisseurService = new service.ConvertisseurDeviseService();
+        convertisseurService = new services.ConvertisseurDeviseService();
         rapportService = new RapportService();
         depensesList = FXCollections.observableArrayList();
         categoriesList = FXCollections.observableArrayList();
@@ -198,6 +202,116 @@ public class DepenseControllerV2 {
         depensesContainer.getChildren().clear();
         for (depense d : depensesList) {
             depensesContainer.getChildren().add(creerCarteDepense(d));
+        }
+    }
+    @FXML
+    private void handleRetourProfil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Espace Voyageur");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void handleLogout() {
+        try {
+            Session.clear();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/login.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setTitle("After Travel - Connexion");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    @FXML
+    private void handleVoyages() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Voyages & Destinations");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Voyages & Destinations");
+        }
+    }
+    @FXML
+    private void showser() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dashboard.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - service et offre ");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir service et offre");
+        }
+    }
+    @FXML
+    private void showact() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/activite_list.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Documents");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Documents");
+        }
+    }
+    @FXML
+    private void showdoc() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Documents");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Documents");
+        }
+    }
+    @FXML
+    private void showReservation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) depensesContainer.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(false);
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Reservation");
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur", "Impossible d'ouvrir Reservation");
         }
     }
 

@@ -131,6 +131,11 @@
                        onMouseClicked="#showReser"
                        style="-fx-cursor: hand;"
                        fx:id="Reserbtn"/>
+                <Label text="💸 Depenses"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showDepense"
+                       style="-fx-cursor: hand;"
+                       fx:id="Depensebtn"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
