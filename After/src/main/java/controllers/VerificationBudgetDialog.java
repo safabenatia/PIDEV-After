@@ -8,7 +8,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Categorie;
-import service.CategorieService;
+import services.CategorieService;
 import service.serviceDeppense;
 
 import java.util.ArrayList;

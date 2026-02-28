@@ -5,9 +5,9 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
-import interfaces.service;
+import interfaces.Services;
 import models.depense;
-import utils.mydb;
+import utils.MyDataBase;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
@@ -16,12 +16,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class serviceDeppense implements service<depense> {
+public class serviceDeppense implements Services<depense> {
 
     private Connection cnx;
 
     public serviceDeppense() {
-        this.cnx = mydb.getInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     @Override

@@ -15,7 +15,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Categorie;
 import models.depense;
-import service.*;
+import services.*;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -53,9 +53,9 @@ public class DepenseControllerV2 {
     @FXML private VBox depensesContainer;
     @FXML private Label totalLabel;
 
-    private serviceDeppense depenseService;
+    private service.serviceDeppense depenseService;
     private CategorieService categorieService;
-    private ConvertisseurDeviseService convertisseurService;
+    private service.ConvertisseurDeviseService convertisseurService;
     private RapportService rapportService;
     private ObservableList<depense> depensesList;
     private ObservableList<Categorie> categoriesList;
@@ -65,9 +65,9 @@ public class DepenseControllerV2 {
 
     @FXML
     public void initialize() {
-        depenseService = new serviceDeppense();
+        depenseService = new service.serviceDeppense();
         categorieService = new CategorieService();
-        convertisseurService = new ConvertisseurDeviseService();
+        convertisseurService = new service.ConvertisseurDeviseService();
         rapportService = new RapportService();
         depensesList = FXCollections.observableArrayList();
         categoriesList = FXCollections.observableArrayList();
@@ -398,7 +398,22 @@ public class DepenseControllerV2 {
     }
 
     // ========== UTILITAIRES ==========
-
+    @FXML
+    private void ouvrirCategories() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/gestion_categories_v2.fxml"));
+            javafx.scene.Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle("Gestion des Catégories");
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setMaximized(true);  // ← fullscreen
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            afficherAlerte("Erreur", "Impossible d'ouvrir les catégories : " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
     private void remplirFormulaireAvecDepense(depense d) {
         depenseEnModification = d;
         titreField.setText(d.getTitre());

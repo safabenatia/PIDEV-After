@@ -152,7 +152,19 @@
             <version>0.12.6</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- JFreeChart (gestionDepense) -->
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.4</version>
+        </dependency>
 
+        <!-- JavaFX Media (gestionDepense) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-media</artifactId>
+            <version>21</version>
+        </dependency>
         <!-- Mail (user module) -->
         <dependency>
             <groupId>org.eclipse.angus</groupId>

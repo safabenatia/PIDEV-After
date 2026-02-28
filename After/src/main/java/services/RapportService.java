@@ -1,4 +1,4 @@
-package service;
+package services;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
@@ -15,14 +15,14 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import utils.mydb;
+import utils.MyDataBase;
 
 public class RapportService {
 
     private Connection cnx;
 
     public RapportService() {
-        this.cnx = mydb.getInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     public Map<String, double[]> getDonneesCategories(int mois, int annee) {

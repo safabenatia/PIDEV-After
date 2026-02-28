@@ -18,6 +18,9 @@
                     <children>
                         <Label style="-fx-font-size: 32px; -fx-text-fill: #F5F5DC;" text="✈" />
                         <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;" text="AFTER Travel - ADMIN" />
+                        <Button text="⬅ Retour Dépenses"
+                                onAction="#retourDepenses"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 18; -fx-background-radius: 8; -fx-cursor: hand; -fx-border-color: white; -fx-border-radius: 8;"/>
                         <Region HBox.hgrow="ALWAYS" />
                         <Label style="-fx-font-size: 20px; -fx-text-fill: #F5F5DC;" text="Gestion des Catégories" />
                     </children>

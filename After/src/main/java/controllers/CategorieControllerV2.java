@@ -12,7 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import models.Categorie;
-import service.CategorieService;
+import services.CategorieService;
 
 import java.io.File;
 import java.util.Optional;
@@ -102,7 +102,28 @@ public class CategorieControllerV2 {
         // Mettre a jour le compteur
         mettreAJourCompteur();
     }
+    @FXML
+    private void retourDepenses() {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/gestion_depenses_v2.fxml"));
+            javafx.scene.Parent root = loader.load();
 
+            // Open depenses in new maximized window
+            javafx.stage.Stage newStage = new javafx.stage.Stage();
+            newStage.setScene(new javafx.scene.Scene(root));
+            newStage.setMaximized(true);
+            newStage.setTitle("Gestion des Dépenses");
+            newStage.show();
+
+            // Close categories window
+            javafx.stage.Stage currentStage = (javafx.stage.Stage) nomField.getScene().getWindow();
+            currentStage.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     private void ajouterOuModifierCategorie() {
         // Validation
         if (nomField.getText().trim().isEmpty()) {

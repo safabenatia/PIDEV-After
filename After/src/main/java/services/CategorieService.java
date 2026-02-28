@@ -1,8 +1,10 @@
-package service;
+package services;
 
-import interfaces.service;
+import interfaces.Services;
+import interfaces.Services;
 import models.Categorie;
-import utils.mydb;
+import utils.MyDataBase;
+import utils.MyDataBase;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,12 +14,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategorieService implements service<Categorie> {
+public class CategorieService implements Services<Categorie> {
 
     private Connection cnx;
 
     public CategorieService() {
-        this.cnx = mydb.getInstance().getCnx();
+        this.cnx = MyDataBase.getInstance().getCnx();
     }
 
     @Override
