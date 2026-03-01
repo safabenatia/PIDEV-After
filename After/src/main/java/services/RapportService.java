@@ -29,23 +29,26 @@ public class RapportService {
         Map<String, double[]> data = new LinkedHashMap<>();
         YearMonth yearMonth = YearMonth.of(annee, mois);
         LocalDate dateDebut = yearMonth.atDay(1);
-        LocalDate dateFin = yearMonth.atEndOfMonth();
+        LocalDate dateFinExclusive = yearMonth.plusMonths(1).atDay(1);
 
         String req = "SELECT c.nom_categorie, "
                 + "COALESCE(SUM(d.montant), 0) as total, "
                 + "COUNT(d.id_dep) as nb "
                 + "FROM categorie c "
                 + "LEFT JOIN depense d ON c.id_cat = d.id_categorie "
-                + "AND d.date_depense >= '" + dateDebut + "' "
-                + "AND d.date_depense <= '" + dateFin + "' "
+                + "AND d.date_depense >= ? "
+                + "AND d.date_depense < ? "
                 + "GROUP BY c.id_cat, c.nom_categorie "
                 + "ORDER BY total DESC";
 
-        try {
-            Statement stm = cnx.createStatement();
-            ResultSet rs = stm.executeQuery(req);
+        try (PreparedStatement pst = cnx.prepareStatement(req)) {
+            pst.setDate(1, Date.valueOf(dateDebut));
+            pst.setDate(2, Date.valueOf(dateFinExclusive));
+            ResultSet rs = pst.executeQuery();
+
             while (rs.next()) {
-                data.put(rs.getString("nom_categorie"), new double[]{rs.getDouble("total"), rs.getInt("nb")});
+                data.put(rs.getString("nom_categorie"),
+                        new double[]{rs.getDouble("total"), rs.getInt("nb")});
             }
         } catch (SQLException e) {
             System.err.println("Erreur getDonneesCategories: " + e.getMessage());
