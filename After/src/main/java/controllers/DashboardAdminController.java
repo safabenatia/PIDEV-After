@@ -178,7 +178,12 @@ public class DashboardAdminController {
             StatisticsController statsCtrl = new StatisticsController(allVoyages, allDestinations);
             VBox dashboard = statsCtrl.buildDashboard();
 
-            contentArea.getChildren().setAll(dashboard);
+            // Wrap in ScrollPane so the whole dashboard + voyage list is scrollable
+            ScrollPane scrollPane = new ScrollPane(dashboard);
+            scrollPane.setFitToWidth(true);
+            scrollPane.setStyle("-fx-background: #F5F5DC; -fx-background-color: #F5F5DC; -fx-border: none;");
+
+            contentArea.getChildren().setAll(scrollPane);
 
         } catch (Exception e) {
             e.printStackTrace();

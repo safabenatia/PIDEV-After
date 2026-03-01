@@ -67,18 +67,21 @@ public class StatisticsController {
         );
         root.getChildren().add(row1);
 
-        // row 2 — horizontal bar + pie
-        HBox row2 = new HBox(24);
-        row2.getChildren().addAll(
+        // row 2 — voyage list (moved here)
+        root.getChildren().add(buildVoyageList());
+
+        // row 3 — horizontal bar + pie
+        HBox row3 = new HBox(24);
+        row3.getChildren().addAll(
                 buildCard("🏆 Top destinations (nb voyages)",
                         buildHorizontalBarChart(
                                 ss.voyagesParDestination(voyages, destinations, 6), 440, 220), 480),
                 buildCard("🌍 Destinations par continent",
                         buildPieChart(ss.destinationsParContinent(destinations), 260, 200), 320)
         );
-        root.getChildren().add(row2);
+        root.getChildren().add(row3);
 
-        // row 3 — sparkline
+        // row 4 — sparkline
         root.getChildren().add(
                 buildCard("📈 Répartition des prix (tous les voyages)",
                         buildSparkline(880, 130), 940)
@@ -86,7 +89,150 @@ public class StatisticsController {
 
         return root;
     }
+    // ══════════════════════════════════════════════════════════════════════
+//  SCROLLABLE VOYAGE LIST
+// ══════════════════════════════════════════════════════════════════════
+    private javafx.scene.Node buildVoyageList() {
 
+        // Section title
+        Label title = new Label("🧳 Liste des voyages");
+        title.setFont(Font.font("Segoe UI", FontWeight.BOLD, 15));
+        title.setStyle("-fx-text-fill:" + DARK_BLUE + "; -fx-padding: 0 0 10 0;");
+
+        // Cards container
+        VBox cardsContainer = new VBox(14);
+
+        if (voyages.isEmpty()) {
+            Label empty = new Label("Aucun voyage disponible");
+            empty.setStyle("-fx-text-fill:#888; -fx-font-size:13px; -fx-padding:20;");
+            cardsContainer.getChildren().add(empty);
+        } else {
+            for (voyage v : voyages) {
+                cardsContainer.getChildren().add(buildVoyageCard(v));
+            }
+        }
+
+        // ScrollPane wrapping the cards
+        javafx.scene.control.ScrollPane scroll = new javafx.scene.control.ScrollPane(cardsContainer);
+        scroll.setFitToWidth(true);
+        scroll.setPrefHeight(420);
+        scroll.setStyle(
+                "-fx-background: white;" +
+                        "-fx-background-color: white;" +
+                        "-fx-border-color: transparent;"
+        );
+        cardsContainer.setStyle("-fx-padding: 10;");
+
+        // Outer card wrapper
+        VBox wrapper = new VBox(10, title, scroll);
+        wrapper.setStyle(
+                "-fx-background-color: white;" +
+                        "-fx-padding: 20;" +
+                        "-fx-background-radius: 14;" +
+                        "-fx-border-color: #c8c4a0;" +
+                        "-fx-border-radius: 14;" +
+                        "-fx-effect: dropshadow(gaussian,rgba(0,0,0,0.07),10,0,0,3);"
+        );
+        return wrapper;
+    }
+
+    private HBox buildVoyageCard(voyage v) {
+        HBox card = new HBox(20);
+        card.setStyle(
+                "-fx-background-color: #f8f9ff;" +
+                        "-fx-padding: 16;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: #dde3ee;" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-effect: dropshadow(gaussian,rgba(0,0,0,0.05),6,0,0,2);"
+        );
+        card.setAlignment(javafx.geometry.Pos.CENTER_LEFT);
+
+        // Hover effect
+        card.setOnMouseEntered(e -> card.setStyle(
+                "-fx-background-color: #eef2ff;" +
+                        "-fx-padding: 16;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color:" + ACCENT + ";" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-effect: dropshadow(gaussian,rgba(41,128,185,0.15),10,0,0,3);"
+        ));
+        card.setOnMouseExited(e -> card.setStyle(
+                "-fx-background-color: #f8f9ff;" +
+                        "-fx-padding: 16;" +
+                        "-fx-background-radius: 12;" +
+                        "-fx-border-color: #dde3ee;" +
+                        "-fx-border-radius: 12;" +
+                        "-fx-border-width: 1.5;" +
+                        "-fx-effect: dropshadow(gaussian,rgba(0,0,0,0.05),6,0,0,2);"
+        ));
+
+        // ID badge
+        Label idBadge = new Label("#" + v.getIdVoyage());
+        idBadge.setStyle(
+                "-fx-background-color:" + DARK_BLUE + ";" +
+                        "-fx-text-fill: #F5F5DC;" +
+                        "-fx-padding: 4 10;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-font-size: 11px;" +
+                        "-fx-font-weight: bold;"
+        );
+
+        // Title + description
+        Label titreLabel = new Label(v.getTitre());
+        titreLabel.setFont(Font.font("Segoe UI", FontWeight.BOLD, 14));
+        titreLabel.setStyle("-fx-text-fill:" + DARK_BLUE + ";");
+
+        Label descLabel = new Label(v.getDescription() != null && v.getDescription().length() > 60
+                ? v.getDescription().substring(0, 60) + "…"
+                : v.getDescription() != null ? v.getDescription() : "-");
+        descLabel.setStyle("-fx-text-fill: #666; -fx-font-size: 12px;");
+
+        VBox titleBox = new VBox(4, titreLabel, descLabel);
+
+        // Spacer
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, javafx.scene.layout.Priority.ALWAYS);
+
+        // Prix badge
+        Label prixLabel = new Label(String.format("%.0f TND", v.getPrix()));
+        prixLabel.setStyle(
+                "-fx-background-color:" + GREEN + ";" +
+                        "-fx-text-fill: white;" +
+                        "-fx-padding: 5 14;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-font-weight: bold;" +
+                        "-fx-font-size: 13px;"
+        );
+
+        // Places badge
+        Label placesLabel = new Label("💺 " + v.getNbPlaces() + " places");
+        placesLabel.setStyle(
+                "-fx-background-color: #fff3e0;" +
+                        "-fx-text-fill:" + ORANGE + ";" +
+                        "-fx-padding: 5 12;" +
+                        "-fx-background-radius: 20;" +
+                        "-fx-font-size: 12px;" +
+                        "-fx-font-weight: bold;"
+        );
+
+        // Dates
+        Label datesLabel = new Label(
+                "📅 " +
+                        (v.getDateDebut() != null ? new java.text.SimpleDateFormat("dd/MM/yyyy").format(v.getDateDebut()) : "?") +
+                        "  →  " +
+                        (v.getDateFin() != null ? new java.text.SimpleDateFormat("dd/MM/yyyy").format(v.getDateFin()) : "?")
+        );
+        datesLabel.setStyle("-fx-text-fill: #555; -fx-font-size: 12px;");
+
+        VBox rightBox = new VBox(6, prixLabel, placesLabel, datesLabel);
+        rightBox.setAlignment(javafx.geometry.Pos.CENTER_RIGHT);
+
+        card.getChildren().addAll(idBadge, titleBox, spacer, rightBox);
+        return card;
+    }
     // ══════════════════════════════════════════════════════════════════════
     //  HEADER
     // ══════════════════════════════════════════════════════════════════════
