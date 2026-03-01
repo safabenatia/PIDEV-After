@@ -10,25 +10,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
-import models.Admin;
-import models.Users;
-import models.Voyageur;
+import models.*;
 import services.ServiceUsers;
 
 import com.itextpdf.io.image.ImageData;
 import com.itextpdf.io.image.ImageDataFactory;
 
 
-
-
+import java.awt.event.MouseEvent;
 import java.net.URL;                       // ← pour URL et MalformedURLException
 import java.net.MalformedURLException;      // ← si tu utilises catch(MalformedURLException)
 import com.itextpdf.layout.properties.HorizontalAlignment;
@@ -56,8 +50,6 @@ import com.itextpdf.layout.element.Cell;
 import utils.JwtUtil;
 import utils.Session;
 import controllers.StatisticsController;
-import models.voyage;
-import models.destination;
 
 public class DashboardAdminController {
 
@@ -68,6 +60,9 @@ public class DashboardAdminController {
     @FXML private Button btnLogout;
     @FXML private StackPane contentArea;
     @FXML private VBox usersPanel;
+    @FXML private Label voyageursLabel;   // ← obligatoire
+    @FXML private Label adminsLabel;
+
     private final ServiceUsers service = new ServiceUsers();
     private ObservableList<Users> allUsers = FXCollections.observableArrayList();
 
@@ -102,28 +97,22 @@ public class DashboardAdminController {
 
         searchField.textProperty().addListener((obs, old, newVal) -> filterAndRefresh());
     }
-    @FXML
-    private void handleStats() {
-        try {
-            Parent statsView = FXMLLoader.load(getClass().getResource("/stats.fxml"));
-            contentArea.getChildren().setAll(statsView);
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert("Erreur lors du chargement des statistiques : " + e.getMessage());
-        }
-    }
-    @FXML
-    private void handleReservations() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminReservationView.fxml"));
-            Parent reservationsView = loader.load();
-            contentArea.getChildren().setAll(reservationsView);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
     private void updateStats() {
-        totalUsersLabel.setText(String.valueOf(allUsers.size()));
+        long total = allUsers.size();
+
+        long nbVoyageurs = allUsers.stream()
+                .filter(user -> user instanceof Voyageur)
+                .count();
+
+        long nbAdmins = allUsers.stream()
+                .filter(user -> user instanceof Admin)
+                .count();
+
+        totalUsersLabel.setText(String.valueOf(total));
+
+        voyageursLabel.setText(String.valueOf(nbVoyageurs));
+        adminsLabel.setText(String.valueOf(nbAdmins));
     }
 
     private void filterAndRefresh() {
@@ -178,12 +167,7 @@ public class DashboardAdminController {
             StatisticsController statsCtrl = new StatisticsController(allVoyages, allDestinations);
             VBox dashboard = statsCtrl.buildDashboard();
 
-            // Wrap in ScrollPane so the whole dashboard + voyage list is scrollable
-            ScrollPane scrollPane = new ScrollPane(dashboard);
-            scrollPane.setFitToWidth(true);
-            scrollPane.setStyle("-fx-background: #F5F5DC; -fx-background-color: #F5F5DC; -fx-border: none;");
-
-            contentArea.getChildren().setAll(scrollPane);
+            contentArea.getChildren().setAll(dashboard);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,7 +176,56 @@ public class DashboardAdminController {
             contentArea.getChildren().setAll(err);
         }
     }
-    private void refreshCards() {
+    @FXML
+    private void handleStats() {
+        try {
+            Parent statsView = FXMLLoader.load(getClass().getResource("/stats.fxml"));
+            contentArea.getChildren().setAll(statsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur lors du chargement des statistiques : " + e.getMessage());
+        }
+    }
+    @FXML
+    private void handleDashboardDocuments() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/DashboardAdmi.fxml"));
+
+            // Il faut absolument appeler load() pour charger le contenu
+            Parent dashboardView = loader.load();   // ← c’est ici qu’on charge vraiment
+
+            // Remplace le contenu de la zone dynamique
+            contentArea.getChildren().setAll(dashboardView);
+
+            // Optionnel : étendre pour remplir toute la zone (très recommandé avec AnchorPane)
+            if (dashboardView instanceof Region) {
+                AnchorPane.setTopAnchor(dashboardView, 0.0);
+                AnchorPane.setBottomAnchor(dashboardView, 0.0);
+                AnchorPane.setLeftAnchor(dashboardView, 0.0);
+                AnchorPane.setRightAnchor(dashboardView, 0.0);
+            }
+
+            // Optionnel : changer le titre de la fenêtre
+            Stage stage = (Stage) contentArea.getScene().getWindow();
+            stage.setTitle("After Travel - Dashboard Documents");
+
+            // Optionnel : accéder au contrôleur chargé si besoin
+            // DashboardAdmiController ctrl = loader.getController();
+            // ctrl.initialiserDonnees(...);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Tu peux afficher une alerte ici
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Erreur de chargement");
+            alert.setHeaderText("Impossible de charger le dashboard documents");
+            alert.setContentText(e.getMessage());
+            alert.showAndWait();
+        }
+    }
+
+
+private void refreshCards() {
         filterAndRefresh();
     }
 
@@ -461,6 +494,49 @@ public class DashboardAdminController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleActivitesPlanning() {
+        try {
+            services.ServiceActivite serviceActivite = new services.ServiceActivite();
+            services.ServicePlanning servicePlanning = new services.ServicePlanning();
+
+            List<Activite> allActivites = serviceActivite.getAll();
+            List<Planning> allPlannings = servicePlanning.getAll();
+
+            SmartDashboardController dashboardCtrl = new SmartDashboardController(allActivites, allPlannings);
+            VBox dashboard = dashboardCtrl.buildDashboard();
+
+            contentArea.getChildren().setAll(dashboard);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Label err = new Label("Erreur: " + e.getMessage());
+            err.setStyle("-fx-text-fill:red; -fx-font-size:13px;");
+            contentArea.getChildren().setAll(err);
+        }
+    }
+    @FXML
+    private void handleReservations() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminReservationView.fxml"));
+            Parent reservationsView = loader.load();
+            contentArea.getChildren().setAll(reservationsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleDepense() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion_categories_v2.fxml"));
+            Parent reservationsView = loader.load();
+            contentArea.getChildren().setAll(reservationsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void refreshUsers() {
         allUsers.clear();

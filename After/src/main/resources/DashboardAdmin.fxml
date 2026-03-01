@@ -34,6 +34,20 @@
                        styleClass="sidebar-btn"
                        onMouseClicked="#handleStats"
                        style="-fx-cursor: hand;"/>
+                <Label text="🗺️ Actvite &amp; Planning "
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleActivitesPlanning"
+                       style="-fx-cursor: hand;"/>
+
+                <Label text="📁 Dashboard Documents"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleDashboardDocuments"
+                       style="-fx-cursor: hand;"/>
+
+                <Label text="🎟️ Dépenses"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleDepense"
+                       style="-fx-cursor: hand;"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
@@ -83,12 +97,26 @@
 
                 <!-- Statistiques -->
                 <HBox spacing="24" alignment="CENTER">
-                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="320">
+
+                    <!-- Carte Total utilisateurs -->
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="280">
                         <Label text="Total utilisateurs" styleClass="stats-label"/>
                         <Label fx:id="totalUsersLabel" text="0" styleClass="stats-value"/>
                     </VBox>
-                </HBox>
 
+                    <!-- Carte Voyageurs -->
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="280">
+                        <Label text="Voyageurs" styleClass="stats-label"/>
+                        <Label fx:id="voyageursLabel" text="0" styleClass="stats-value"/>
+                    </VBox>
+
+                    <!-- Carte Administrateurs -->
+                    <VBox styleClass="stats-card" alignment="CENTER" prefWidth="280">
+                        <Label text="Administrateurs" styleClass="stats-label"/>
+                        <Label fx:id="adminsLabel" text="0" styleClass="stats-value"/>
+                    </VBox>
+
+                </HBox>
                 <!-- Zone des cartes utilisateurs -->
                 <ScrollPane fitToWidth="true"
                             style="-fx-background: transparent; -fx-background-color: transparent;">
