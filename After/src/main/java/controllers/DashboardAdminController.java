@@ -103,6 +103,16 @@ public class DashboardAdminController {
         searchField.textProperty().addListener((obs, old, newVal) -> filterAndRefresh());
     }
     @FXML
+    private void handleStats() {
+        try {
+            Parent statsView = FXMLLoader.load(getClass().getResource("/stats.fxml"));
+            contentArea.getChildren().setAll(statsView);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showAlert("Erreur lors du chargement des statistiques : " + e.getMessage());
+        }
+    }
+    @FXML
     private void handleReservations() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AdminReservationView.fxml"));

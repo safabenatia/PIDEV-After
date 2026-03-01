@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.geometry.Insets?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -22,6 +23,9 @@
             <Label text="AFTER Travel - Gestion des Services"
                    style="-fx-text-fill: #F5F5DC; -fx-font-size: 16px; -fx-font-weight: bold;" />
             <Region HBox.hgrow="ALWAYS" />
+            <Button text="⬅ Retour"
+                    onAction="#handleDashboard"
+                    style="-fx-background-color: #FFD700; -fx-text-fill: #16325c; -fx-font-weight: bold; -fx-padding: 6 16; -fx-background-radius: 20; -fx-cursor: hand;" />
             <HBox spacing="10">
                 <Button fx:id="minimizeButton" text="─"
                         style="-fx-background-color: transparent; -fx-text-fill: #F5F5DC; -fx-font-size: 18px; -fx-cursor: hand;" />
@@ -31,27 +35,43 @@
         </HBox>
     </top>
 
+    <!-- Same sidebar as dashboard.fxml -->
     <left>
-        <VBox spacing="20"
-              style="-fx-background-color: #1e3a5f; -fx-padding: 32 16 32 16; -fx-min-width: 200;">
-            <Label text="After Travel"
-                   style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" />
+        <VBox styleClass="sidebar" spacing="20" style="-fx-background-color: #1e3a5f;">
+            <padding>
+                <Insets top="32" right="16" bottom="32" left="16"/>
+            </padding>
+            <Label text="After Travel" styleClass="sidebar-title"/>
             <VBox spacing="12">
-                <Label text="👤 Mon Profil"
-                       style="-fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
-                       onMouseClicked="#handleRetourProfil" />
-                <Separator style="-fx-background-color: rgba(255,255,255,0.2);" />
+                <Label text="Mon Profil"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleRetourProfil"
+                       style="-fx-cursor: hand;"/>
                 <Label text="🗺️ Voyages &amp; Destinations"
-                       style="-fx-text-fill: white; -fx-font-size: 14px; -fx-cursor: hand;"
-                       onMouseClicked="#handleVoyages" />
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleVoyages"
+                       style="-fx-cursor: hand;"/>
                 <Label text="🏨 Services &amp; Offres"
-                       style="-fx-text-fill: #FFD700; -fx-font-size: 14px; -fx-font-weight: bold; -fx-cursor: hand;"
-                       onMouseClicked="#handleDashboard" />
+                       style="-fx-text-fill:#FFD700; -fx-font-size:14px; -fx-cursor:hand; -fx-font-weight:bold;"/>
+                <Label text="🏄 Activite &amp; Planning"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showactivite"
+                       style="-fx-cursor: hand;"/>
+                <Label text="📝 Document"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showDocument"
+                       style="-fx-cursor: hand;"/>
+                <Label text="🎟️ Reservation"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showReservation"
+                       style="-fx-cursor: hand;"/>
+                <Label text="💸 Depenses"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#showDepense"
+                       style="-fx-cursor: hand;"/>
             </VBox>
-            <Region VBox.vgrow="ALWAYS" />
-            <Button text="🚪 Déconnexion"
-                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 8 16; -fx-background-radius: 8;"
-                    onAction="#handleLogout" />
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>
         </VBox>
     </left>
 

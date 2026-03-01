@@ -55,9 +55,6 @@
             </StackPane>
 
             <HBox style="-fx-background-color: #16325c; -fx-padding: 10 30; -fx-alignment: CENTER_LEFT;" spacing="20">
-                <Button text="← Retour au Dashboard"
-                        onAction="#handleDashboard"
-                        style="-fx-background-color: #F5F5DC; -fx-text-fill: #16325c; -fx-padding: 8 20; -fx-background-radius: 20; -fx-font-weight: bold; -fx-cursor: hand;"/>
                 <Label text="Analyses détaillées des services" style="-fx-text-fill: #FFD700; -fx-font-size: 16px; -fx-font-style: italic;"/>
                 <Region HBox.hgrow="ALWAYS" />
                 <Button fx:id="exportExcelButton" text="📊 Exporter Excel" onAction="#exporterExcel"

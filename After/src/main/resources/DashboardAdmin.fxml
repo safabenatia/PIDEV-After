@@ -30,6 +30,10 @@
                        styleClass="sidebar-btn"
                        onMouseClicked="#handleReservations"
                        style="-fx-cursor: hand;"/>
+                <Label text="📊 Statistiques Services"
+                       styleClass="sidebar-btn"
+                       onMouseClicked="#handleStats"
+                       style="-fx-cursor: hand;"/>
             </VBox>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Déconnexion" styleClass="sidebar-logout" onAction="#handleLogout"/>

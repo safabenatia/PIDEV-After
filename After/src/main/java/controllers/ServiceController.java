@@ -115,14 +115,15 @@ public class ServiceController implements Initializable {
             });
         }
     }
+
     @FXML
     private void handleRetourProfil() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/DashboardVoyageur.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));  // ← THIS WAS MISSING
             stage.setMaximized(false);
-            stage.setMaximized(true);
             stage.setMaximized(true);
             stage.setTitle("After Travel - Espace Voyageur");
         } catch (IOException e) { e.printStackTrace(); }
@@ -134,13 +135,59 @@ public class ServiceController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));  // ← THIS WAS MISSING
             stage.setMaximized(false);
-            stage.setMaximized(true);
             stage.setMaximized(true);
             stage.setTitle("After Travel - Voyages & Destinations");
         } catch (IOException e) { e.printStackTrace(); }
     }
+    @FXML
+    private void showactivite() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/activite_list.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Activite & Planning");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
 
+    @FXML
+    private void showDocument() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherDocument.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Documents");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void showReservation() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UserReservationView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Reservations");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    private void showDepense() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gestion_depenses_v2.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setMaximized(true);
+            stage.setTitle("After Travel - Depenses");
+        } catch (IOException e) { e.printStackTrace(); }
+    }
     @FXML
     private void handleStats() {
         try {
@@ -539,10 +586,10 @@ public class ServiceController implements Initializable {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/dashboard.fxml"));
             Stage stage = (Stage) nomField.getScene().getWindow();
+            stage.setScene(new Scene(root));  // ← THIS WAS MISSING
             stage.setMaximized(false);
             stage.setMaximized(true);
             stage.setTitle("AFTER Travel - Dashboard");
-            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
             showAlert(Alert.AlertType.ERROR, "Erreur", "Impossible d'ouvrir le dashboard: " + e.getMessage());
