@@ -22,7 +22,7 @@
             <TextField fx:id="searchField" promptText="Rechercher..."/>
             <Button onAction="#showFavorites" text="♥ Favoris"/>
             <Button onAction="#showRecommendations" text="Recommandations"/>
-            <Button text="📊 Statistiques" onAction="#showStatistics"/>
+            <Button text="Reco. Avancées" onAction="#showAdvancedRecommendations" /><Button text="📊 Statistiques" onAction="#showStatistics"/>
             <Button onAction="#showVoyages" text="Voyages"/>
             <Button onAction="#showDestinations" text="Destinations"/>
         </HBox>

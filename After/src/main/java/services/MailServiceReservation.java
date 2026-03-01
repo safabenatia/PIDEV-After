@@ -9,7 +9,7 @@ import model.Reservation;
 public class MailServiceReservation {
 
     private final String username = "asma.antri@esprit.tn";
-    private final String password = ""; // Gmail App Password provided by user
+    private final String password = "pvxzttrkhypjxovc"; // Gmail App Password provided by user
 
     /**
      * Sends a confirmation email. Does not throw.
