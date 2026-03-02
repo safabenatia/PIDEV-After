@@ -1,0 +1,41 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[submodule]
+	active = .
+[remote "origin"]
+	url = https://github.com/safabenatia/PIDEV-After.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "main"]
+	remote = origin
+	merge = refs/heads/main
+[lfs]
+	repositoryformatversion = 0
+[branch "gestion-voyage"]
+	remote = origin
+	merge = refs/heads/gestion-voyage
+[branch "integration"]
+	remote = origin
+	merge = refs/heads/integration
+[branch "gestion-service_offre"]
+	remote = origin
+	merge = refs/heads/gestion-service_offre
+[branch "gestionDocument"]
+	remote = origin
+	merge = refs/heads/gestionDocument
+[branch "Gestion_Reservation"]
+	remote = origin
+	merge = refs/heads/Gestion_Reservation
+[branch "gestion-users"]
+	remote = origin
+	merge = refs/heads/gestion-users
+[branch "dev"]
+	remote = origin
+	merge = refs/heads/dev
+[branch "integration-des-modules"]
+	remote = origin
+	merge = refs/heads/integration-des-modules

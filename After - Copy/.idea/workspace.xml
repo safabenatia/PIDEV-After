@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bc23f6d2-6302-47f5-bdbe-f063469e9494" name="Changes" comment="service et offrees +">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/codeInsightSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/codeInsightSettings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/IntelliLang.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IntelliLang.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/EmailAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/EmailAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/MeteoAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/MeteoAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/PDFAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/PDFAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/PaiementAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/PaiementAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/QRCodeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/QRCodeAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/QRCodeView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/QRCodeView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/StatsAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/StatsAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/api/TestMeteo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/api/TestMeteo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AddDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AddVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AddVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AdminStatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AdminStatsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AfficherDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AfficherDocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/AjouterDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/AjouterDocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CategorieCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/CategorieCardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CategorieControllerV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/CategorieControllerV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CategorieDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/CategorieDocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/CategoriesController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/CategoriesController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DashboardAdmiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DashboardAdmiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DashboardAdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DashboardAdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DashboardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DashboardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DashboardVoyageurController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DashboardVoyageurController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DeleteDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DeleteDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DeleteVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DeleteVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DepenseControllerV2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DepenseControllerV2.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DocumentCardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DocumentCardController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/DocumentsParCategorieController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/DocumentsParCategorieController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/GestionDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/GestionDocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/MainViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/MainViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ModifierDocumentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ModifierDocumentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/OffreController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/OffreController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/ServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/ServiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/SignUpController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/SignUpController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/StatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/StatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/StatsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/StatsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UpdateDestinationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UpdateDestinationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UpdateVoyageController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UpdateVoyageController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/UserDialogController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/UserDialogController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controllers/VerificationBudgetDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controllers/VerificationBudgetDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ActiviteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ActiviteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ActiviteListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ActiviteListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AdminPaiementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AdminPaiementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AdminReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AdminReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/AdminStatisticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/AdminStatisticsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/CountryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/CountryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/FormPaiementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/FormPaiementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/FormReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/FormReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/HolidayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/HolidayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MainAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MainAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MainUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MainUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/MapViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/MapViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ModifierActiviteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ModifierActiviteController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/ModifierPlanningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/ModifierPlanningController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/NotificationUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/NotificationUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/PlanningController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/PlanningController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/PlanningListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/PlanningListController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/UserPaiementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/UserPaiementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/gui/UserReservationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/gui/UserReservationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/interfaces/Services.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/interfaces/Services.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Activite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Activite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Categorie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Categorie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/CategorieDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/CategorieDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Document.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Document.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/MainFXCategorie.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/MainFXCategorie.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/MainFXDepense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/MainFXDepense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Offre.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Offre.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Paiement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Paiement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Planning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Planning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Reservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Reservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Role.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/Voyageur.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/Voyageur.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/depense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/depense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/destination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/destination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/models/voyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/models/voyage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AdminDashboardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AdminDashboardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CategorieService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CategorieService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CloudinaryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CloudinaryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ConvertisseurDeviseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ConvertisseurDeviseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CountryInfoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CountryInfoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/CountryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/CountryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/DocumentClassifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/DocumentClassifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/EmailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ExchangeRateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ExchangeRateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/FavoritesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/FavoritesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/GoogleCalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/GoogleCalendarService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/HolidayService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/HolidayService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MailServiceReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MailServiceReservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/OcrService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/OcrService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/OffreService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/OffreService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PaiementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PaiementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PdfExportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PdfExportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PdfService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PdfService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PdfServiceReservation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PdfServiceReservation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/QrCodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/QrCodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RapportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RapportService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ReservationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ReservationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/RestCountriesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/RestCountriesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceActivite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceActivite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceDestination.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceDestination.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServicePlanning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServicePlanning.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/ServiceVoyage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/ServiceVoyage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/StatisticsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/StatisticsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/StripeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/StripeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/TranslateService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/TranslateService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/VerificationServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/VerificationServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/serviceCategorieDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/serviceCategorieDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/serviceDeppense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/serviceDeppense.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/serviceDocument.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/serviceDocument.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/MainFX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/MainFX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/CloudinaryConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/CloudinaryConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/MyDataBase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/MyDataBase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/PasswordUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/PasswordUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AddDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AddDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AddVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AddVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminPaiementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminPaiementView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminReservationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminReservationView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AdminStatisticsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AdminStatisticsView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AfficherDocument.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AfficherDocument.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/AjouterDocument.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/AjouterDocument.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CategorieCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CategorieCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/CategoriesView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/CategoriesView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardAdmi.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardAdmi.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DashboardAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DashboardAdmin.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DeleteDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeleteDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DeleteVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeleteVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DocumentCard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DocumentCard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DocumentsParCategorie.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DocumentsParCategorie.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/FormPaiement.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FormPaiement.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/FormReservation.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/FormReservation.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/GestionDocument.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GestionDocument.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MainView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/ModifierDocument.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/ModifierDocument.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UpdateDestination.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UpdateDestination.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UpdateVoyage.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UpdateVoyage.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UserPaiementView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserPaiementView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/UserReservationView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/UserReservationView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/activite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/activite.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/activite_list.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/activite_list.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/admin_stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/admin_stats.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/categorie_document.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/categorie_document.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/country.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/country.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/credentials.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dashboard.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/dashboard.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dashboardAdmin.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/dashboardAdmin.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/gestion_categories_v2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/gestion_categories_v2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/gestion_depenses_v2.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/gestion_depenses_v2.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hello.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hello.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/holiday.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/holiday.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/modifierActivite.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/modifierActivite.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/modifierPlanning.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/modifierPlanning.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/offre.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/offre.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/planning.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/planning.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/planning_list.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/planning_list.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/service.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/service.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/stats.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/stats.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/style-ajout-document.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style-ajout-document.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/DashboardVoyageur.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/DashboardVoyageur.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/signup.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/signup.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/views/user-dialog.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/views/user-dialog.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/CategorieDocumentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/CategorieDocumentServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/CategorieServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/CategorieServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/DepenseServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/DepenseServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/DestinationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/DestinationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/DocumentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/DocumentServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/PersonneServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/PersonneServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/ServiceActiviteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/ServiceActiviteTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/ServicePlanningTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/ServicePlanningTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/UserServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/services/VoyageTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/services/VoyageTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/utils/Mydatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/utils/Mydatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facture_FACT-17349558.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../facture_FACT-17349558.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../facture_FACT-A9FC4075.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../facture_FACT-A9FC4075.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3ADE5NV3K3fietmzexaS6myuUxY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.MainFx.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.After [org.openjfx:javafx-maven-plugin:0.0.8:jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.After [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;integration-des-modules&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/omach/OneDrive/Desktop/github project/PIDEV-After/After/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="services" />
+      <recent name="utils" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="MainFx" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="test.MainFx" />
+      <module name="After" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MainFx" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.28539.33" />
+        <option value="bundled-js-predefined-d6986cc7102b-a71380e98a7c-JavaScript-IU-252.28539.33" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bc23f6d2-6302-47f5-bdbe-f063469e9494" name="Changes" comment="" />
+      <created>1772118557829</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1772118557829</updated>
+      <workItem from="1772118559862" duration="6000" />
+      <workItem from="1772120321462" duration="37000" />
+      <workItem from="1772120409219" duration="5000" />
+      <workItem from="1772120430434" duration="1415000" />
+      <workItem from="1772184300622" duration="11000" />
+      <workItem from="1772184341758" duration="9755000" />
+      <workItem from="1772195300258" duration="6529000" />
+      <workItem from="1772208035992" duration="3230000" />
+      <workItem from="1772231750101" duration="91000" />
+      <workItem from="1772275571594" duration="734000" />
+      <workItem from="1772276436748" duration="6000" />
+      <workItem from="1772276456377" duration="268000" />
+      <workItem from="1772276866787" duration="7148000" />
+      <workItem from="1772287017496" duration="4000" />
+      <workItem from="1772288421302" duration="340000" />
+      <workItem from="1772289717137" duration="1166000" />
+      <workItem from="1772306374658" duration="4883000" />
+      <workItem from="1772375985710" duration="36000" />
+      <workItem from="1772376041978" duration="10930000" />
+      <workItem from="1772396863944" duration="200000" />
+      <workItem from="1772404710451" duration="581000" />
+    </task>
+    <task id="LOCAL-00001" summary="service et offree">
+      <option name="closed" value="true" />
+      <created>1772120646662</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1772120646662</updated>
+    </task>
+    <task id="LOCAL-00002" summary="service et offrees">
+      <option name="closed" value="true" />
+      <created>1772120656210</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772120656210</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="service et offree" />
+    <MESSAGE value="service et offrees" />
+    <option name="LAST_COMMIT_MESSAGE" value="service et offrees" />
+  </component>
+</project>

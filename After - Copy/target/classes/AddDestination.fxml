@@ -1,0 +1,54 @@
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.ScrollPane?>
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.AddDestinationController">
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background:#F5F5DC; -fx-background-color:#F5F5DC;">
+        <content>
+        <VBox alignment="CENTER" spacing="10"
+              style="-fx-background-color:#F5F5DC; -fx-padding:30;">
+
+            <ImageView fitHeight="150.0" fitWidth="200.0" preserveRatio="true">
+                <image>
+                    <Image url="@images/Blue and Yellow Illustrative Travel Agency Logo - 1.png" />
+                </image>
+            </ImageView>
+
+            <Label text="Ajouter Destination"
+                   style="-fx-font-size:20px; -fx-font-weight:bold;"
+                   textFill="#16325c"/>
+
+            <TextField fx:id="paysField" promptText="Pays"/>
+            <TextField fx:id="villeField" promptText="Ville"/>
+            <TextField fx:id="continentField" promptText="Continent"/>
+            <TextField fx:id="imageField" promptText="image url" />
+            <Button text="Choisir Image" onAction="#chooseImage"/>
+
+            <HBox spacing="20">
+                <Button text="Ajouter Destination"
+                        onAction="#addDestination"
+                        style="-fx-background-color:#16325c;"
+                        textFill="WHITE"/>
+
+                <Button text="Annuler"
+                        onAction="#goBack"
+                        style="-fx-background-color:#16325c;"
+                        textFill="WHITE"/>
+            </HBox>
+
+        </VBox>
+        </content>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

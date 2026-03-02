@@ -1,0 +1,39 @@
+0000000000000000000000000000000000000000 9e54541f86e3ce23bf180006ca8c3b9ee0eaccde Oumaima375 <chebbi.oumaima1@esprit.tn> 1772105723 +0100	branch: Created from origin/integration-des-modules
+9e54541f86e3ce23bf180006ca8c3b9ee0eaccde 58925eb5b11b7ffc92f09418a092f893bc6f2732 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772105745 +0100	merge gestion-users: Merge made by the 'ort' strategy.
+58925eb5b11b7ffc92f09418a092f893bc6f2732 f0a5f6e5ff105b780235cda98cafaad617b3023f Oumaima375 <chebbi.oumaima1@esprit.tn> 1772113070 +0100	commit: module user
+f0a5f6e5ff105b780235cda98cafaad617b3023f edf40ad20db538114ee86e06f841457947cc06a0 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772115530 +0100	commit (merge): user + voyage
+edf40ad20db538114ee86e06f841457947cc06a0 71e462839bf569bda38b4f1d0c6bba74978aa43a Oumaima375 <chebbi.oumaima1@esprit.tn> 1772115789 +0100	commit (merge): Merge branch 'gestion-service_offre' into integration-des-modules
+71e462839bf569bda38b4f1d0c6bba74978aa43a 3e9e8aebc6cb0e266d7776a5259d8cd978ade32a Oumaima375 <chebbi.oumaima1@esprit.tn> 1772120646 +0100	commit: service et offree
+3e9e8aebc6cb0e266d7776a5259d8cd978ade32a 59b05f72306c31a204400c2cf23309b722296547 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772120655 +0100	commit: service et offrees
+59b05f72306c31a204400c2cf23309b722296547 50ce6fd13e54adbdf1b3cf57ec2a22c81047f2e8 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772121671 +0100	commit: user +voyage + service-offre
+50ce6fd13e54adbdf1b3cf57ec2a22c81047f2e8 783e9aea394447e349ea424ffe6ae1b5e37770e7 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772188215 +0100	commit: user+voyage+offre fonctionnel
+783e9aea394447e349ea424ffe6ae1b5e37770e7 12a56bed0c5530a4223527fd9789fbc1117e2dd1 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772189172 +0100	commit (merge): Merge remote-tracking branch 'origin/Gestion_activite_planning' into integration-des-modules
+12a56bed0c5530a4223527fd9789fbc1117e2dd1 6699bc890329c1671526f829d3f2f8b164448cc9 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772189194 +0100	commit: merged activite planning
+6699bc890329c1671526f829d3f2f8b164448cc9 90cb3eb1babf42168cd3c22c5327631a8cfc7433 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772193570 +0100	commit: user+voyage+offre+activite
+90cb3eb1babf42168cd3c22c5327631a8cfc7433 13554c9f5293e021e9bb3794f3ab95a262d5d46e Oumaima375 <chebbi.oumaima1@esprit.tn> 1772194127 +0100	commit (merge): Merge gestionDocument into integration-des-modules
+13554c9f5293e021e9bb3794f3ab95a262d5d46e 1aae06e655c151a4fa9687a31e3f729e13bbcf0a Oumaima375 <chebbi.oumaima1@esprit.tn> 1772207310 +0100	commit: user+voyage+service+activite+document
+1aae06e655c151a4fa9687a31e3f729e13bbcf0a bafb086dc444808cf6d6dceef9d97244929aedcd Oumaima375 <chebbi.oumaima1@esprit.tn> 1772207466 +0100	commit (merge): Merge Gestion_Reservation into integration-des-modules
+bafb086dc444808cf6d6dceef9d97244929aedcd 80cdcb80fedece465626ecaa8797d5571dbbf28d Oumaima375 <chebbi.oumaima1@esprit.tn> 1772230541 +0100	commit: ajout de reservation a integration
+80cdcb80fedece465626ecaa8797d5571dbbf28d eb4ef8bffa6707a7671dd4bf5c597d29083e11b1 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772230622 +0100	commit: update stripeservice in reservation
+eb4ef8bffa6707a7671dd4bf5c597d29083e11b1 80cdcb80fedece465626ecaa8797d5571dbbf28d Oumaima375 <chebbi.oumaima1@esprit.tn> 1772230633 +0100	reset: moving to 80cdcb80fedece465626ecaa8797d5571dbbf28d
+80cdcb80fedece465626ecaa8797d5571dbbf28d bafb086dc444808cf6d6dceef9d97244929aedcd Oumaima375 <chebbi.oumaima1@esprit.tn> 1772230652 +0100	reset: moving to bafb086dc444808cf6d6dceef9d97244929aedcd
+bafb086dc444808cf6d6dceef9d97244929aedcd 85ef2321769ed926e980d1c981a87edef5c996d2 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772230662 +0100	commit: ajout de reservation a integration
+85ef2321769ed926e980d1c981a87edef5c996d2 ff749bec5a536f840f8ea77ecbfa0a92590cec9f Oumaima375 <chebbi.oumaima1@esprit.tn> 1772231455 +0100	commit: reservation integree
+ff749bec5a536f840f8ea77ecbfa0a92590cec9f af6eeee2781076736e474466c0eb95a58ca5446b Oumaima375 <chebbi.oumaima1@esprit.tn> 1772231795 +0100	commit: updated
+af6eeee2781076736e474466c0eb95a58ca5446b 013f8252178821ff82b683bd283bf7c20fb9d481 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772279772 +0100	commit: user+voyage+service+activite+doc+Reser
+013f8252178821ff82b683bd283bf7c20fb9d481 d735c927fc480a810487a1b2ada56f367d9fbcfd Oumaima375 <chebbi.oumaima1@esprit.tn> 1772279906 +0100	commit (merge): Merge gestionDepense into integration-des-modules
+d735c927fc480a810487a1b2ada56f367d9fbcfd 0ab892faf119640f85fd120ba748691712bf3070 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772281912 +0100	commit: depense integree
+0ab892faf119640f85fd120ba748691712bf3070 031680de8680ef14cfd88b50cd7e280d7bb82fa8 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772283839 +0100	commit: integration finale partie voyageur
+031680de8680ef14cfd88b50cd7e280d7bb82fa8 526f121e9a64ecf912147f4e8752f8620cfc59ba Oumaima375 <chebbi.oumaima1@esprit.tn> 1772283961 +0100	commit: update gestion_depense_v2
+526f121e9a64ecf912147f4e8752f8620cfc59ba 505cd674bb41d37b7e0d99ca93d6f0f20643a767 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772288693 +0100	commit: ajout a mainviewcontroller
+505cd674bb41d37b7e0d99ca93d6f0f20643a767 c40081288d59a0d2343030316363a18b97d8fd5c Oumaima375 <chebbi.oumaima1@esprit.tn> 1772308184 +0100	commit: correction de mail
+c40081288d59a0d2343030316363a18b97d8fd5c 505cd674bb41d37b7e0d99ca93d6f0f20643a767 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772308198 +0100	reset: moving to 505cd674bb41d37b7e0d99ca93d6f0f20643a767
+505cd674bb41d37b7e0d99ca93d6f0f20643a767 7ac6cd744e793c39adbdd7241fe858a9d8525981 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772308232 +0100	commit: correction de mail
+7ac6cd744e793c39adbdd7241fe858a9d8525981 47968baef16da592c2834db100a50eb6f3442a8a Oumaima375 <chebbi.oumaima1@esprit.tn> 1772315030 +0100	commit: interface admin user+voyagae+reservation
+47968baef16da592c2834db100a50eb6f3442a8a e7ecfc00e316dd7ec0b69385ea166e5a391c08e6 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772375865 +0100	pull --ff --recurse-submodules --progress origin: Fast-forward
+e7ecfc00e316dd7ec0b69385ea166e5a391c08e6 be9e2ee4ad3aa071ac2b2f82c548deca4b14ae42 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772391512 +0100	commit: modification dans MainViewController
+be9e2ee4ad3aa071ac2b2f82c548deca4b14ae42 e7ecfc00e316dd7ec0b69385ea166e5a391c08e6 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772391545 +0100	reset: moving to e7ecfc00e316dd7ec0b69385ea166e5a391c08e6
+e7ecfc00e316dd7ec0b69385ea166e5a391c08e6 ae584252c5b7e8bc233bce55a000e38ffff1d90f Oumaima375 <chebbi.oumaima1@esprit.tn> 1772391554 +0100	commit: modification dans MainViewController
+ae584252c5b7e8bc233bce55a000e38ffff1d90f 020354a3d530e79a42a7f6712260fa7e48d2fba4 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772396154 +0100	commit: correction de nav in service et offre
+020354a3d530e79a42a7f6712260fa7e48d2fba4 3cea0e00097edc34816ac6fe8e36c8220f8d7bde Oumaima375 <chebbi.oumaima1@esprit.tn> 1772396640 +0100	commit: modification stat voyage
+3cea0e00097edc34816ac6fe8e36c8220f8d7bde ad2df63b98d3955983a68cb742c4432289b94392 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772405315 +0100	commit: version finale

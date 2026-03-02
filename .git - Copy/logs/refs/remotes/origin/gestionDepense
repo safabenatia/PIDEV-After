@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 487c3807d41b9e637700a809c4c9a256f3614d1d Oumaima375 <chebbi.oumaima1@esprit.tn> 1771231723 +0100	fetch --progress --prune --recurse-submodules=on-demand origin: storing head
+487c3807d41b9e637700a809c4c9a256f3614d1d 914b34638ae9a8a7ac7ec37288035d700ff9029d Oumaima375 <chebbi.oumaima1@esprit.tn> 1771759471 +0100	fetch --progress --prune --recurse-submodules=on-demand origin: fast-forward
+914b34638ae9a8a7ac7ec37288035d700ff9029d 9160308969021a44ca7840ff059412e8680dcf7b Oumaima375 <chebbi.oumaima1@esprit.tn> 1771798851 +0100	fetch --progress --prune --recurse-submodules=on-demand origin: fast-forward
+9160308969021a44ca7840ff059412e8680dcf7b d704772bfa5bddc1fa73e314103a5c729753c818 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772098933 +0100	fetch --progress --prune --recurse-submodules=on-demand origin: forced-update
+d704772bfa5bddc1fa73e314103a5c729753c818 0dad4dbc03f9f13329b6f27fbd01a47938a54c85 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772200051 +0100	fetch --progress --prune --recurse-submodules=on-demand origin: fast-forward

@@ -1,0 +1,21 @@
+0000000000000000000000000000000000000000 4a2a31cd95f452b6235dddf8f075eccc810702cc Oumaima375 <chebbi.oumaima1@esprit.tn> 1770587797 +0100	branch: Created from origin/gestion-voyage
+4a2a31cd95f452b6235dddf8f075eccc810702cc 2464ce96749878638332d50348154c0980c929c2 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771064472 +0100	commit: CRUD gestion voyage + test unitaire
+2464ce96749878638332d50348154c0980c929c2 c7ea8bac64e2645cd6336a1ddb94100e38159410 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771164085 +0100	commit: Crud + interface voyage
+c7ea8bac64e2645cd6336a1ddb94100e38159410 b5ee977fe13e587726d39a43a0e5181d882b6b99 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771170491 +0100	commit: CRUD + GUI de voyage et destination
+b5ee977fe13e587726d39a43a0e5181d882b6b99 e20f20afff91751610a9cdfeb32ca3d3bb55ffe6 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771319020 +0100	commit: code fonctionnel avant amélioration
+e20f20afff91751610a9cdfeb32ca3d3bb55ffe6 01ede2f1f9cea5a305e1dedad0d026c4ef305346 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771674368 +0100	commit: Suppression de l'affichage de l'ID
+01ede2f1f9cea5a305e1dedad0d026c4ef305346 9cf10549358f323a612e411889489422fbd1d97b Oumaima375 <chebbi.oumaima1@esprit.tn> 1771675445 +0100	commit: changement de modification et suppression pour 2 entites
+9cf10549358f323a612e411889489422fbd1d97b 398bd418e54f1b9c7d66e71123eae8fa761a5b41 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771676087 +0100	commit: amelioration d'affichage de voyage
+398bd418e54f1b9c7d66e71123eae8fa761a5b41 9bd53229f2843136b98feb9a5dffd8b1ba06218f Oumaima375 <chebbi.oumaima1@esprit.tn> 1771678156 +0100	commit: changement de statut en image en voyage
+9bd53229f2843136b98feb9a5dffd8b1ba06218f d72514d63fe1cc5c4eb4be7a52b30e9af5d287e7 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771679361 +0100	commit: ajout de datepicker pour voyage
+d72514d63fe1cc5c4eb4be7a52b30e9af5d287e7 e26c5ddb49d430f68669a7d57fd690a0535a687e Oumaima375 <chebbi.oumaima1@esprit.tn> 1771759615 +0100	commit: ajout de tri et quelque amelioration
+e26c5ddb49d430f68669a7d57fd690a0535a687e 819ca1a2a10adbddfaa0eeefbc0fab6e476cb01b Oumaima375 <chebbi.oumaima1@esprit.tn> 1771760807 +0100	commit: modification de la recherche
+819ca1a2a10adbddfaa0eeefbc0fab6e476cb01b 9a1ce4a139b4c633f0cd47926d81110e08f40eed Oumaima375 <chebbi.oumaima1@esprit.tn> 1771762450 +0100	commit: intégration API RestCountries
+9a1ce4a139b4c633f0cd47926d81110e08f40eed 4f1f0e9163da41d108a754061049e515414e62d9 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771763002 +0100	commit: integration api ExchangeRate
+4f1f0e9163da41d108a754061049e515414e62d9 4f3eb2c485968b7557705cdb14d695389bd50181 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771763546 +0100	commit: ajout de metiers avancees : pdf export
+4f3eb2c485968b7557705cdb14d695389bd50181 50392c940fcdaf68f5aecdab6860156194831297 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771768694 +0100	commit: metiers avancees 2 : favoris
+50392c940fcdaf68f5aecdab6860156194831297 a23a31c27074e4beae9ce47718e743388777b698 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771769441 +0100	commit: ajout de recommandations
+a23a31c27074e4beae9ce47718e743388777b698 957159548139495d3428e766879a483d46ef33d5 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771769952 +0100	commit: rendre tous les interfaces scrollable
+957159548139495d3428e766879a483d46ef33d5 7a7f0b5010ea7543336af38077580947abe2c38b Oumaima375 <chebbi.oumaima1@esprit.tn> 1771771237 +0100	commit: ajout de translate pour les descript de voyage
+7a7f0b5010ea7543336af38077580947abe2c38b 09d20f7b0dd3b3f8dfe5ba23efa46c6c74ea40b0 Oumaima375 <chebbi.oumaima1@esprit.tn> 1771772014 +0100	commit: ajout de details de voyage et destination
+09d20f7b0dd3b3f8dfe5ba23efa46c6c74ea40b0 78e9d031e7e0a4eac609f58f22f65ae3687d1364 Oumaima375 <chebbi.oumaima1@esprit.tn> 1772099033 +0100	commit: ajout de dashboard

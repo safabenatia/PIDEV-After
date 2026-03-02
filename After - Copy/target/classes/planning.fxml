@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="989.0"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="gui.PlanningController">
+
+    <children>
+
+
+        <ImageView fitHeight="680" fitWidth="989.0">
+            <image>
+                <Image url="@./images/j.jpg"/>
+            </image>
+        </ImageView>
+
+
+        <AnchorPane layoutX="200.0" layoutY="60.0"
+                    prefHeight="500.0" prefWidth="550.0"
+                    style="
+                        -fx-background-color: rgba(255,255,255,0.15);
+                        -fx-background-radius: 35;
+                        -fx-border-radius: 35;
+                        -fx-border-color: rgba(255,255,255,0.5);
+                        -fx-border-width: 1.5;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 40, 0.6, 0, 15);
+                    ">
+
+            <children>
+
+
+                <Label layoutX="160" layoutY="20"
+                       text="Ajouter Planning"
+                       textFill="#00d4ff">
+                    <font>
+                        <Font name="Verdana Bold" size="22"/>
+                    </font>
+                </Label>
+
+
+                <Label layoutX="40" layoutY="90" text="Activité" textFill="white"/>
+                <ComboBox fx:id="activiteComboBox"
+                          layoutX="150" layoutY="85"
+                          prefWidth="320"
+                          promptText="Sélectionner une activité"/>
+
+
+                <Label layoutX="40" layoutY="130"
+                       text="Date"
+                       textFill="white"/>
+
+                <DatePicker fx:id="datePicker"
+                            layoutX="180" layoutY="125"
+                            prefWidth="290"/>
+
+
+                <Label layoutX="40" layoutY="170"
+                       text="Heure Début"
+                       textFill="white"/>
+
+                <TextField fx:id="heureField"
+                           layoutX="180" layoutY="165"
+                           prefWidth="290"
+                           promptText="Ex: 14:30"/>
+
+
+                <Label layoutX="40" layoutY="210"
+                       text="Durée (min)"
+                       textFill="white"/>
+
+                <TextField fx:id="dureeField"
+                           layoutX="180" layoutY="205"
+                           prefWidth="290"
+                           promptText="Durée en minutes"/>
+
+
+                <Button layoutX="200" layoutY="270"
+                        text="Ajouter"
+                        onAction="#ajouter"
+                        style="-fx-background-color: #00c853; -fx-text-fill: white;">
+                    <graphic>
+                        <ImageView fitWidth="20" fitHeight="20">
+                            <image>
+                                <Image url="@./images/tic.png"/>
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
+                <Button layoutX="320" layoutY="270"
+                        text="Annuler"
+                        onAction="#handleCancel"
+                        style="
+                            -fx-background-color: #ff5252;
+                            -fx-text-fill: white;
+                            -fx-background-radius: 20;
+                            -fx-cursor: hand;
+                        "/>
+
+            </children>
+
+        </AnchorPane>
+
+    </children>
+</AnchorPane>

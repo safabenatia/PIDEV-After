@@ -1,0 +1,202 @@
+/* ========== BASE ========== */
+/* ========== SIDEBAR ========== */
+
+.sidebar {
+    -fx-background-color: #1e3a5f;
+}
+
+.sidebar-title {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.sidebar-btn {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.sidebar-btn:hover {
+    -fx-text-fill: #FFD700;
+}
+
+.main-bg {
+    -fx-background-color: linear-gradient(to bottom right, #eef2f7, #f8f9fc);
+}
+/* ========== GESTION DOCUMENT (merged) ========== */
+.document-card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-pref-width: 600;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0.3, 0, 4);
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 12;
+    -fx-cursor: hand;
+}
+
+.document-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 15, 0.4, 0, 6);
+    -fx-translate-y: -2;
+}
+
+.card-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #183a7a;
+}
+
+.category {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.date {
+    -fx-font-size: 12px;
+    -fx-text-fill: #888888;
+}
+
+.card-btn {
+    -fx-background-color: #183a7a;
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-padding: 3 10;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+}
+
+.card-btn:hover {
+    -fx-background-color: #244c99;
+}
+
+.containerDocuments {
+    -fx-padding: 20;
+    -fx-background-color: #f4f6f8;
+    -fx-spacing: 0;
+}
+
+.label-chemin {
+    -fx-ellipsis-string: "...";
+}
+/* ========== WINDOW BUTTONS ========== */
+.window-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F5F5DC;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.window-button:hover {
+    -fx-background-color: rgba(245, 245, 220, 0.2);
+}
+
+.close-button:hover {
+    -fx-background-color: #d32f2f;
+}
+
+/* ========== HEADER ========== */
+.header-bar {
+    -fx-background-color: linear-gradient(to right, #141E30, #243B55);
+}
+
+.header-title {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+.theme-toggle {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+/* ========== BUTTONS ========== */
+.button-primary {
+    -fx-background-color: #16325c;
+    -fx-text-fill: #F5F5DC;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.button-primary:hover {
+    -fx-background-color: #1e3a6b;
+}
+
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #4CAF50, #2ECC71);
+    -fx-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-padding: 8 20;
+}
+
+/* ========== SEARCH ========== */
+.search-field {
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 20;
+}
+
+/* ========== STAT CARDS ========== */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: #16325c;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, #16325c, 10, 0, 0, 0);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.stats-bar {
+    -fx-background-color: #ffffff;
+    -fx-padding: 15;
+}
+
+/* ========== CARDS ========== */
+.card {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);
+}
+
+.card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 25, 0, 0, 8);
+}
+
+/* ========== TEXT ========== */
+.title-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
+}
+
+.subtitle-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
+}
+
+.count-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #16325c;
+}
+
+/* ========== DARK MODE ========== */
+.dark-mode {
+    -fx-background-color: #1e1e2f;
+}

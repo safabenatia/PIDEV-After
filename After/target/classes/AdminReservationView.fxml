@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="gui.AdminReservationController"
+      spacing="0"
+      style="-fx-background-color: #FEFAF6;">
+
+    <!-- TOP NAV BAR -->
+    <HBox spacing="0" alignment="CENTER_LEFT"
+          style="-fx-background-color: #005082; -fx-padding: 0;">
+
+        <Button text="🗓 Réservations" onAction="#showReservations"
+                style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white;
+                       -fx-font-weight: bold; -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+
+        <Button text="💳 Paiements" onAction="#showPaiements"
+                style="-fx-background-color: transparent; -fx-text-fill: white;
+                       -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+
+        <Button text="📊 Statistiques" onAction="#showStats"
+                style="-fx-background-color: transparent; -fx-text-fill: white;
+                       -fx-font-size: 13px; -fx-padding: 14 20;
+                       -fx-cursor: hand; -fx-border-color: transparent;"/>
+    </HBox>
+
+    <!-- CONTENT AREA -->
+    <VBox spacing="25" VBox.vgrow="ALWAYS" style="-fx-padding: 35 45 35 45;">
+
+        <!-- Header row -->
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <VBox spacing="5">
+                <Label text="Gestion des Réservations"
+                       style="-fx-text-fill: #005082; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Label fx:id="lblCount" style="-fx-text-fill: #A79277; -fx-font-size: 13px;"/>
+            </VBox>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="tfSearch" promptText="🔍 Rechercher par lieu, type, date..." prefWidth="350"
+                       style="-fx-background-color: white; -fx-border-color: #A7927744;
+                              -fx-border-radius: 20; -fx-background-radius: 20; -fx-padding: 10 15;"/>
+        </HBox>
+
+        <!-- Table Container -->
+        <VBox VBox.vgrow="ALWAYS"
+              style="-fx-background-color: white; -fx-background-radius: 15;
+                     -fx-padding: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 15, 0, 0, 10);">
+            <TableView fx:id="tableReservations" VBox.vgrow="ALWAYS"
+                       style="-fx-background-color: transparent; -fx-base: white; -fx-selection-bar: #0081C922;">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="40"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="80"/>
+                    <TableColumn fx:id="colLieu" text="Lieu" prefWidth="100"/>
+                    <TableColumn fx:id="colVoyage" text="Voyage" prefWidth="70"/>
+                    <TableColumn fx:id="colUser" text="Client" prefWidth="70"/>
+                    <TableColumn fx:id="colDate" text="Date" prefWidth="110"/>
+                    <TableColumn fx:id="colStatut" text="Statut" prefWidth="110"/>
+                    <TableColumn fx:id="colNb" text="Pers." prefWidth="50"/>
+                    <TableColumn fx:id="colPrix" text="Prix" prefWidth="90"/>
+                    <TableColumn fx:id="colActions" text="Actions" prefWidth="200"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </VBox>
+
+    <StackPane fx:id="notifOverlay" alignment="BOTTOM_CENTER" mouseTransparent="true"
+               style="-fx-padding: 0 0 30 0;"/>
+</VBox>
